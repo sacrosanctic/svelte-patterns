@@ -78,7 +78,7 @@ program
 			process.exit(1)
 		}
 
-		const markdownContent = `---\ntitle: ${capitalCaseTitle}\npublish: false\ntags: \n---\n## Describe the problem\n\n`
+		const markdownContent = `---\ntitle: ${capitalCaseTitle}\npublish: false\ntags: \n---\n\n## Describe the problem\n\n`
 
 		try {
 			fs.writeFileSync(markdownFilePath, markdownContent, 'utf8')

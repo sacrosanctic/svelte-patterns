@@ -31,7 +31,7 @@ This is a current limitation of `+layout.svelte` file.
 {@render children()}
 ```
 
-https://github.com/sveltejs/kit/issues/627
+- https://github.com/sveltejs/kit/issues/627
 
 ## Alternatives
 
@@ -72,4 +72,4 @@ export const load = async () => {
 
 ### Context Api
 
-TBD
+https://github.com/sveltejs/kit/issues/12928#issuecomment-2450267783
