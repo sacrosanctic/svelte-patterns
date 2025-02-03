@@ -31,8 +31,6 @@ This is a current limitation of `+layout.svelte` file.
 {@render children()}
 ```
 
-- https://github.com/sveltejs/kit/issues/627
-
 ## Alternatives
 
 ### Page State
@@ -73,3 +71,8 @@ export const load = async () => {
 ### Context Api
 
 https://github.com/sveltejs/kit/issues/12928#issuecomment-2450267783
+
+## References
+
+- https://github.com/sveltejs/kit/issues/627
+- https://github.com/sveltejs/svelte/discussions/14108
