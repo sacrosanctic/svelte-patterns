@@ -43,6 +43,10 @@ This is a current limitation of `+layout.svelte` file.
 	let { children } = $props()
 </script>
 
+<svelte:head>
+	<title>{page.data.title}</title>
+</svelte:head>
+
 <header>
 	<h1>{page.data.title}</h1>
 </header>

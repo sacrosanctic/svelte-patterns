@@ -26,7 +26,16 @@ const vitePressOptions = defineConfig({
 		outline: { level: [2, 3] },
 		search: {
 			provider: 'local',
-			options: { detailedView: true },
+			options: {
+				detailedView: true,
+				// https://github.com/vuejs/vitepress/issues/3083#issuecomment-1761463110
+				_render: (src, env, md) => {
+					const html = md.render(src, env)
+					if (!env.frontmatter?.title) return html
+
+					return md.render(`# ${env.frontmatter.title}`) + html
+				},
+			},
 		},
 		editLink: { pattern: 'https://github.com/sacrosanctic/svelte-patterns/blob/main/docs/:path' },
 		socialLinks: [{ icon: 'github', link: 'https://github.com/sacrosanctic/svelte-patterns' }],
