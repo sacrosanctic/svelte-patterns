@@ -11,8 +11,8 @@ import Button from './props-down-events-up/Button.svelte?raw'
 
 "Props Down, Events Up" is a fundamental pattern for managing data flow between components:
 
-- Props Down: Pass data from parent to child using props.
-- Events Up: Send updates from child to parent using custom events.
+- Props Down: Pass reactive state from parent to child using props.
+- Events Up: Send updates from child to parent using events.
 
 This creates a clear, predictable data flow, making your components easier to reason about and maintain.
 
@@ -31,3 +31,8 @@ This creates a clear, predictable data flow, making your components easier to re
 		contents:Button
 	},
 ]" />
+
+## Reference
+
+- https://svelte.dev/docs/svelte/bind
+- https://svelte.dev/docs/svelte/$bindable
