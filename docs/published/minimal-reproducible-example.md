@@ -5,39 +5,173 @@ author: HenryKrinkle
 
 > a.k.a. how to get faster help
 
-Often I see people asking questions in this Discord posting their code in various ways that make debugging challenging. Ranking from worst to best:
+Often I see people asking questions in the [Svelte Discord](https://discord.com/channels/457912077277855764/1023340103071965194) posting their code in various ways that make debugging challenging. Ranking from worst to best:
 
-- Posting a link to the whole repo.
-  Problem: It's overwhelming and requires too much effort to locate the issue.
-- Sharing whole file(s).
-  Same problem: need to comb through unnecessary details.
-- Copy-pasting large fragments of unsimplified code directly from the codebase.
-  Problem: It's still hard to find the core issue.
-- Sharing a simplified problem.
-  Better, but might still include some irrelevant parts.
-- Providing a minimum reproducible example or a simple toy example constructed from the actual problem
-  Ideal, as it isolates the problem and makes it easy for others to help.
+- Posting a link to the whole repo.  
+:memo: Problem: It's overwhelming and requires too much effort to locate the issue.
+- Sharing whole file(s).  
+:memo: Same problem: need to comb through unnecessary details.
+- Copy-pasting large fragments of unsimplified code directly from the codebase.  
+:memo: Problem: It's still hard to find the core issue.
+- Sharing a simplified problem.  
+:memo: Better, but might still include some irrelevant parts.
+- Providing a minimum reproducible example or a simple toy example constructed from the actual problem.  
+:memo: Ideal, as it isolates the problem and makes it easy for others to help.
 
 ## What is an MRE?
 
 As the name suggests, it should be
 
 - minimal: as small as possible. Doesn't contain any extra code not contributing to the problem.
-- reproducible: should contain complete information to reproduce the problem if someone put it on their on computer or a repl
+- reproducible: should contain complete information to reproduce the problem if someone put it on their on computer or a REPL.
 
-Below I will show some real problems asked in this Discord and how they could've been minimized.
+## Why an MRE?
+- It takes a lot of mental overhead to identify the core issue in a haystack of irrelevant code. If it's too verbose, chances are it's gonna [get ignored](https://discord.com/channels/457912077277855764/1315458188593725540/1320232346997493862). An MRE increases the likelihood of getting help.
+- It sharpens your debugging skills by isolating the problem.
+- It helps you better understand the issue without the noises and might even lead to solving it yourself.
 
-Problem 1: [How sincronize correctly state with snippets and classes](https://discord.com/channels/457912077277855764/1329285855508172810)
-(Don't click the source if you want to try solving this yourself)
+## How to create an MRE?
+### 1. Remove irrelevant details.  
+:bulb: A general rule of thumb is: if you can delete something and the problem is still there, you don't need to include that in the reproduction.
+- If your object/array has many properties/items, remove most of them but leave only 1-2 for the purpose of illustration. 
+Example taken from [source](https://discord.com/channels/457912077277855764/1327981626868764775/1327981821308174368):
+```ts
+type InvoiceRow = {
+    description: string;
+    rate: number | undefined;
+    quantity: number | undefined;
+    amount: string;
+};
+
+type InvoiceData = {
+    rows: Array<InvoiceRow>;
+    currencySymbol: string;
+    totalAmount: number;
+    notes: string;
+    from: string;
+    to: string;
+    invoiceNumber: string;
+    issueDate: string;
+    dueDate: string;
+    logoFilename: string;
+    logoBase64Img: string;
+};
+
+```
+Simplified version:
+```ts
+type InvoiceRow = {
+    description: string;
+    quantity: number | undefined;
+    amount: string;
+};
+
+type InvoiceData = {
+    rows: Array<InvoiceRow>;
+    totalAmount: number;
+};
+```
+- If your function does many things, remove most of them but keep only what's relevant.
+[Source](https://discord.com/channels/457912077277855764/1249741448941670471/1250018725109956638)
+```js
+import { json } from "@sveltejs/kit";
+import { statements } from "$lib/db/statements.js";
+
+export async function GET({ url }) {
+  try {
+    let cliforType;
+
+    if (url.searchParams.get("type") === "customers") {
+      cliforType = "0";
+    } else {
+      cliforType = "1";
+    }
+
+    const searchQuery = url.searchParams.get("search") || "";
+    const limit = Number(url.searchParams.get("limit")) || 20;
+    const offset = Number(url.searchParams.get("offset")) || 0;
+
+    // Use the paginated query
+    const rows = statements.getClifor_gen_paginated_search(
+      cliforType,
+      searchQuery,
+      limit,
+      offset
+    );
+
+    // Get the total count of matching records
+    const total = statements.getClifor_gen_count(cliforType);
+
+    const blocked = statements.getBlocked();
+
+    return json({ customers: rows, total, blocked });
+  } catch (error) {
+    console.error(error);
+    return new Response("Get customers: API Error", { status: 500 });
+  }
+}
+```
+Simplified version (taken from OP)
+```js
+
+export async function GET() {
+	const customers = [
+		{
+			"database_id": "1",
+			"rag_soc": "PEZZINI MAURIZIO E C. SNC"
+		},
+		{
+			"database_id": "1",
+			"rag_soc": "NAMAGI SNC DI ATTIANESE NADIA E C. AURORA"
+		},
+	];
+	return json({ customers, total: true, blocked: true})
+}
+```
+- If the problem is JS-related, css classes can be removed. Especially tailwind
+### 2. Simplify external dependencies
+- Replace API calls or database queries with dummy static data with similar structure.
+[Example source](https://discord.com/channels/457912077277855764/1308808265270038539/1308828892194279504)
+```ts
+	const brands = await db.query<SurrealQuery<Brand[]>>(`SELECT * FROM brand`, {});
+	//replace with:
+	const brands =  [
+		{
+			id: "1",
+			name: 'foo',
+		},
+		{
+			id: "2",
+			name: 'bar',
+		}
+	]; //simplified structure
+
+```
+- Replace 3rd party lib APIs with native methods, if possible.  
+This step is optional and takes some skills to do. Both the Svelte playground and sveltelabs support importing 3rd party libs. However, this will make people unfamiliar with the lib easier to help.  
+Example: see Problem 3 below.
+### 3. Make sure the problem is still reproducible
+- Use a code sharing platform like [Svelte playground](https://svelte.dev/playground/) or [Sveltelab](https://www.sveltelab.dev/).  
+This will eliminate the case of "but it reproduces on my machine".
+- Comment your code to explain what the problem is.
+- Be clear about what you expect and what happens instead.
+- Mention any error messages, logs, or unexpected behaviors.
+
+
+## Examples from real problems
+Below I will show some real problems asked in the Svelte discord server and how they could've been minimized.
+### Problem 1 - Something todos
+Source: [How sincronize correctly state with snippets and classes](https://discord.com/channels/457912077277855764/1329285855508172810)  
+*(Don't click the source if you want to try solving this yourself)*  
 [Original REPL](https://svelte.dev/playground/28eb9868e4a74ebea2e5674492d1fdad?version=5.18.0)
 
 Description:
 
 > when the `times` property of each todo reaches to 0 then the todo itslef must crossed-out.
 
-A fairly simple one. The bug isn't Svelte-related. To replicate the problem, first you must add a random todo title and a random `times` number. Then, press the button on the newly created todo until `times` reaches 0. The todo isn't crossed out unless you press the button once more.
+Let's start with something simple. The bug isn't even Svelte-related. To replicate the problem, first you must add a random todo title and a random `times` number. Then, press the button on the newly created todo until `times` reaches 0. The todo isn't crossed out unless you press the button once more.
 
-First, this is a js problem so I'm gonna remove almost all the css but the `.line-through`:
+First, this is a JS problem so I'm gonna remove almost all the css but the `.line-through`:
 
 ```html
 <style>
@@ -53,7 +187,8 @@ Second, I'm deleting the 'create todo' section since it's irrelevant to the prob
 todos.addTodo('foo', 1)
 ```
 
-This is where we are now: [REPL](https://svelte.dev/playground/888459f5d6d54de5bc02ae3b7a79f568?version=5.18.0)
+This is where we are now: [REPL](https://svelte.dev/playground/888459f5d6d54de5bc02ae3b7a79f568?version=5.18.0)  
+
 Can it be simplified more? Yes. Since we're rendering only 1 todo, I'm deleting the `main` section with the `#each` block. I'm also moving the `span` and the `button` out of the `snippet`, with some modifications, to show the todo directly.
 
 ```html
@@ -67,7 +202,7 @@ let todo = $state({ title: 'foo', times: 1, ready: false })
 //changing the `todo` property name to `title` to avoid `todo.todo`
 ```
 
-The `onclick` handler should be changed too. Copy the `todos.finishTodo` function out from the class to use directly, with some modifications to make it work with our single todo:
+The `onclick` handler should be changed too. Copy the `todos.finishTodo` function from the class an alter it to make it work with our single todo:
 
 ```js
 const finishTodo = () => {
@@ -79,17 +214,50 @@ const finishTodo = () => {
 	}
 }
 ```
+With some more clean-ups, this is the final reproduction:
+```html
+<script>
+	let todo = $state({ title: 'foo', times: 1, ready: false });
+	
+	const finishTodo = () => {
+		if (todo.ready) return; //  prevents unnecesary executions
+		if (todo.times === 0) {
+			todo.ready = true;
+		} else {
+			todo.times--;
+		}
+	};
+</script>
 
-Problem 2: [$state() in place of writable](https://discord.com/channels/457912077277855764/1328988490318483499)
-(You can go there for more context, there's no spoiler)
-No REPL was provided so I'm creating one: [Original REPL](https://svelte.dev/playground/453ff80c78204f7b8ac23810c4b7cae0?version=5.19.0).
+<span>{todo.times}</span>
+<button
+	onclick={finishTodo}
+	class:line-through={todo.ready}
+>
+	{todo.title}
+</button>
+
+<style>
+	.line-through {
+		text-decoration: line-through;
+	}
+</style>
+```
+Note: after minimizing, it clearly shows that the problem has nothing to do with neither snippets nor classes.  
+The debugging step is left as an exercise for the readers.  
+[Solution](https://svelte.dev/playground/37d81f1b77ec4958a5ab83a7f1a1b017?version=5.18.0)
+
+### Problem 2 - Missing pieces, wild guesses
+Source: [$state() in place of writable](https://discord.com/channels/457912077277855764/1328988490318483499)  
+
+(You can go there for more context, there's no spoiler)  
+
+No REPL was provided so I'm creating one: [Original REPL](https://svelte.dev/playground/453ff80c78204f7b8ac23810c4b7cae0?version=5.19.0).  
 This is an example of an incomplete or unreproducible problem. The OP only stated vaguely 'ui is not changing accordingly'. He was asked to clarify then provided more info:
 
 > i am changing currStep and on handlBack it should reflect currStep is decrement by 1
->
-> Still unclear where and how he's changing it. Then he posted a long snippet of code showing the whole component, which I copied to the `Stepper.svelte` file in the REPL. There's still confusion on how the component is used. He was asked to simplify more or put everything in a reproducible REPL, but then didn't do it and marked the question as solved instead, not getting any answers.
 
-Here I have to make some guess work to identify the problem and make it reproducible. Looking at the `not-sure-what-this-is.js` file (naming is hard, especially with incomplete information 🥲), I see that the imported `Stepper` component is put into an object with some more info and a `render` method. The object is exported as default. There's another exported `Default` variable containing all the props for the `Stepper` component with values imported from `stepper.svelte.js`. I guess the `Default` variable is intended to be the default argument for the `render` method which will somehow programmatically render the component. This seems to be intended for the [`render`](https://svelte.dev/docs/svelte/imperative-component-api#render) API. However, this will involve a server and I cannot guess further how the OP wants to use it. For the sake of this demonstration, I'm taking a leap and add something to recreate the problem in a slightly different way which still preserves the spirit of the original problem. In `App.svelte` I add:
+ Still unclear where and how he's changing it. Looking at the code structure, it seems to be intended for the [`render`](https://svelte.dev/docs/svelte/imperative-component-api#render) API. However, this will involve a server and I cannot guess how the OP wants to use it. For the sake of this demonstration, I'm taking a leap and add something to recreate the problem in a slightly different way which still preserves the spirit of the original. In `App.svelte` I add:
 
 ```html
 <script>
@@ -99,9 +267,10 @@ Here I have to make some guess work to identify the problem and make it reproduc
 <store.component {...Default.args} />
 ```
 
-here I render the `store.component`, which is just the `Stepper` component in disguised, with the props spread from `Default.args`. Now it shows the `Create Account` label on the output: [REPL](https://svelte.dev/playground/45dd4436aa464ffa8bd648a41bccc0ed?version=5.19.0)
+here I render the `store.component`, which is just the `Stepper` component in disguised, with the props spread from `Default.args`. Now it shows the `Create Account` label on the output:  
+[REPL](https://svelte.dev/playground/45dd4436aa464ffa8bd648a41bccc0ed?version=5.19.0)
 
-Now we can start the simplification process. The OP mentioned that he wanted `currStep` to update on calling `handleBack`, so everything can be removed and replaced with a `back` button. Currently the 'button' is actually a `span` with an `onclick` handle and 3 `svelte-ignore a11y` tags. Urgh 🤦‍♂️. This is what the component looks like after being simplified:
+We can start the simplification process. The OP mentioned that he wanted `currStep` to update on calling `handleBack`, so everything can be replaced with a `back` button. This is what the component looks like after being simplified:
 
 ```html
 <script lang="ts">
@@ -112,10 +281,11 @@ Now we can start the simplification process. The OP mentioned that he wanted `cu
 	let { currStep, handleBack }: IStepperProps = $props()
 </script>
 <p>{currStep}</p>
-<button onclick="{handleBack}">Back</button>
+<button onclick={handleBack}>Back</button>
 ```
 
-Clicking the button does show the alert but doesn't update the `currStep` prop. Problem replicated successfully.
+Clicking the button does show the alert but doesn't update the `currStep` prop. Problem replicated successfully.  
+
 I'm removing the alert and changing the `handleBack` function a bit to be able to call it and potentially update the UI repeatedly:
 
 ```js
@@ -139,12 +309,12 @@ Pretty simplified, I would say. However, I'm gonna take one more step and combin
 <Stepper {...props} />
 ```
 
-[Final REPL](https://svelte.dev/playground/cc4cdc0ee51541b0b6ce6e7fe917cbb0?version=5.19.0)
+[Final REPL](https://svelte.dev/playground/cc4cdc0ee51541b0b6ce6e7fe917cbb0?version=5.19.0)  
 I guess now it should be clear what the core problem is: an excercise for the readers!
 [Solution](https://svelte.dev/playground/d5638139b5f246399601be2aeeb61ba1?version=5.19.0)
 
-Problem 3: Dealing with 3rd-party libs.
-[How to efficiently handle data fetching and state updates in Svelte 5 forms using the stale-while-revalidate approach too](https://github.com/sveltejs/svelte/discussions/15026)
+### Problem 3 -  Dealing with 3rd-party libs.
+Source: [How to efficiently handle data fetching and state updates in Svelte 5 forms using the stale-while-revalidate approach too](https://github.com/sveltejs/svelte/discussions/15026)
 
 Description (after discussion on Discord):
 
@@ -225,7 +395,7 @@ The `submit` function is supposed to be an api call that mutates the settings, s
 
 We're here now: [REPL](https://svelte.dev/playground/114771a2e83d451ca7f59997d5c0ea33?version=5.18.0).
 
-Now the input and the `submit` function just work fine. It's not clear what's the problem is. To show that, I'm adding something to simulate a late server response in the `getSettings` function. Also adding something to show an error case where the api update call fails:
+Now the input and the `submit` function work just fine. It's not clear what's the problem is. To show that, I'm adding something to simulate a late server response in the `getSettings` function. Also adding something to show an error case where the api update call fails:
 
 ```js
     //replaces createQuery
