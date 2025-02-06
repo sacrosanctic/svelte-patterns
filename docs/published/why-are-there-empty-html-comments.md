@@ -18,4 +18,7 @@ These are markers used at runtime for the purposes of [hydration](https://svelte
 <!---->
 ```
 
+These markers can be removed by setting `export const csr = false`
+
 - https://github.com/sveltejs/svelte/issues/14004#issuecomment-2442413965
+- https://github.com/sveltejs/svelte/issues/15200#issuecomment-2639653583
