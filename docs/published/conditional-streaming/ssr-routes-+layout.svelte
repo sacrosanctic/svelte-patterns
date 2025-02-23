@@ -4,8 +4,8 @@
 
 <header>
 	<nav>
-		<a href="/">/root</a>
-		<a href="/contact">/contact</a>
+		<a href="/">/home</a>
+		<a href="/about">/about</a>
 	</nav>
 </header>
 

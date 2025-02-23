@@ -2,7 +2,13 @@
 	let { children } = $props()
 </script>
 
-<a href="/">/root</a>
-<a href="/about">/about</a>
+<header>
+	<nav>
+		<a href="/">/root</a>
+		<a href="/about">/about</a>
+	</nav>
+</header>
 
-{@render children()}
+<main>
+	{@render children()}
+</main>
