@@ -78,7 +78,11 @@ program
 			process.exit(1)
 		}
 
-		const markdownContent = `---\ntitle: ${capitalCaseTitle}\npublish: false\ntags: \n---\n\n## Describe the problem\n\n`
+		let markdownContent = fs.readFileSync(
+			path.resolve(process.cwd(), 'scripts/template.md'),
+			'utf8',
+		)
+		markdownContent = markdownContent.replace(/\[\[title\]\]/g, capitalCaseTitle)
 
 		try {
 			fs.writeFileSync(markdownFilePath, markdownContent, 'utf8')
