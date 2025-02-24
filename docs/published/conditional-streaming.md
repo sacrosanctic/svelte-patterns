@@ -66,3 +66,4 @@ const resolveBy = async (promise, ms) => {
 ## Reference
 
 - https://geoffrich.net/posts/conditionally-stream-data/
+- https://khromov.se/sveltekit-streaming-the-complete-guide/
