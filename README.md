@@ -17,4 +17,17 @@ pnpm dlx jiti ./test.js ./template
 
 ## Working list of tags
 
-- form, kit,meta, router, svelte-5,debug,metaprogramming,css,css-tailwind
+### meta categories
+
+- pattern
+- faq (frequently asked question)
+
+### area of code
+
+- form
+- kit
+- router
+- svelte-5
+- meta (metaprogramming / scripting)
+- css
+- tailwind
