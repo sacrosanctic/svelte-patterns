@@ -1,24 +1,111 @@
 # How To Add A Loader
 
+There are different patterns depending on the situation. This gives the developer fine-tune control over when and where a loader is render while adhering to web standands and best practices.
+
+## On Server-Side Navigation
+
+This applies when the user first arrives at your site or when `CSR = false`. We will use [Conditional Streaming](./conditional-streaming) to render a loader.
+
+:::code-group
+
+```js [+page.server.js]
+export const load = async () => {
+	const promise = getDataFromApi()
+	const result = await Promise.race([delay(200), promise])
+
+	return {
+		maybeSlow: result ?? promise,
+	}
+}
+
+const getDataFromApi = async () => {
+	await delay(Math.random() < 0.5 ? 50 : 3000)
+	return '😴'
+}
+
+const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+```
+
+```svelte [+page.svelte]
+<script>
+	let { data } = $props()
+</script>
+
+{#await data.maybeSlow}
+	loading...
+{:then result}
+	{result}
+{/await}
+```
+
+:::
+
+## On Client-Side Navigation
+
+This applies when the user is navigating between pages via the [client side router](https://svelte.dev/docs/kit/@sveltejs-kit#Navigation). The `type` property can be used to specify the kind of navigation (i.e. `if navigating.type === "form"`).
+
+```svelte
+<script>
+	import { navigating } from '$app/state'
+	import { onNavigate } from '$app/navigation'
+
+	let { children } = $props()
+
+	const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+	// Simulate a network delay
+	onNavigate(() => sleep(3000))
+</script>
+
+<header>
+	<nav>
+		<a href="/">/root</a>
+		<a href="/about">/about</a>
+	</nav>
+</header>
+
+<main>
+	{#if navigating.type}
+		loading...
+	{:else}
+		{@render children()}
+	{/if}
+</main>
+```
+
+## On Form Action
+
+This applies when using a form action.
+
 ```svelte
 <script>
 	import { enhance } from '$app/forms'
-	let sending = false
+	let loading = false
 </script>
 
 <form
 	method="POST"
 	use:enhance={({ cancel }) => {
-		if (sending) return cancel()
-		sending = true
+		if (loading) return cancel()
+		loading = true
 
 		return ({ update }) => {
-			update().finally(() => (sending = false))
+			update().finally(() => (loading = false))
 		}
 	}}
 >
-	...
+	{#if loading}
+		loading...
+	{:else}
+		<!--show UI-->
+	{/if}
 </form>
 ```
 
-https://snippets.khromov.se/add-a-loading-indicator-to-a-form-action-in-sveltekit/
+## Streaming with Promises
+
+This method is not recommended as it doesn't support SEO or Progressive Enhancement.
+
+## References
+
+- https://svelte.dev/tutorial/kit/navigating-state
+- https://snippets.khromov.se/add-a-loading-indicator-to-a-form-action-in-sveltekit/
