@@ -11,6 +11,7 @@ import Asdf8 from './how-do-i-use-reactive-state/contextapi-child.svelte?raw'
 import Asdf9 from './how-do-i-use-reactive-state/contextapi-grandchild.svelte?raw'
 import Asdf10 from './how-do-i-use-reactive-state/jsmodule-app.svelte?raw'
 import Asdf11 from './how-do-i-use-reactive-state/jsmodule-external.svelte.js?raw'
+import Asdf12 from './how-do-i-use-reactive-state/action-app.svelte?raw'
 </script>
 
 # How To Encapsulate Reactive State
@@ -35,6 +36,21 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 	{
 		name:'App.svelte',
 		contents:Asdf,
+	}
+]" />
+
+## Action
+
+::: code-group
+
+<<< ./how-do-i-use-reactive-state/action-app.svelte [App.svelte]
+
+:::
+
+<SvelteRepl name="Hello world (edited)" :files="[
+	{
+		name:'App.svelte',
+		contents:Asdf12,
 	}
 ]" />
 
