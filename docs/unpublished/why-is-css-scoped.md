@@ -11,6 +11,38 @@ tags:
 
 [1]: https://github.com/sveltejs/rfcs/pull/22#issuecomment-664047806
 
+## Recommended
+
+### Component Styles
+
+:::code-group
+
+```svelte [App.svelte]
+<script>
+	import Box from './Box.svelte'
+</script>
+
+<div class="boxes">
+	<Box --color="red" />
+	<Box --color="green" />
+	<Box --color="blue" />
+</div>
+```
+
+```svelte [Box.svelte]
+<div class="box"></div>
+
+<style>
+	.box {
+		background-color: var(--color, #ddd);
+	}
+</style>
+```
+
+- https://svelte.dev/tutorial/svelte/component-styles
+
+:::
+
 ## How to get around it
 
 ### Single Selector
