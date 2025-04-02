@@ -1,3 +1,5 @@
+# WIP
+
 ## Create a sveltekit template
 
 ```bash
@@ -13,6 +15,19 @@ pnpm check
 
 ```bash
 pnpm dlx jiti ./test.js ./template
+```
+
+## Excalidraw to svg
+
+```bash
+pnpm dlx excalidraw-brute-export-cli \
+  -i ./what-is-full-stack.excalidraw \
+  --background 0 \
+  --embed-scene 0 \
+  --dark-mode 0 \
+  --scale 1 \
+  --format svg \
+  -o "./what-is-full-stack.svg"
 ```
 
 ## Working list of tags
