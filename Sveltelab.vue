@@ -4,6 +4,7 @@
 import pkg from 'lz-string'
 import { ref, onMounted } from 'vue'
 import asdf from './output.json'
+import { rootLayout, globalCss } from './strings.js'
 
 const { compressToEncodedURIComponent } = pkg
 
@@ -37,15 +38,51 @@ const addFileToTree = (tree, path, contents) => {
 	}
 }
 
+const injectCss = (tree, path, importPath) => {
+	const parts = path.split('/')
+	let current = tree
+
+	for (let i = 0; i < parts.length; i++) {
+		const part = parts[i]
+		if (!current[part]) return
+		if (i === parts.length - 1) {
+			const fileNode = current[part]
+			if (!('file' in fileNode)) return
+
+			const original = fileNode.file.contents
+			const importLine = `\timport "${importPath}"`
+
+			const scriptMatch = original.match(/(<script[^>]*>)([\s\S]*?)<\/script>/)
+			// this one accounts for script module
+			// const scriptMatch = original.match(/(<script(?![^>]*\bmodule\b)[^>]*>)([\s\S]*?)<\/script>/)
+
+			let updated
+
+			if (scriptMatch) {
+				const newScript = `${scriptMatch[1]}\n${importLine}${scriptMatch[2]}\n</___a___>`
+				updated = original.replace(scriptMatch[0], newScript)
+			} else {
+				updated = `<___a___>\n${importLine}\n</___a___>\n\n${original}`
+			}
+
+			// <__a__> is needed because vue gets a compile error
+			fileNode.file.contents = updated.replaceAll('___a___', 'script')
+		} else {
+			if (!('directory' in current[part])) return
+			current = current[part].directory
+		}
+	}
+}
+
 onMounted(async () => {
 	const fileSystemTree = structuredClone(asdf)
-	const data = {
-		'src/routes/+page.svelte': 'Hi fellow programmers!',
-		'src/routes/a/b/c/test.svelte': 'Hi fellow programmers!',
-	}
+
+	addFileToTree(fileSystemTree, 'src/routes/+layout.svelte', rootLayout)
+	addFileToTree(fileSystemTree, 'src/global.css', globalCss)
 	props.files.forEach(({ name, contents }) => {
 		addFileToTree(fileSystemTree, name, contents)
 	})
+	injectCss(fileSystemTree, 'src/routes/+layout.svelte', '../global.css')
 
 	_path.value = compressToEncodedURIComponent(JSON.stringify(fileSystemTree))
 })
