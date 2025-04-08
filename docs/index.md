@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: Look inside
-      link: /table-of-contents
+      link: /introduction
     # - theme: alt
     #   text: Github
     #   link: https://github.com/sacrosanctic/svelte-patterns
