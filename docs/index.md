@@ -8,10 +8,10 @@ hero:
   actions:
     - theme: brand
       text: Look inside
-      link: /introduction
-    # - theme: alt
-    #   text: Github
-    #   link: https://github.com/sacrosanctic/svelte-patterns
+      link: /Introduction
+    - theme: alt
+      text: Github
+      link: https://github.com/sacrosanctic/svelte-patterns
 
 features:
   - title: Common Patterns
