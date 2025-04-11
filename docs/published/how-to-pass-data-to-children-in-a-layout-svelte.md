@@ -17,14 +17,14 @@ This is a current limitation of `+layout.svelte` file.
 	let { children } = $props()
 </script>
 
-{@render children(foo)} // [!code --]
+{@render children(foo)} // cannot provide arguments // [!code --]
 {@render children()}
 ```
 
 ```svelte
 <script>
+	let { children, header } = $props() // cannot have other snippets // [!code --]
 	let { children } = $props()
-	let { children, header } = $props() // [!code --]
 </script>
 
 {@render header()} // [!code --]
