@@ -6,7 +6,11 @@
 	{#snippet trigger(onclick)}
 		<button {onclick}>Open dialog</button>
 	{/snippet}
-	{#snippet body()}
-		<h1>Hello!</h1>
+	{#snippet body(onclick)}
+		<h1>Dialog</h1>
+
+		<form method="dialog"><button>HTML Close</button></form>
+		<p>or</p>
+		<button {onclick}>JS Close</button>
 	{/snippet}
 </Dialog>

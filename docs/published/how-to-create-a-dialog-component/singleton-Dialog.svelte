@@ -14,7 +14,5 @@
 </script>
 
 <dialog bind:this={dialog}>
-	<p>Dialog</p>
-	{@render children?.()}
-	<button onclick={close}>Close</button>
+	{@render children?.(close)}
 </dialog>
