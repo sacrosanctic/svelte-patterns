@@ -1,13 +1,12 @@
 import { error } from "@sveltejs/kit";
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { twMerge, type ClassNameValue } from "tailwind-merge";
 import type { DocResolver } from "./types/docs";
 import type { NavItem } from "./types/nav";
 import type { TransitionConfig } from "svelte/transition";
 import { cubicOut } from "svelte/easing";
 
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
+export function cn(...inputs: ClassNameValue[]) {
+	return twMerge((inputs));
 }
 type FlyAndScaleParams = {
 	y?: number;
