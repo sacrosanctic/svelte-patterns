@@ -1,26 +1,26 @@
 <!-- DocHero.svelte -->
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
-	import { Badge } from '$lib/components/ui/badge';
-	import { ChevronRight, Clipboard, Check } from 'lucide-svelte';
-	import { siteConfig } from '$lib/config';
-	import { toast } from 'svelte-sonner';
+	import { Button } from '$lib/components/ui/button'
+	import { Badge } from '$lib/components/ui/badge'
+	import { ChevronRight, Clipboard, Check } from 'lucide-svelte'
+	import { siteConfig } from '$lib/config'
+	import { toast } from 'svelte-sonner'
 
-	let isCopied = false;
-	const npmCommand = `npm install ${siteConfig.npm}`;
+	let isCopied = false
+	const npmCommand = `npm install ${siteConfig.npm}`
 
 	async function copyNpmCommand() {
 		try {
-			await navigator.clipboard.writeText(npmCommand);
-			isCopied = true;
-			toast.success('Copied to clipboard');
+			await navigator.clipboard.writeText(npmCommand)
+			isCopied = true
+			toast.success('Copied to clipboard')
 
 			// Reset the copied state after 2 seconds
 			setTimeout(() => {
-				isCopied = false;
-			}, 2000);
+				isCopied = false
+			}, 2000)
 		} catch (err) {
-			toast.error('Failed to copy to clipboard');
+			toast.error('Failed to copy to clipboard')
 		}
 	}
 </script>

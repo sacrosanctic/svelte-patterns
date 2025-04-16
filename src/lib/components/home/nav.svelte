@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Button, buttonVariants } from '$lib/components/ui/button';
-	import { Separator } from '$lib/components/ui/separator';
-	import { ChevronDown, Compass, Menu } from 'lucide-svelte';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import DarkModeToggle from '../dark-mode-toggle.svelte';
-	import { navItems, siteConfig } from '$lib/config';
-	import SocialMedia from '../social-media.svelte';
+	import { Button, buttonVariants } from '$lib/components/ui/button'
+	import { Separator } from '$lib/components/ui/separator'
+	import { ChevronDown, Compass, Menu } from 'lucide-svelte'
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu'
+	import DarkModeToggle from '../dark-mode-toggle.svelte'
+	import { navItems, siteConfig } from '$lib/config'
+	import SocialMedia from '../social-media.svelte'
 
-	let isNavOpen = false;
+	let isNavOpen = false
 </script>
 
 <header

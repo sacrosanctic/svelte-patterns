@@ -1,45 +1,45 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
-	import { docsSearch } from './doc-search.svelte';
-	import * as Command from '$lib/components/ui/command';
-	import { Search as SearchIcon, BookOpen, FileText } from 'lucide-svelte';
-	import Separator from './ui/separator/separator.svelte';
+	import { onMount } from 'svelte'
+	import { goto } from '$app/navigation'
+	import { docsSearch } from './doc-search.svelte'
+	import * as Command from '$lib/components/ui/command'
+	import { Search as SearchIcon, BookOpen, FileText } from 'lucide-svelte'
+	import Separator from './ui/separator/separator.svelte'
 
-	let open = $state(false);
-	let searchQuery = $state('');
-	let searchResults = $derived(docsSearch.searchResults);
+	let open = $state(false)
+	let searchQuery = $state('')
+	let searchResults = $derived(docsSearch.searchResults)
 
 	$effect(() => {
 		if (searchQuery) {
-			docsSearch.search(searchQuery);
+			docsSearch.search(searchQuery)
 		}
-	});
+	})
 
 	function handleResultClick(slug: string) {
-		searchQuery = '';
-		open = false;
-		docsSearch.clearSearch();
-		goto(`/docs/${slug}`);
+		searchQuery = ''
+		open = false
+		docsSearch.clearSearch()
+		goto(`/docs/${slug}`)
 	}
 
 	onMount(() => {
 		function handleKeydown(e: KeyboardEvent) {
 			if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-				e.preventDefault();
-				open = !open;
+				e.preventDefault()
+				open = !open
 			}
 		}
 
-		document.addEventListener('keydown', handleKeydown);
+		document.addEventListener('keydown', handleKeydown)
 
 		return () => {
-			document.removeEventListener('keydown', handleKeydown);
-		};
-	});
+			document.removeEventListener('keydown', handleKeydown)
+		}
+	})
 
 	function handleSearchClick() {
-		open = true;
+		open = true
 	}
 </script>
 

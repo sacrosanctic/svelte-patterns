@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { promoConfig } from '$lib/config';
-	import { ArrowRight } from 'lucide-svelte';
-	import Button from '../ui/button/button.svelte';
+	import { promoConfig } from '$lib/config'
+	import { ArrowRight } from 'lucide-svelte'
+	import Button from '../ui/button/button.svelte'
 </script>
 
 <div>

@@ -79,19 +79,23 @@ Write your documentation here...
 ## Customization
 
 ### Themes
+
 Modify the theme in `src/app.css` or use pre-built themes from [shadcn-svelte](https://next.shadcn-svelte.com/themes).
 
 ### Components
+
 Customize components in `src/lib/components` to match your brand.
 
 ### Configuration
+
 Update site settings in `src/lib/config`:
+
 ```typescript
 export const siteConfig = {
-    title: 'Your Documentation',
-    description: 'Your site description',
-    // ...other settings
-};
+	title: 'Your Documentation',
+	description: 'Your site description',
+	// ...other settings
+}
 ```
 
 ## Development

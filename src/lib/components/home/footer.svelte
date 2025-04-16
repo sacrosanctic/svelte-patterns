@@ -1,6 +1,6 @@
 <script>
-	import { navItems, siteConfig } from '$lib/config';
-	import SocialMedia from '../social-media.svelte';
+	import { navItems, siteConfig } from '$lib/config'
+	import SocialMedia from '../social-media.svelte'
 </script>
 
 <footer class="mx-auto mt-auto w-full max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8">

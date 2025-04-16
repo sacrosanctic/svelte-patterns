@@ -32,7 +32,7 @@ So code like this will not work.
 
 <button
 	class={[
-		'text-white rounded-lg px-5 py-2.5',
+		'rounded-lg px-5 py-2.5 text-white',
 		toggle ? 'bg-blue-500' : 'bg-red-500', // [!code highlight]
 	]}
 	onclick={() => (toggle = !toggle)}

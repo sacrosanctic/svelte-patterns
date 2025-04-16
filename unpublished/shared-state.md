@@ -36,17 +36,25 @@ export const load = () => {
 
 {data.counter.value}
 
-<button onclick={() => { data.counter.value++ }}>add one</button>
+<button
+	onclick={() => {
+		data.counter.value++
+	}}>add one</button
+>
 ```
 
 ```svelte [Child.svelte]
 <script>
-  import { page } from '$app/state'
+	import { page } from '$app/state'
 </script>
 
 {page.data.counter.value}
 
-<button onclick={() => { page.data.counter.value++ }}>add one</button>
+<button
+	onclick={() => {
+		page.data.counter.value++
+	}}>add one</button
+>
 ```
 
 REPL: https://www.sveltelab.dev/90t6s7u8l5svxn0

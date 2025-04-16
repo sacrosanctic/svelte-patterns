@@ -1,7 +1,7 @@
 <script>
-	import { page } from '$app/state';
+	import { page } from '$app/state'
 
-	let { title, description } = $props();
+	let { title, description } = $props()
 </script>
 
 <header class="mb-4 border-b border-gray-200 pb-2 dark:border-neutral-700 sm:mb-4 sm:pb-6">

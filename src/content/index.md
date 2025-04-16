@@ -10,6 +10,7 @@ Create beautiful, modern documentation for your project in minutes with our Svel
 ## Prerequisites
 
 Before you begin, ensure you have:
+
 - Node.js 18+ installed
 - Git installed
 - A GitHub account
@@ -17,7 +18,7 @@ Before you begin, ensure you have:
 
 ## Quick Start
 
-1. Go to [GitHub](https://github.com/code-gio/svelte-docs-starter)  click the green **"Use this template"** button at the top of this page
+1. Go to [GitHub](https://github.com/code-gio/svelte-docs-starter) click the green **"Use this template"** button at the top of this page
 2. Select **"Create a new repository"**
 3. Name your repository and choose its visibility
 4. Click **"Create repository from template"**

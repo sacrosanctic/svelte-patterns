@@ -12,6 +12,7 @@ Our documentation template comes with powerful built-in features designed to enh
 The template automatically generates a navigation structure from your markdown files using an intelligent singleton pattern.
 
 ### How It Works
+
 - Automatically scans your `/src/content` directory for markdown files
 - Creates a nested navigation structure based on your folder hierarchy
 - Supports customization through frontmatter metadata
@@ -34,6 +35,7 @@ label: New
 Every documentation page automatically generates a table of contents from your markdown headings.
 
 ### Features
+
 - Automatically extracts h1-h6 headings
 - Generates unique IDs for each heading
 - Updates in real-time as content changes
@@ -42,6 +44,7 @@ Every documentation page automatically generates a table of contents from your m
 - Maintains active section highlighting
 
 The table of contents is implemented using a reactive system that:
+
 - Watches for DOM changes
 - Updates navigation states automatically
 - Provides smooth scrolling behavior
@@ -52,6 +55,7 @@ The table of contents is implemented using a reactive system that:
 Built-in search functionality powered by FlexSearch provides fast and accurate content discovery.
 
 ### Search Features
+
 - Full-text search across all documentation
 - Real-time search results
 - Search through titles and content
@@ -62,7 +66,7 @@ Built-in search functionality powered by FlexSearch provides fast and accurate c
 
 ```typescript
 // Example search usage
-const results = await docsSearch.search("authentication");
+const results = await docsSearch.search('authentication')
 ```
 
 ## Dark Mode Support
@@ -70,6 +74,7 @@ const results = await docsSearch.search("authentication");
 The template includes a fully functional dark mode with system preference detection.
 
 ### Dark Mode Features
+
 - System preference detection
 - Manual toggle option
 - Persistent preference storage
@@ -82,6 +87,7 @@ The template includes a fully functional dark mode with system preference detect
 The documentation template is fully responsive and optimized for all device sizes.
 
 ### Responsive Features
+
 - Mobile-first approach
 - Adaptive navigation
 - Responsive tables and code blocks
@@ -94,6 +100,7 @@ The documentation template is fully responsive and optimized for all device size
 Built-in promotional components help you highlight important information or calls-to-action.
 
 ### Promo Features
+
 - Customizable promo cards
 - Strategic placement options
 - Responsive design
@@ -106,6 +113,7 @@ Built-in promotional components help you highlight important information or call
 The template is designed to be fully customizable to match your brand and requirements.
 
 ### Customization Options
+
 - Theme customization
 - Typography settings
 - Layout modifications
@@ -119,9 +127,9 @@ The template is designed to be fully customizable to match your brand and requir
 
 ```typescript
 // Initialize documentation features
-await docsNavigation.generateNavigation();
-await docsSearch.initializeSearchIndex();
-const toc = TableOfContents.getInstance(contentRef);
+await docsNavigation.generateNavigation()
+await docsSearch.initializeSearchIndex()
+const toc = TableOfContents.getInstance(contentRef)
 ```
 
 All features are implemented using singleton patterns for efficient state management and consistent behavior across your documentation site.

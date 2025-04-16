@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Button from '../ui/button/button.svelte';
-	import { TableOfContents } from './toc.svelte.js';
+	import Button from '../ui/button/button.svelte'
+	import { TableOfContents } from './toc.svelte.js'
 
-	import { ChevronRight } from 'lucide-svelte';
-	let toc = $state(TableOfContents.getInstance());
+	import { ChevronRight } from 'lucide-svelte'
+	let toc = $state(TableOfContents.getInstance())
 </script>
 
 <div class="border-gray-200 dark:border-neutral-700 border-l pl-2">

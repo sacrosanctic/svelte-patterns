@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import PromoCard from './promo-card.svelte';
-	import Separator from '../ui/separator/separator.svelte';
-	import DocContent from './doc-content.svelte';
-	import DocHeader from './doc-header.svelte';
-	import { createHighlighter } from 'shiki/bundle/web';
-	import { mode } from 'mode-watcher';
-	import TableOfContents from './table-of-contents.svelte';
-	import MobileTableOfContents from './mobile-table-of-contents.svelte';
+	import { onMount } from 'svelte'
+	import PromoCard from './promo-card.svelte'
+	import Separator from '../ui/separator/separator.svelte'
+	import DocContent from './doc-content.svelte'
+	import DocHeader from './doc-header.svelte'
+	import { createHighlighter } from 'shiki/bundle/web'
+	import { mode } from 'mode-watcher'
+	import TableOfContents from './table-of-contents.svelte'
+	import MobileTableOfContents from './mobile-table-of-contents.svelte'
 
-	let highlighter: any = $state();
-	let { title, description, data }: { title: string; description: string; data: any } = $props();
-	let theme = $derived($mode);
-	let contentKey = $derived(`${theme}-${title}`);
+	let highlighter: any = $state()
+	let { title, description, data }: { title: string; description: string; data: any } = $props()
+	let theme = $derived($mode)
+	let contentKey = $derived(`${theme}-${title}`)
 
 	onMount(async () => {
 		highlighter = await createHighlighter({
@@ -27,10 +27,10 @@
 				'css',
 				'svelte',
 				'shell',
-				'tsx'
-			]
-		});
-	});
+				'tsx',
+			],
+		})
+	})
 </script>
 
 {#if highlighter}

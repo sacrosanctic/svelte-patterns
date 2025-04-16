@@ -1,12 +1,12 @@
 <script lang="ts">
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import { TableOfContents } from './toc.svelte.js';
-	import Button, { buttonVariants } from '../ui/button/button.svelte';
-	import { AlignLeft, ChevronRight } from 'lucide-svelte';
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js'
+	import { TableOfContents } from './toc.svelte.js'
+	import Button, { buttonVariants } from '../ui/button/button.svelte'
+	import { AlignLeft, ChevronRight } from 'lucide-svelte'
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js'
 
-	let toc = $state(TableOfContents.getInstance());
-	let opened = $state(false);
+	let toc = $state(TableOfContents.getInstance())
+	let opened = $state(false)
 </script>
 
 <Dialog.Root bind:open={opened}>

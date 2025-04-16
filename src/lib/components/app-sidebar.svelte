@@ -1,13 +1,13 @@
 <script lang="ts">
-	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import { siteConfig } from '$lib/config';
-	import GalleryVerticalEnd from 'lucide-svelte/icons/gallery-vertical-end';
-	import type { ComponentProps } from 'svelte';
-	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
-	import { docsNavigation } from '$lib/components/doc-navigation.svelte';
-	import { page } from '$app/state';
-	import SocialMedia from './social-media.svelte';
-	const path = $derived(page.url.pathname);
+	import * as Sidebar from '$lib/components/ui/sidebar/index.js'
+	import { siteConfig } from '$lib/config'
+	import GalleryVerticalEnd from 'lucide-svelte/icons/gallery-vertical-end'
+	import type { ComponentProps } from 'svelte'
+	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props()
+	import { docsNavigation } from '$lib/components/doc-navigation.svelte'
+	import { page } from '$app/state'
+	import SocialMedia from './social-media.svelte'
+	const path = $derived(page.url.pathname)
 </script>
 
 <Sidebar.Root bind:ref {...restProps}>
