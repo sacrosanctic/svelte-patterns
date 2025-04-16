@@ -1,29 +1,37 @@
 # Anti Patterns
 
-## Intermediate variables
+## bundled components (aka barrel files)
 
-This causes more harm than good since its breaks the reactivity chain obscures the source of the data
+Bundler struggle with optimizing for Svelte components being put in 1 JS module and Vite struggles to analyize them
 
-```svelte
-<script>
-	let count = $state({ foo: 1 })
-	let foo = count.foo // [!code --]
-</script>
+- https://svelte.dev/docs/kit/icons#Svelte
+- https://ivicabatinic.from.hr/posts/multipart-namespace-components-addressing-rsc-and-dot-notation-issues#update-insights-on-bundler-limitations-with-dot-notation
+- https://vite.dev/guide/performance#avoid-barrel-files
 
-{foo} // [!code --]
-{count.foo} // [!code ++]
-```
-
-## Destructuring
-
-This causes more harm than good since its breaks the reactivity chain obscures the source of the data
+#### Do not do this
 
 ```svelte
-<script>
-	let count = $state({ foo: 1 })
-	let { foo } = count // [!code --]
-</script>
-
-{foo} // [!code --]
-{count.foo} // [!code ++]
+<Component.Root>
+	<Component.Child></Component.Child>
+</Component.Root>
 ```
+
+#### Do this instead
+
+```svelte
+<Root>
+	<Child></Child>
+</Root>
+```
+
+or
+
+```svelte
+<Root>
+	{#snippet child()}
+		...
+	{/snippet}
+</Root>
+```
+
+## Global

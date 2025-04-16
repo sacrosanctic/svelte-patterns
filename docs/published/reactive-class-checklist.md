@@ -51,3 +51,7 @@ class Foo {
 	}
 }
 ```
+
+## Reference
+
+- https://www.youtube.com/live/BGNykPO4L7c?si=5i9UraSuDuYVq8R5&t=5767
