@@ -37,7 +37,7 @@ const vitePressOptions = defineConfig({
 				},
 			},
 		},
-		editLink: { pattern: 'https://github.com/sacrosanctic/svelte-patterns/blob/main/docs/:path' },
+		editLink: { pattern: 'https://github.com/sacrosanctic/svelte-patterns/edit/main/docs/:path' },
 		socialLinks: [{ icon: 'github', link: 'https://github.com/sacrosanctic/svelte-patterns' }],
 	},
 })
