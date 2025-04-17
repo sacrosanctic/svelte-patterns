@@ -12,6 +12,7 @@ Svelte isn’t just one thing — it’s many, depending on how you use it and w
 - A **compiler** that transforms that syntax into efficient JavaScript
 - A **runtime** that powers reactivity, transitions, and lifecycle hooks
 - A **preprocessor** layer for handling TypeScript, SCSS, Markdown, and more
+- A **npm package** that bundles the above
 - A **design philosophy** rooted in simplicity, minimalism, and zero-runtime overhead
 - A **community and ecosystem** with REPLs, plugins, preprocessors, libraries, and tools
 
