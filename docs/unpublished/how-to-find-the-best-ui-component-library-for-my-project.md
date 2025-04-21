@@ -1,95 +1,74 @@
 ---
-title: How to find the best UI Component library for my project
+title: How to Find the Best UI Component Library for Your Project
 subtitle: Anatomy of a UI Component Library
 publish: false
 tags:
 ---
 
-UI Component libraries has good through many evolutions, this aims to breakdown the major points where improvements were made and what tradoffs they entail
+::: info TL;DR
+UI libraries range from plug-and-play components to low-level building blocks. Choose based on:
 
-Each library often fall into 1 or more categories, and there is a lot of cross Pollination (see shadcn or base-ui). The lists below simpler offer examples which fall into the category, not suggesting they are exclusive to that category.
+- 🔧 Control (how much design control you want)
+- 🚀 Speed (how fast you need to ship)
+- 🧠 Skill level (your comfort with CSS and design)
+  :::
 
-Another problem in this space is that everything shares similiar names, Like wikipedia, I will do my best to disambiguate and call them out when needed.
+UI component libraries have gone through many evolutions. This guide breaks down key areas of improvement and the tradeoffs each approach entails.
 
-## Styling
+Note: Libraries often fall into one or more categories, and there is significant cross-pollination (see Shadcn or Base UI). The examples listed below are illustrative, not exhaustive or exclusive.
 
-Each library provides a way for you to customize their styles, either by providing an proprierty api or a way to inject css
+Another challenge in this space is the overlap in naming conventions. Like Wikipedia, this guide will attempt to disambiguate where necessary.
 
-### via Props
-
-comes with props that allow you to defined a style. (example vuetify)
-
-### via CSS Hooks
-
-This can come in the form of overwriting classes or variables (bootstrap),
-
-### via Hard overwride
-
-When the options arent built into the library, you inspect its internal api and overwrite it with css `!important`.
-
-## CSS Framework
-
-A css framework is often used to manage the css
-
-- tailwind
-- unocss
-- picocss
-- postcss
-- scss
-- sass
-
-## Component Type
+## Types of UI Component Libraries
 
 ![alt text](how-to-find-the-best-ui-component-library-for-my-project.svg)
 
-The why they're setup has changes over time to address certain problems.
+Component libraries have evolved to support varying levels of flexibility and control, catering to different domain experts—such as designers, front-end developers, and back-end developers—as well as different skill levels. The list below is ordered from most opinionated to least, which generally correlates with ease of use on one end and customizability on the other.
 
-This list is ordered from the most opinioned to least optionated. Another way to look at it is that it gets progressively harder to use, but more powerful.
+- Want speed and simplicity? → Styled (e.g., MUI, Chakra)
+- Want full design control? → Headless (e.g., Radix)
+- Want to own everything? → Recipe-based (e.g., Shadcn)
 
-### Styled
+### Styled (Plug & Play)
 
-Not be be confused with [styled-components](https://styled-components.com/)--A css-in-js react ui library-- Styled compoments are plug and play components. Usually bundled together as a package on `npm` to easily install.
+Not to be confused with [styled-components](https://styled-components.com/), these are plug-and-play UI kits often available as npm packages.
 
 ![alt text](how-to-find-the-best-ui-component-library-for-my-project-1.png)
-src https://youtu.be/CQuTF-bkOgc?t=784
+Source: https://youtu.be/CQuTF-bkOgc?t=784
 
 #### Examples
 
-- [MUI](https://mui.com/) react material
-- [Vuetify](https://vuetifyjs.com/) vue material
+- [MUI](https://mui.com/) (React, Material Design)
+- [Vuetify](https://vuetifyjs.com/) (Vue, Material Design)
 - [Chakra UI](https://chakra-ui.com/)
-- Mantime
-- skeleton ui V2
+- Mantine
+- Skeleton UI v2
 
 #### Pros
 
-- Plug and play
-- fast prototyping
-- Beginner Friendly
-- CSS knowledge minimal
+- Easy to use
+- Great for prototyping
+- Beginner-friendly
+- Minimal CSS knowledge required
 
 #### Cons
 
-- limited customization
-- locked into a framework or worse, library
+- Limited customization
+- Tied to a specific framework or library
 
-### Unstyled
+### Unstyled (Headless)
 
-Lets the developer own the UI. the primary goal is to provide behaviour as well as accessability, cross browser compatibility, and progressive enhancement. Libraries in this category also tend to specialize on specific component (command, data table, carassell).
+These libraries let developers control the styling. Their main goal is to provide behavior, accessibility, and cross browser compatibility.
 
-[Web Dev Simplified's Introduction to unstyled libraries](https://youtu.be/yn6vFCRkC3c)
+[Web Dev Simplified's intro to unstyled libraries](https://youtu.be/yn6vFCRkC3c)
 
-Since there are no styles, it can be turn a off to those are less articstically inclined, so these libraries often include default styles based on popular existing design systems or build one in-house.
+Because they provide little to no default styling, they may seem incomplete—over time. To address this, many have gradually introduced optional styles or design presets.
 
-#### via hook API (JS)
+#### Via Hook API (JavaScript)
 
-Uses JS syntax.
+- Melt UI
 
-- melt ui
-
-#### via Componenent API (HTML + JS)
-
-make use of the single file component (SFC) synax provided by the js framework. Common pattern looks like below
+#### Via Component API (JSX/SFC)
 
 ```jsx
 import { Input } from '@headlessui/react'
@@ -99,50 +78,49 @@ function Example() {
 }
 ```
 
-- [Radix UI](https://www.radix-ui.com/) react custom
-- [HeadlessUI](https://headlessui.com/)
+- [Radix UI](https://www.radix-ui.com/)
+- [Headless UI](https://headlessui.com/)
 - [React Aria](https://react-spectrum.adobe.com/)
-- bits ui
+- Bits UI
 
 #### Pros
 
-- Good for designers who prefer to focus on the look over the behaviour.
+- Ideal for teams with a design system
+- Full control over appearance
 
 #### Cons
 
-- limited component selection
-- can feel incomplete when default styles are not provided
+- Smaller component selection
+- Components are often split across multiple npm packages, as indivdual maintainers choose focus and specialize on more advanced use cases
+- May require design experience
 
-### Recipe
+### Recipe-Based (Copy-Paste)
 
-There are intended to copy and paste straight into your codebase. With little or no dependnecies needed. All depedencies are in-house.
+These libraries provide copy-paste components, often with zero dependencies beyond CSS frameworks. Useful for rapid development.
 
-- daisyUI
-- open props
-- preline
+- DaisyUI
+- Open Props
+- Preline
 - [Pico CSS](https://picocss.com/)
-- flowbite
-- TailwindUI
-- skeleton ui V3
+- Flowbite
+- Tailwind UI
+- Skeleton UI v3
 
 #### Shadcn
 
-Shadcn is by far the most popular recipe to build off of. They have pioneered in this space.
-By not including a dependency for themself, that allowed/encouraged other devs to build off of their library
+Shadcn pioneered this approach. Instead of shipping a component library via npm, it provides CLI tools to copy the source code directly into your project. These components are often built on top of headless libraries and CSS frameworks. This not only gives developers full control, but also offers library authors a solid template to build from—eliminating the need to create their own internal scaffolding from scratch.
 
-Instead of asking you to install your component library as a dependency, it provides the dev with the source often accompanied by a CLI to copy to your project. It often makes use of existing headless libraries and css frameworks. They are so popular that new UI libraries often use shadcn as it's foundation to springboard their own product.
-
-Checkout this [article](https://manupa.dev/blog/anatomy-of-shadcn-ui) for a deeper dive.
+[Read this article for more](https://manupa.dev/blog/anatomy-of-shadcn-ui)
 
 #### Pros
 
-- plug and play
-- full-control over design and behaviour
+- Developer-first: full control over design and behavior
+- No library lock-in
 
 #### Cons
 
-- hard to update (responsible of merging your changes with upstream, especially painful for major releasing involving breaking changes)
-- hard to modify for beginners
+- Updating is manual and prone to merge conflicts
+- May be overwhelming for beginners
 
 #### Examples
 
@@ -150,26 +128,59 @@ Checkout this [article](https://manupa.dev/blog/anatomy-of-shadcn-ui) for a deep
 - [Shadcn-Svelte](https://www.shadcn-svelte.com/)
   - https://aceternity.sveltekit.io/
   - https://animation-svelte.vercel.app/
-- flowbite
-- daisyui
+- Flowbite
+- DaisyUI
 
-## Design System
+## Styling
 
-How can you tell when something is a design system or not? A quick and dirty method is to see if it provides a colour pallete. If so, there's a good chance it is a design system.
+### Design Systems
+
+A design system ensures consistency across your UI by providing shared guidelines, tokens, and components. It’s especially important when combining components from different packages—they should all follow the same visual language to maintain a cohesive look and feel.
+
+:::info Note
+A quick way to spot a design system: does it include a color palette? If so, it's likely a complete design system.
+:::
 
 - [Apple - HIG](https://developer.apple.com/design/human-interface-guidelines)
 - [Google - Material 3](https://m3.material.io/)
 - [Microsoft - Fluent 2](https://fluent2.microsoft.design/)
 - [Vercel - Geist](https://vercel.com/design)
 - [UK - GOV.UK](https://design-system.service.gov.uk/get-started/)
-- [Tailwind - in-house](https://www.refactoringui.com/) [src](https://www.youtube.com/watch?v=ZuLn42merAg)
-- [Bootstrap - in-house](https://getbootstrap.com/)
+- [Tailwind - Refactoring UI](https://www.refactoringui.com/) ([video](https://www.youtube.com/watch?v=ZuLn42merAg))
+- [Bootstrap](https://getbootstrap.com/)
 
-## Storybook
+### API
 
-If you're serious about UI, Storybook (and its sister service, chromatic) is a must. It is essentially unit testing for UI. Protects against regression.
+Each library offers some method of customizing styles, either through a props-based API or by injecting CSS directly.
 
-# References
+#### Via Props
+
+Libraries like Vuetify provide component props that allow limited control over styles.
+
+#### Via CSS Hooks
+
+This approach allows developers to change default styles using CSS classes or variables. Example: Bootstrap.
+
+#### Via Overrides
+
+When styling options aren't exposed, developers must inspect internal APIs and override styles with `!important` in CSS.
+
+### CSS Frameworks
+
+CSS frameworks commonly used alongside or inside component libraries:
+
+- Tailwind CSS
+- UnoCSS
+- Pico CSS
+- PostCSS
+- SCSS
+- Sass
+
+<!-- ## Storybook
+
+If you’re serious about UI development, Storybook (and Chromatic) is essential. Think of it as unit testing for your UI—great for documentation and preventing regressions.  -->
+
+## References
 
 - https://prismic.io/blog/react-component-libraries#radix-ui
 - https://www.youtube.com/watch?v=qyG-xWjNZKU
