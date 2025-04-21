@@ -29,6 +29,6 @@ Running into mysterious red squiggles? Here's a quick checklist to help resolve 
   <script lang="ts"></script>
   ```
 
-## 💡 Still stuck?
+### 💡 Still stuck?
 
 Make a minimal reproduction and post it in [Svelte Discord](https://svelte.dev/chat).
