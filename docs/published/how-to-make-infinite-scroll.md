@@ -39,3 +39,7 @@ Infinite scroll is historically really hard to make work. It is recommended to u
 ## Via API endpoint
 
 TODO, its the same as load fn, but replace `<a>` and `goto` with `fetch`.
+
+## References
+
+- https://github.com/rodshtein/sveltekit-demo--Infinity--scroll-navigation
