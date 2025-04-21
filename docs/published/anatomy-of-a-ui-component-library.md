@@ -10,13 +10,12 @@ UI libraries range from plug-and-play components to low-level building blocks. C
 - 🔧 Control (how much design control you want)
 - 🚀 Speed (how fast you need to ship)
 - 🧠 Skill level (your comfort with CSS and design)
+- 🧩 Scope (focused on 1 advanced component vs. a collection of simple comopnents)
   :::
 
 UI component libraries have gone through many evolutions. This guide breaks down key areas of improvement and the tradeoffs each approach entails.
 
-Note: Libraries often fall into one or more categories, and there is significant cross-pollination (see Shadcn or Base UI). The examples listed below are illustrative, not exhaustive or exclusive.
-
-Another challenge in this space is the overlap in naming conventions. Like Wikipedia, this guide will attempt to disambiguate where necessary.
+Libraries often fall into one or more categories, and there is significant cross-pollination (see Shadcn or Base UI). The examples listed below are illustrative, not exhaustive or exclusive.
 
 ## Component Types
 
@@ -104,6 +103,7 @@ These libraries provide copy-paste components, often with zero dependencies beyo
 - Flowbite
 - Tailwind UI
 - Skeleton UI v3
+- [Layercake](https://github.com/mhkeller/layercake)
 
 #### Shadcn
 
