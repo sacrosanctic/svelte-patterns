@@ -1,9 +1,6 @@
-<script>
-	let { data } = $props()
-</script>
+<a href="/about?delay=0">fast</a>
+<a href="/about?delay=1000">slow</a>
 
-{#await data.slow}
-	loading...
-{:then result}
-	{result}
-{/await}
+<hr />
+
+a `delay` longer than 200ms will display a loader, test it out by changing the number
