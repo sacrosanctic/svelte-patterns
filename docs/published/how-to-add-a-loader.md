@@ -103,7 +103,15 @@ This applies when using a form action.
 
 ## Streaming with Promises
 
-This method is not recommended as it doesn't support SEO or Progressive Enhancement.
+This approach is generally discouraged due to the following limitations:
+
+- not all platforms support streaming
+- it lacks SEO campatibility
+- it doesn't enable Progressive Enhancement.
+- it relies on Javascript
+- response headers and status code cannot be modified
+
+Checkout the [conditional streaming](./conditional-streaming) pattern which addresses some of these issues.
 
 ## References
 
