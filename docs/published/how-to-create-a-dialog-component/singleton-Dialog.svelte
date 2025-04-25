@@ -1,7 +1,9 @@
 <script module>
 	let dialog
+	let children = $state()
 
-	export const open = () => {
+	export const open = (snippet) => {
+		children = snippet
 		dialog.showModal()
 	}
 	export const close = () => {
@@ -10,9 +12,9 @@
 </script>
 
 <script>
-	let { children } = $props()
+	let { children: fallback } = $props()
 </script>
 
 <dialog bind:this={dialog}>
-	{@render children?.(close)}
+	{@render (children ?? fallback)?.(close)}
 </dialog>
