@@ -6,6 +6,23 @@ const _prod = process.env.NODE_ENV === 'production'
 const dev = !_prod
 
 const vitePressOptions = defineConfig({
+	head: [
+		[
+			'script',
+			{
+				async: '',
+				src: 'https://www.googletagmanager.com/gtag/js?id=G-70KZWMN9EZ',
+			},
+		],
+		[
+			'script',
+			{},
+			`window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-70KZWMN9EZ');`,
+		],
+	],
 	markdown: {
 		lineNumbers: true,
 	},
