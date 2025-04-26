@@ -1,5 +1,5 @@
 ---
-title: How To Fix The Type Errors
+title: How To Fix Type Errors
 publish: false
 ---
 
