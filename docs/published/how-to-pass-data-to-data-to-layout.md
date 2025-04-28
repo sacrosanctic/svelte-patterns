@@ -1,5 +1,5 @@
 ---
-title: How To Pass Data To children In a +layout.svelte
+title: How To Pass Data To Page to Layout
 ---
 
 ::: info Written for
