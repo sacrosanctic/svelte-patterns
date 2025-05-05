@@ -1,5 +1,5 @@
 ---
-title: How To Pass Data To Page to Layout
+title: How To Pass Data From Page to Layout
 ---
 
 ::: info Written for
