@@ -79,6 +79,10 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+
+	.dark img {
+  	@apply invert;
+	}
 }
 
 @layer utilities {
