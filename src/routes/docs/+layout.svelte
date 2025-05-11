@@ -6,7 +6,7 @@
 	import SocialMedia from '$lib/components/social-media.svelte'
 	import { Separator } from '$lib/components/ui/separator/index.js'
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js'
-	let { children }: { children: any } = $props()
+	let { children } = $props()
 </script>
 
 <Sidebar.Provider>
