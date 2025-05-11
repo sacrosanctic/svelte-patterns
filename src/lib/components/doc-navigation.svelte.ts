@@ -125,21 +125,19 @@ class DocsNavigation {
 		return [...items]
 			.sort((a, b) => {
 				// If both items have sub-items or neither have sub-items, maintain current order
-				if ((!a.items && !b.items) || (a.items && b.items)) {
-					return 0
-				}
+				if ((!a.items && !b.items) || (a.items && b.items)) return 0
+
 				// Items without sub-items should come first
 				return a.items ? 1 : -1
 			})
 			.map((item) => {
 				// Recursively sort sub-items if they exist
-				if (item.items) {
-					return {
-						...item,
-						items: this.sortNavItems(item.items),
-					}
+				if (!item.items) return item
+
+				return {
+					...item,
+					items: this.sortNavItems(item.items),
 				}
-				return item
 			})
 	}
 }
