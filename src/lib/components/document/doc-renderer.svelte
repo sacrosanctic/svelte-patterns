@@ -8,11 +8,13 @@
 	import { mode } from 'mode-watcher'
 	import TableOfContents from './table-of-contents.svelte'
 	import MobileTableOfContents from './mobile-table-of-contents.svelte'
+	import { TableOfContents as ToC } from './toc.svelte.js'
 
 	let highlighter: any = $state()
 	let { title, description, data }: { title: string; description: string; data: any } = $props()
 	let theme = $derived($mode)
 	let contentKey = $derived(`${theme}-${title}`)
+	let toc = $state(ToC.getInstance())
 
 	onMount(async () => {
 		highlighter = await createHighlighter({
@@ -41,18 +43,19 @@
 				<DocContent {highlighter} {theme} {data} />
 			{/key}
 		</div>
-		<div>
-			<div class="sticky top-20 flex w-60 flex-col gap-4">
-				<div class="hidden sm:block">
-					<TableOfContents />
-					<!-- <Separator /> -->
+		{#if toc.headings.length}
+			<div>
+				<div class="sticky top-20 flex w-60 flex-col gap-4">
+					<div class="hidden sm:block">
+						<TableOfContents />
+						<!-- <Separator /> -->
+					</div>
+					<div class="block sm:hidden">
+						<MobileTableOfContents />
+					</div>
 				</div>
-				<div class="block sm:hidden">
-					<MobileTableOfContents />
-				</div>
-				<!-- <PromoCard /> -->
 			</div>
-		</div>
+		{/if}
 	</div>
 {/if}
 
