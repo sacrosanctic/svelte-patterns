@@ -27,7 +27,7 @@ class DocsNavigation {
 				let href = `/docs${path.replace(/^\/src\/content/, '').replace(/\.md$/, '')}`
 				href = href.replace(/\/index$/, '')
 
-				const { title, disabled, external, label } = doc.metadata
+				const { title, disabled, external, label, publish } = doc.metadata
 				const item: NavItem = {
 					title,
 					href,
@@ -36,7 +36,7 @@ class DocsNavigation {
 					label,
 				}
 
-				flatItems.push(item)
+				if (publish) flatItems.push(item)
 			} catch (e) {
 				console.error(`Error processing ${path}:`, e)
 			}

@@ -37,6 +37,7 @@ export type DocMeta = {
 	label?: string
 	disabled?: false
 	external?: false
+	publish?: boolean
 }
 
 export type DocFile = {

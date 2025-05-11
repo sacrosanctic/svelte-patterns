@@ -5,7 +5,7 @@ import { getDoc } from '$lib/utils.js'
 
 export const load: PageLoad = async (event) => {
 	const doc: DocFile = await getDoc(event.params.slug)
-	if (!doc || !doc.metadata) error(404)
+	if (!doc || !doc.metadata || !doc.metadata.publish) error(404)
 
 	return {
 		doc: doc.default,

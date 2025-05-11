@@ -1,6 +1,7 @@
 ---
 title: Get Started
 description: Learn how to set up and start using our modern documentation template built with Svelte 5, MDSvex, and Tailwind CSS.
+publish: true
 ---
 
 # Getting Started
