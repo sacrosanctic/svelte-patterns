@@ -12,9 +12,13 @@
 </script>
 
 <script>
+	const id = $props.id()
 	let { children: fallback } = $props()
 </script>
 
-<dialog bind:this={dialog}>
+<dialog bind:this={dialog} {id}>
 	{@render (children ?? fallback)?.(close)}
+	<br />
+	<button commandfor={id} command="close" value="accept">Accept</button>
+	<button commandfor={id} command="close" value="cancel">Cancel</button>
 </dialog>

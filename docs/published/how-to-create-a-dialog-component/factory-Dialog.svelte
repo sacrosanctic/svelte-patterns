@@ -1,10 +1,17 @@
 <script>
-	let { trigger, body } = $props()
-	let dialog
+	const _id = $props.id()
+	let { button, body, id = _id, ...rest } = $props()
 </script>
 
-{@render trigger?.(() => dialog.showModal())}
+<button commandfor={id} command="show-modal">
+	{@render button()}
+</button>
 
-<dialog bind:this={dialog}>
-	{@render body?.(() => dialog.close())}
+<dialog {...rest} {id}>
+	{@render body()}
+
+	<br />
+
+	<button commandfor={id} command="close" value="accept">Accept</button>
+	<button commandfor={id} command="close" value="cancel">Cancel</button>
 </dialog>

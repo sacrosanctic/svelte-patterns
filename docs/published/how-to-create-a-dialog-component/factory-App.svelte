@@ -3,14 +3,11 @@
 </script>
 
 <Dialog>
-	{#snippet trigger(onclick)}
-		<button {onclick}>Open dialog</button>
+	{#snippet button()}
+		Open dialog
 	{/snippet}
-	{#snippet body(onclick)}
+	{#snippet body()}
 		<h1>Dialog</h1>
-
-		<form method="dialog"><button>HTML Close</button></form>
-		<p>or</p>
-		<button {onclick}>JS Close</button>
+		This is the body.
 	{/snippet}
 </Dialog>

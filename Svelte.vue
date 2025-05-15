@@ -21,6 +21,7 @@ onMounted(async () => {
 				name: _.name,
 				basename: _.name,
 				contents: _.contents,
+				text: true,
 			}
 		}),
 	}
@@ -33,7 +34,7 @@ onMounted(async () => {
 	<a
 		target="_blank"
 		rel="noopener noreferrer"
-		:href="'https://svelte.dev/playground/hello-world?version=5.17.3#' + _path"
+		:href="'https://svelte.dev/playground/hello-world#' + _path"
 		>Svelte Playground</a
 	>
 </template>
