@@ -2,42 +2,6 @@
 
 There are different patterns depending on the situation. This gives the developer fine-tune control over when and where a loader is render while adhering to web standands and best practices.
 
-## On Server-Side Navigation
-
-This applies when the user first arrives at your site or when `CSR = false`. We will use [Conditional Streaming](./conditional-streaming) to render a loader.
-
-:::code-group
-
-```js [+page.server.js]
-export const load = async () => {
-	const promise = getDataFromApi()
-	const result = await Promise.race([delay(200), promise])
-
-	return {
-		maybeSlow: result ?? promise,
-	}
-}
-
-const getDataFromApi = async () => {
-	await delay(Math.random() < 0.5 ? 50 : 3000)
-	return '😴'
-}
-
-const delay = (ms) => new Promise((res) => setTimeout(res, ms))
-```
-
-```svelte [+page.svelte]
-<script>
-	let { data } = $props()
-</script>
-
-{#await data.maybeSlow}
-	loading...
-{:then result}
-	{result}
-{/await}
-```
-
 :::
 
 ## On Client-Side Navigation
@@ -103,15 +67,55 @@ This applies when using a form action.
 
 ## Streaming with Promises
 
-This approach is generally discouraged due to the following limitations:
+While the official docs explains this as the pattern to use for adding a loader. This approach is generally discouraged due to the following limitations:
 
 - not all platforms support streaming
 - it lacks SEO campatibility
 - it doesn't enable Progressive Enhancement.
 - it relies on Javascript
 - response headers and status code cannot be modified
+- unhandled promise rejections could crash the server
+- cause flickering when the load fn reruns since the promise needs to resolve again
 
 Checkout the [conditional streaming](./conditional-streaming) pattern which addresses some of these issues.
+
+## On Server-Side Navigation
+
+This applies when the user first arrives at your site or when `CSR = false`. We will use [Conditional Streaming](./conditional-streaming) to render a loader.
+
+This tries to solve most of the errors mentioned in the previous section.
+
+:::code-group
+
+```js [+page.server.js]
+export const load = async () => {
+	const promise = getDataFromApi()
+	const result = await Promise.race([delay(200), promise])
+
+	return {
+		maybeSlow: result ?? promise,
+	}
+}
+
+const getDataFromApi = async () => {
+	await delay(Math.random() < 0.5 ? 50 : 3000)
+	return '😴'
+}
+
+const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+```
+
+```svelte [+page.svelte]
+<script>
+	let { data } = $props()
+</script>
+
+{#await data.maybeSlow}
+	loading...
+{:then result}
+	{result}
+{/await}
+```
 
 ## References
 
