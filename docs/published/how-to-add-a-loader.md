@@ -70,7 +70,7 @@ This applies when using a form action.
 While the official docs explains this as the pattern to use for adding a loader. This approach is generally discouraged due to the following limitations:
 
 - not all platforms support streaming
-- it lacks SEO campatibility
+- it lacks SEO compatibility
 - it doesn't enable Progressive Enhancement.
 - it relies on Javascript
 - response headers and status code cannot be modified
