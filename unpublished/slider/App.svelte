@@ -6,14 +6,6 @@
 </script>
 
 value: {value[0]}
-<input
-	type="checkbox"
-	bind:checked={range}
-/>
+<input type="checkbox" bind:checked={range} />
 
-<Slider
-	{range}
-	bind:value
-	max={5}
-	step={1}
-/>
+<Slider {range} bind:value max={5} step={1} />

@@ -9,6 +9,7 @@ tags: firebase, fcm, messaging
 ## Solution
 
 :::code-group
+
 ```js [src/service-worker.js]
 
 /// <reference types="@sveltejs/kit" />
@@ -29,7 +30,7 @@ const firebaseApp = initializeApp(firebaseConfig)
 const messaging = getMessaging(firebaseApp)
 
 onBackgroundMessage(messaging, (payload) => {
-	if (!payload.notification || !payload.notification.title) return 
+	if (!payload.notification || !payload.notification.title) return
 
 	sw.registration.showNotification(payload.notification.title, {
 		body: payload.notification.body,
@@ -55,7 +56,6 @@ export const initMessaging = () => {
 		const registration = await navigator.serviceWorker.register('/service-worker.js', {
 			type: dev ? 'module' : 'classic',
 		})
-
 
 		const token = await getToken(messaging, {
 			serviceWorkerRegistration: registration,
@@ -155,15 +155,12 @@ export const actions = {
 				.filter((_) => !_.success)
 				.map((_) => tokens[_.id])
 
-			if (invalidTokens)
-				ref.update({ key: admin.firestore.FieldValue.arrayRemove(...invalidTokens) })
+			if (invalidTokens) ref.update({ key: admin.firestore.FieldValue.arrayRemove(...invalidTokens) })
 		} catch (e) {
 			console.error('error', e)
 		}
 	},
 }
-
-
 ```
 
 :::
