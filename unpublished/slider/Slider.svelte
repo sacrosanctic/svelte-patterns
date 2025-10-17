@@ -81,7 +81,7 @@
 <div class="relative mx-2 my-4 h-1 w-[calc(100%-1rem)] rounded-full bg-[#ebebeb]">
 	<!-- Notches -->
 	{#each stepPositions as position}
-		<div class="  absolute-center w-1 h-8 bg-[#ebebeb]" style="left: {position}%"></div>
+		<div class="  absolute-center h-8 w-1 bg-[#ebebeb]" style="left: {position}%"></div>
 	{/each}
 
 	<!-- Progress Line -->
