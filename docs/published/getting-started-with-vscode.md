@@ -42,7 +42,7 @@ Since Sveltekit uses a [filesystem-based router](https://svelte.dev/docs/kit/rou
 
 ## Custom File labels
 
-Sveltekit's [filesystem-based router](https://svelte.dev/docs/kit/routing) gives every file the same name. Which can be difficult to distinguish when multiple are open. VSCode's custom label feature can help clear this up.
+Sveltekit's [filesystem-based router](https://svelte.dev/docs/kit/routing) gives every file the same name. Which can be difficult to distinguish when multiple are open. VSCode's custom label feature can help clear this up. Open `.vscode/settings.json` and add the following.
 
 ```json [settings.json]
 {
@@ -68,7 +68,7 @@ Sveltekit's [filesystem-based router](https://svelte.dev/docs/kit/routing) gives
 		// Error Page
 		"**/routes/**/*/+error.svelte": "${dirname} ❱ error",
 		"**/routes/+error.svelte": "/ ❱ error",
-		// Server Endpoint
+		// API Endpoint
 		"**/routes/**/*/+server.[tj]s": "${dirname} ❱ API",
 		"**/routes/+server.[tj]s": "/ ❱ API"
 	}
