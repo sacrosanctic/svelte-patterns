@@ -1,7 +1,6 @@
 ---
 title: There Is More Than One Svelte
-publish: false
-tags:
+publish: true
 ---
 
 ## What does “Svelte” mean?
