@@ -1,33 +1,26 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
-	import {thumbHandle} from './slider.svelte.js'
+	import { thumbHandle } from './slider.svelte.js'
 	import type { Position } from './type.js'
 
 	type Props = {
-		active:boolean
+		active: boolean
 		position: Position[number]
-		children?:Snippet
+		children?: Snippet
 	}
 
-	let {
-		active = $bindable(false),
-		position = $bindable(),children
-	}: Props = $props()
-
+	let { active = $bindable(false), position = $bindable(), children }: Props = $props()
 </script>
 
 <button
 	class="absolute top-1/2 size-0"
 	style:left="{position * 100}%"
 	use:thumbHandle
-	ondragstart={() => ((active = true))}
-	ondrag={e => (position = e.detail)}
-	ondragend={() => ((active = false))}
+	ondragstart={() => (active = true)}
+	ondrag={(e) => (position = e.detail)}
+	ondragend={() => (active = false)}
 >
-	<div
-		class="thumb-content"
-		class:active
-	>
+	<div class="thumb-content" class:active>
 		{@render children?.()}
 	</div>
 </button>
