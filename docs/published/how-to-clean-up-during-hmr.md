@@ -1,7 +1,7 @@
 ---
 title: How to Clean Up During HMR
 publish: true
-tags: ['svelte', 'vite', 'hmr', 'dev']
+tags: svelte, vite, hmr, dev
 ---
 
 ## Describe the problem
