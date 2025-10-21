@@ -39,17 +39,11 @@ vercel env pull .env.local
 ```
 
 ```bash
-pnpm add -D better-auth pg @types/pg
-touch ./src/lib/auth.ts
-
-```
-
-Create a file at `./src/lib/auth.ts` with the following content:
-
-```typescript
+pnpm add -D pg @types/pg
+cat <<-EOF > ./src/lib/auth.ts
 import { betterAuth } from 'better-auth'
 import { Pool } from 'pg'
-import { DATABASE_URL } from '$env/static/private'
+import { DATABASE_URL } from '\$env/static/private'
 
 export const auth = betterAuth({
 	database: new Pool({
@@ -57,11 +51,7 @@ export const auth = betterAuth({
 		ssl: { rejectUnauthorized: false },
 	}),
 })
-```
-
-Then run the database migrations:
-
-```bash
+EOF
 pnpm dlx @sacrosanctic/vite-run@latest @better-auth/cli migrate
 ```
 
