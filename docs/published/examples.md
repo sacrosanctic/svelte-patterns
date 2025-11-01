@@ -10,4 +10,4 @@ publish: true
 
 ## Real world Examples
 
-- https://github.com/janosh/awesome-sveltekits
+- https://github.com/janosh/awesome-sveltekit
