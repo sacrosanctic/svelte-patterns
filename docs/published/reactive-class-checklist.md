@@ -55,3 +55,4 @@ class Foo {
 ## Reference
 
 - https://www.youtube.com/live/BGNykPO4L7c?si=5i9UraSuDuYVq8R5&t=5767
+- https://ai-sdk.dev/docs/getting-started/svelte#how-does-ai-sdksvelte-differ-from-ai-sdkreact
