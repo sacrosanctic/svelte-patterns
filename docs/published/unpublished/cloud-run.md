@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+https://determinate.systems/blog/nix-direnv/
+
 ```nix [flake.nix]
 {
   description = "A development shell with Google Cloud SDK and components";
