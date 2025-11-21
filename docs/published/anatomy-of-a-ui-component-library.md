@@ -65,6 +65,7 @@ Because they provide little to no default styling, they may seem incomplete—ov
 #### Via Hook API (JavaScript)
 
 - Melt UI
+- [Zag JS](https://zagjs.com/)
 
 #### Via Component API (JSX/SFC)
 
