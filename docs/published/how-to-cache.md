@@ -6,7 +6,12 @@ tags:
 
 ## Describe the problem
 
-- https://www.youtube.com/watch?v=JXUOMsFBDXQ
+server side locals
 
+client side context
+
+https://www.youtube.com/shorts/oLLx_fP6-IY
+
+- https://www.youtube.com/watch?v=JXUOMsFBDXQ
 
 ## Reference
