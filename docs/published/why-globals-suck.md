@@ -62,6 +62,7 @@ parent component
 urlsearchparams
 sessionstorage
 localstorage
-database?
+database? idb
+html data attributes
 
 ## Reference
