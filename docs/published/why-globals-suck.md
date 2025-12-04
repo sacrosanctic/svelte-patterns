@@ -54,4 +54,14 @@ what to do instead? scoped state
 
 it forces you to actually declare where it can be accessed, something like context follows the file system hierachy
 
+globals are opaque
+https://discord.com/channels/457912077277855764/1446038501635260466
+more places than context to start state
+
+parent component
+urlsearchparams
+sessionstorage
+localstorage
+database?
+
 ## Reference
