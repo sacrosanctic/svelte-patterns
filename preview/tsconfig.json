@@ -1,0 +1,20 @@
+{
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"noUncheckedIndexedAccess": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true
+	},
+  "exclude": [
+    "eslint.config.js",
+    "svelte.config.js",
+    "velite.config.js",
+    "mdsx.config.js",
+  ]
+}

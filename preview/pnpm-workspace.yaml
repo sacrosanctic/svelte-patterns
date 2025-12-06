@@ -1,0 +1,2 @@
+patchedDependencies:
+  '@svecodocs/kit': patches/@svecodocs__kit.patch

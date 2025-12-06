@@ -1,0 +1,13 @@
+diff --git a/dist/components/layout/docs-sidebar.svelte b/dist/components/layout/docs-sidebar.svelte
+index 9988ac2d5356d300126b1fd30a07f06c32c11a2f..eb19e0d41fac544aded91c2468bad49166f15ad5 100644
+--- a/dist/components/layout/docs-sidebar.svelte
++++ b/dist/components/layout/docs-sidebar.svelte
+@@ -16,7 +16,7 @@
+ 					class="hover:bg-background-secondary active:bg-background-secondary dark:hover:bg-background-secondary dark:active:bg-background-secondary [&>svg]:size-0 [&>svg]:h-7 [&>svg]:w-auto"
+ 				>
+ 					{#snippet child({ props })}
+-						<a href="/docs" {...props}>
++						<a href="/" {...props}>
+ 							{@render logo()}
+ 						</a>
+ 					{/snippet}
