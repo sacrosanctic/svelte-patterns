@@ -87,3 +87,5 @@ people always talks about best practices like clean code, separation of concerns
 the worst part about globals are they people think its actually good to use
 
 call it a shortcut, a hack, an escape hatch, but it aint good
+
+can shadow other variables, not as big of a problem in js modules
