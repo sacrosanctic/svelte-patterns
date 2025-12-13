@@ -28,6 +28,7 @@ While SvelteKit is the default choice, the best tool can vary depending on your 
 | Website (static)  | Svelte + Astro        |                                                                                                                     |
 | Mobile App        | Svelte + Lynx         | [Pending development](https://svelte-custom-renderers.com/)                                                         |
 | Mobile App        | Svelte + SvelteNative | Svelte 4 only                                                                                                       |
+| Mobile/Desktop App| Svelte + Kit					| [Tauri](https://tauri.app/start/frontend/sveltekit/)                                                                |
 | Desktop App       | Svelte + Kit          | [Electron adapter](https://github.com/LukeHagar/sveltekit-adapters?tab=readme-ov-file#electron-adapter)             |
 | Browser Extension | Svelte + WXT          |                                                                                                                     |
 |                   |
