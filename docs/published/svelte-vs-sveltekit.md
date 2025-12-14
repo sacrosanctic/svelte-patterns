@@ -21,17 +21,16 @@ For the majority of projects, **SvelteKit is the officially recommended way to b
 
 While SvelteKit is the default choice, the best tool can vary depending on your specific needs.
 
-| Use Case          | Recommended Tooling   | Notes                                                                                                               |
-| :---------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------ |
-| Web App           | svelte + kit          | With [adapters](https://svelte.dev/docs/kit/adapters) for different [rendering strategies](./rendering-strategy.md) |
-| Website (static)  | Svelte + kit          | `static-adapter`                                                                                                    |
-| Website (static)  | Svelte + Astro        |                                                                                                                     |
-| Mobile App        | Svelte + Lynx         | [Pending development](https://svelte-custom-renderers.com/)                                                         |
-| Mobile App        | Svelte + SvelteNative | Svelte 4 only                                                                                                       |
-| Mobile/Desktop App| Svelte + Kit					| [Tauri](https://tauri.app/start/frontend/sveltekit/) with `static-adapter`                                                                 |
-| Desktop App       | Svelte + Kit          | [Electron adapter](https://github.com/LukeHagar/sveltekit-adapters?tab=readme-ov-file#electron-adapter)             |
-| Browser Extension | Svelte + WXT          |                                                                                                                     |
-|                   |
+| Use Case                  | Recommended Tooling   | Notes                                                                                                               |
+| :------------------------ | :-------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| Web App                   | svelte + kit          | With [adapters](https://svelte.dev/docs/kit/adapters) for different [rendering strategies](./rendering-strategy.md) |
+| Website (static)          | Svelte + kit          | `static-adapter`                                                                                                    |
+| Website (static)          | Svelte + Astro        |                                                                                                                     |
+| Mobile App                | Svelte + Lynx         | [Pending development](https://svelte-custom-renderers.com/)                                                         |
+| Mobile App                | Svelte + SvelteNative | Svelte 4 only                                                                                                       |
+| Mobile App<br>Desktop App | Svelte + Kit          | [Tauri](https://tauri.app/start/frontend/sveltekit/) with `static-adapter`                                          |
+| Desktop App               | Svelte + Kit          | [Electron adapter](https://github.com/LukeHagar/sveltekit-adapters?tab=readme-ov-file#electron-adapter)             |
+| Browser Extension         | Svelte + WXT          |                                                                                                                     |
 
 :::info Note
 SvelteKit and WXT are vite plugins.
