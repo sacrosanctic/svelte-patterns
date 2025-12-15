@@ -51,3 +51,13 @@ tbd
 https://www.htmlallthethings.com/blog-posts/understanding-svelte-5-runes-derived-vs-effect
 
 https://joyofcode.xyz/how-to-share-state-in-svelte-5#shared-state-on-the-server
+
+alternative provided by the docs
+Instead, use oninput callbacks or — better still — function bindings where possible (demo):
+https://svelte.dev/docs/svelte/$effect#When-not-to-use-$effect
+
+option to not use effect
+https://github.com/sveltejs/svelte/pull/15069
+
+why is it so hard to exlpain
+https://bsky.app/profile/paolo.ricciuti.me/post/3m7ycmxoiqc2y
