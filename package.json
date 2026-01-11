@@ -2,22 +2,13 @@
 	"name": "svelte-patterns",
 	"type": "module",
 	"scripts": {
-		"dev": "vitepress dev docs",
-		"build": "vitepress build docs",
-		"preview": "vitepress preview docs",
 		"new": "pnpm dlx jiti ./scripts/new-markdown.ts"
 	},
 	"devDependencies": {
 		"@types/node": "^22.10.5",
 		"chalk": "^5.4.1",
 		"commander": "^13.0.0",
-		"lz-string": "^1.5.0",
-		"prettier": "^3.4.2",
-		"prettier-plugin-svelte": "^3.3.2",
-		"svelte": "^5.17.2",
-		"vite-plugin-vitepress-auto-sidebar": "^1.7.1",
-		"vitepress": "^1.5.0",
-		"vitepress-sidebar": "^1.30.2"
+		"prettier": "^3.4.2"
 	},
 	"packageManager": "pnpm@10.26.0+sha512.3b3f6c725ebe712506c0ab1ad4133cf86b1f4b687effce62a9b38b4d72e3954242e643190fc51fa1642949c735f403debd44f5cb0edd657abe63a8b6a7e1e402"
 }
