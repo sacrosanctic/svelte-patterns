@@ -125,3 +125,14 @@ Sveltekit's [filesystem-based router](https://svelte.dev/docs/kit/routing) gives
 ## Breakpoint Debugging
 
 https://svelte.dev/docs/kit/debugging#Visual-Studio-Code
+
+::
+
+### Explicit Extensions
+
+```json
+{
+	"javascript.preferences.importModuleSpecifierEnding": "js",
+	"typescript.preferences.importModuleSpecifierEnding": "js"
+}
+```

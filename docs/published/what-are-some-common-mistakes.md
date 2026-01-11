@@ -2,6 +2,8 @@
 title: What Are Some Common Gotchas
 ---
 
+We outline some common gotchas or un-intuitative bahaviour in svelte
+
 In svelte 4, you had to do this.
 
 ```svelte
@@ -122,3 +124,42 @@ Let svelte change the DOM
 
 <svelte:window {onresize} /> // [!code ++]
 ```
+
+<!--
+# child mounts then parent mounts
+
+severity high
+affect: react
+
+https://github.com/sveltejs/svelte/issues/2281#issuecomment-734935164
+
+the is because svelte uses the real DOM, where as react using a virtual DOM
+
+it uses the `stack` data structure, first in last out, the parent will start the render, but will finish last
+
+# values reactively update even when not marked as reactive
+
+severity low
+effect: react
+
+https://svelte.dev/playground/hello-world?version=5.43.2#H4sIAAAAAAAAA22Ny27CMBBFf2U06oKIiNCtSSL1seg_NF0Ye2gtzNiyJ6Uoyr9XoUC6YHnvnDl3QNYHQoVv5H2AY0jewoKsE7IFlrhznjKq9wHlFCduKrC8fj3FuMrf5GXqtjrTvd4EFmLJqLDOJrkobccAAJ4EOKSD9i-hZ4EGBtOnRCwK1uNmhrJooSvzcE6LdbHpuK5uwo7r2D5rs_9MoWcLZsIVDP8GVhf7WFexPfOvLkevTzd4HrowHdfbXiQwBDbemX0zLIqmHTru5I55uZwOs2XK49hqa-ERJMA2yFdd_RlbLFHoR1BJ6mn8KFG080fHFtVO-0zjL8SyAuqdAQAA
+if you inspect the js output form the `repl`, you'll see the following line
+
+```js
+$.template_effect(() => {
+	$.set_text(text, `Background count: ${normalCount ?? ''}`)
+	$.set_text(text_1, `Display count: ${$.get(stateCount) ?? ''}`)
+})
+```
+
+even though `normalCount` is not reactive, it is grouped together with `stateCount` in one `template_effect`. It it will be updated as a side effect.
+
+svelte groups template by blocks, so if you seperate them as in this example, it stops updating
+https://svelte.dev/playground/hello-world?version=5.43.2#H4sIAAAAAAAAA22PzW7CMBCEX2W17YGIiNBrCJH6c-g71D2YxAELs7bsTSmy_O6VaSGtynFnv5mdjUjyoLDGV2WMhaP1poeZ6jWrvsASB21UwPotIp9c5rKA5cX16NwifCjDWdvIoG7pnSVWxAFrbELnteNWEACAUQxk_UGaZzsSwxpiN3qviGtYptUEBZasLsz9eZoti5UgQYIFn5GdPU5L9qMqBDXV9Z6geKeHM5YENa59kt1-6-1IPXQ5uYb4q8vip0hqKtcKipUe0r-IFx2ckaerf6r51yao2YzMlsBSZ3S3X8dZsW5jbn_j5nyeF1NYnlNqZd_DA7CFjeVdU30ntlgiq0_GOr-c3ktkqc1RU4_1IE1Q6QszxpNk4gEAAA
+
+## the fix
+
+the fix is simple
+
+- If a value changes, it should be a $state
+- if it doesn't, then it should be a const. -->
