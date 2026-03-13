@@ -2,4 +2,6 @@
 	let { children } = $props();
 </script>
 
-{@render children()}
+<span style="border:red solid 1px">
+	{@render children()}
+</span>
