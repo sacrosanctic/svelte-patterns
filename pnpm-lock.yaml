@@ -49,6 +49,10 @@ importers:
         version: 1.30.2
 
   packages/ui:
+    dependencies:
+      lz-string:
+        specifier: ^1.5.0
+        version: 1.5.0
     devDependencies:
       '@eslint/compat':
         specifier: ^2.0.2
