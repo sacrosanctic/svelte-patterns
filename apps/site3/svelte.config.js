@@ -1,6 +1,9 @@
 import adapter from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
-const config = { kit: { adapter: adapter() } };
+const config = {
+	extensions: ['.svelte', '.md'],
+	kit: { adapter: adapter() }
+};
 
 export default config;
