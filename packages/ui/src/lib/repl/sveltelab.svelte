@@ -76,7 +76,7 @@
 	addFileToTree(fileSystemTree, 'src/routes/+layout.svelte', rootLayout)
 	addFileToTree(fileSystemTree, 'src/global.css', globalCss)
 	// svelte-ignore state_referenced_locally
-	props.files.forEach(({ name, contents }) => addFileToTree(fileSystemTree, name, contents))
+	props.files?.forEach(({ name, contents }) => addFileToTree(fileSystemTree, name, contents))
 	injectCss(fileSystemTree, 'src/routes/+layout.svelte', '../global.css')
 	const hash = lzString.compressToEncodedURIComponent(JSON.stringify(fileSystemTree))
 </script>
