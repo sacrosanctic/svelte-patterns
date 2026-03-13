@@ -1,0 +1,78 @@
+{
+  ".gitignore": {
+    "file": {
+      "contents": "node_modules\n\n# Output\n.output\n.vercel\n.netlify\n.wrangler\n/.svelte-kit\n/build\n\n# OS\n.DS_Store\nThumbs.db\n\n# Env\n.env\n.env.*\n!.env.example\n!.env.test\n\n# Vite\nvite.config.js.timestamp-*\nvite.config.ts.timestamp-*\n"
+    }
+  },
+  ".npmrc": {
+    "file": {
+      "contents": "engine-strict=true\n"
+    }
+  },
+  "package.json": {
+    "file": {
+      "contents": "{\n\t\"name\": \"template\",\n\t\"private\": true,\n\t\"version\": \"0.0.1\",\n\t\"type\": \"module\",\n\t\"scripts\": {\n\t\t\"dev\": \"vite dev\",\n\t\t\"build\": \"vite build\",\n\t\t\"preview\": \"vite preview\",\n\t\t\"prepare\": \"svelte-kit sync || echo ''\",\n\t\t\"check\": \"svelte-kit sync && svelte-check --tsconfig ./tsconfig.json\",\n\t\t\"check:watch\": \"svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch\"\n\t},\n\t\"devDependencies\": {\n\t\t\"@sveltejs/adapter-auto\": \"^4.0.0\",\n\t\t\"@sveltejs/kit\": \"^2.16.0\",\n\t\t\"@sveltejs/vite-plugin-svelte\": \"^5.0.0\",\n\t\t\"svelte\": \"^5.0.0\",\n\t\t\"svelte-check\": \"^4.0.0\",\n\t\t\"typescript\": \"^5.0.0\",\n\t\t\"vite\": \"^6.0.0\"\n\t}\n}\n"
+    }
+  },
+  "README.md": {
+    "file": {
+      "contents": "# sv\n\nEverything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).\n\n## Creating a project\n\nIf you're seeing this, you've probably already done this step. Congrats!\n\n```bash\n# create a new project in the current directory\nnpx sv create\n\n# create a new project in my-app\nnpx sv create my-app\n```\n\n## Developing\n\nOnce you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:\n\n```bash\nnpm run dev\n\n# or start the server and open the app in a new browser tab\nnpm run dev -- --open\n```\n\n## Building\n\nTo create a production version of your app:\n\n```bash\nnpm run build\n```\n\nYou can preview the production build with `npm run preview`.\n\n> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.\n"
+    }
+  },
+  "src": {
+    "directory": {
+      "app.d.ts": {
+        "file": {
+          "contents": "// See https://svelte.dev/docs/kit/types#app.d.ts\n// for information about these interfaces\ndeclare global {\n\tnamespace App {\n\t\t// interface Error {}\n\t\t// interface Locals {}\n\t\t// interface PageData {}\n\t\t// interface PageState {}\n\t\t// interface Platform {}\n\t}\n}\n\nexport {};\n"
+        }
+      },
+      "app.html": {
+        "file": {
+          "contents": "<!doctype html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"utf-8\" />\n\t\t<link rel=\"icon\" href=\"%sveltekit.assets%/favicon.png\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n\t\t%sveltekit.head%\n\t</head>\n\t<body data-sveltekit-preload-data=\"hover\">\n\t\t<div style=\"display: contents\">%sveltekit.body%</div>\n\t</body>\n</html>\n"
+        }
+      },
+      "lib": {
+        "directory": {
+          "index.ts": {
+            "file": {
+              "contents": "// place files you want to import through the `$lib` alias in this folder.\n"
+            }
+          }
+        }
+      },
+      "routes": {
+        "directory": {
+          "+page.svelte": {
+            "file": {
+              "contents": "<h1>Welcome to SvelteKit</h1>\n<p>Visit <a href=\"https://svelte.dev/docs/kit\">svelte.dev/docs/kit</a> to read the documentation</p>\n"
+            }
+          }
+        }
+      }
+    }
+  },
+  "static": {
+    "directory": {
+      "favicon.png": {
+        "file": {
+          "contents": "�PNG\r\n\u001a\n\u0000\u0000\u0000\rIHDR\u0000\u0000\u0000�\u0000\u0000\u0000�\b\u0004\u0000\u0000\u0000i7�@\u0000\u0000\u0000\u0001sRGB\u0000��\u001c�\u0000\u0000\u0005�IDATx��]�m�8\u0010U\t.�%����\u0012\\BJp\t.!%�\u0004����b\u0004\u0003� \b\u0002!\u0018\u0010\u0004A8����ܛuƤ�&�\u001fg��\u0013�Cr�<��;��H`���l�6��.fk6��.��]��lg��(.ۙ��SD�N�\u0006A��\"�|؅و�.���\u000b?\u000b��8\u0003N.V\t����`\u0016qf�\\\u0016��l\rf�\u0017��\\\nҕy3P��$~�E�3В�9rf�0zj�\u0012�\n��\u0017�ߤ\n����ݤ\n~\u0011�M�`*�Y\u0014���+5\n�0s�K<\u0010%��p�q\n\u0003Z�0�\";Gq\u0012^�\u000e�0��<\r��ɗ���rt�ŀ\n漼��\u0004q\u0012^�\u0011a�|��6�\u001f\"$�\u0003zL��Cl� ��,\u001a\b�U��w�Ix\u0005\u0006p\u0018q��\f�\u0013�E�\u000f� �GIx%F̅\u001eVV�2:�;b^�3\\\u0010��\u000b�G@�\u0006Nk�\u000f�6��\u000e:��K����O\u0010\u001e}\u00066���\t�GK0���-\u001c�`@�\u001c\u0006\u0016%�\u001eth\u0004���,����M0q\u0016�e\u0005�M��Hx��\u001b]�Wٗ��\u0014�\u001d\u001d�\u001bQ�|!-$\u001c��\f�\u00076���!�ht:\u0015nԏ?Ox�G�C �\r�k�����\u0012�O��#�j\"�00�+���;L��\r�)�/���\u0014���f��\u00170����H\u0018A\u0015�_��N�T�\\�VW\u0001f+��H;;�b�8\t%�\u0000�\u0000v���ɇ�a�� y\u0001\n���ƈ^7-f����\u0011%��\u001cP�愲g�A�\u001d^tIP*v�Y\t/��)������/�AS\u0001*{���%<]��P��\u0000=l��kt\u0018O�\u0017���\u0000�\n(!\"��\n\u001c=��6�\u0002,T\u0015�@B;{�`\fTB��\u0010�\u0015P�\u0015\u0003ު��*�P�\u0018�D�\u0014���(��*\u0006��rv1S%`*\u000b�d�@F���\u000f��Q\n\u0015\u0003\u001e��\u0000|6h8���Z\"/��\fH}\u0000mP�_�Ü\u0018a9+��å��l���\u0007���\u0010ҵ~E\b\u0003~\u0016�w�MK\u0015�\u001a?��s������3��W�ӕ\u0001g\u0007��#\n\u0014���<j�\u001b����Y-{-�\u001b��\u0010�\u0019�\r�����O��1\u0007���ˤ\u0005�\u0004�\u0007xC��\u0002\u0007;9�X�;�v��\u0018\u0000�/hj���w��́Xt\b�����V��#�\u000f̗�\u001c�\u0000~����FO��P�b, ws�bxT\u0006\u0015@eT�\u0002h�/��D�#���E}��8O��e\u0001�w>s(\u0012�r\u001c�\u000b�k�\u0013�q�=�\u0017�׸֍\u0005���y2�u�D�(Б\u000b�{�[\u0018\"\u001f@R ��ŗ�r݌P��(�\b%Kj���6|Q�\u00034\u001eC���5=�\u001d�+�\u0013'��'�G�Lm�'���r8�\u0013���t��\r�\u0004�\u001a\u0002ء�\u0018��\u0001�\u0002$���5��\u000f�\u0003!\t��`\u0015���\u0011\u0014�?\\�U��\u0015P�OgȽ�l]�\u001f�q��K��g�Y\u0007X�C\bh��3��0>\u0000�;�r�\u001b�\u000b�G��<��U���l5h�0L$�\u0003�:\u0011V �\u0012\u001e�|�\fZ��B�<��\u0004킊�\u0015\b�b~�KL�G�\r�.8�\u001d�\u001d�=�\u0003?`���\u001f�6�{�A\u0013����\u001cт\u00001M��\u0018�����*�K䲼\u0011�\u001ey\u0006x\u0015�Ӥ�н������\u0019#�KyM>]͟�<�^��\u0004�ݜE�.N�c���T�!�E\u0001\u0013'���+����c\u0010r@\u0007�\u0012\u0016&^���\nI���|�'\b�����\u0019��ϧ�s�n�\u0003:����\b�/_��=v����\u0017�� �d���\u0004w���\u0007�̞�����A�����}:\t�F\u0017��Y\\g�\u001b�v���&�\u001b�5˛�.��x}��>���]���j��\u001dw�q\u0015�\u000bo�6�v֗\u0011\u0000\u0000\u0000\u0000IEND�B`�"
+        }
+      }
+    }
+  },
+  "svelte.config.js": {
+    "file": {
+      "contents": "import adapter from '@sveltejs/adapter-auto';\nimport { vitePreprocess } from '@sveltejs/vite-plugin-svelte';\n\n/** @type {import('@sveltejs/kit').Config} */\nconst config = {\n\t// Consult https://svelte.dev/docs/kit/integrations\n\t// for more information about preprocessors\n\tpreprocess: vitePreprocess(),\n\n\tkit: {\n\t\t// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.\n\t\t// If your environment is not supported, or you settled on a specific environment, switch out the adapter.\n\t\t// See https://svelte.dev/docs/kit/adapters for more information about adapters.\n\t\tadapter: adapter()\n\t}\n};\n\nexport default config;\n"
+    }
+  },
+  "tsconfig.json": {
+    "file": {
+      "contents": "{\n\t\"extends\": \"./.svelte-kit/tsconfig.json\",\n\t\"compilerOptions\": {\n\t\t\"allowJs\": true,\n\t\t\"checkJs\": true,\n\t\t\"esModuleInterop\": true,\n\t\t\"forceConsistentCasingInFileNames\": true,\n\t\t\"resolveJsonModule\": true,\n\t\t\"skipLibCheck\": true,\n\t\t\"sourceMap\": true,\n\t\t\"strict\": true,\n\t\t\"moduleResolution\": \"bundler\"\n\t}\n\t// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias\n\t// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files\n\t//\n\t// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes\n\t// from the referenced tsconfig.json - TypeScript does not merge them in\n}\n"
+    }
+  },
+  "vite.config.ts": {
+    "file": {
+      "contents": "import { sveltekit } from '@sveltejs/kit/vite';\nimport { defineConfig } from 'vite';\n\nexport default defineConfig({\n\tplugins: [sveltekit()]\n});\n"
+    }
+  }
+}
