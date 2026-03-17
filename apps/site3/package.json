@@ -16,6 +16,7 @@
 	"devDependencies": {
 		"@eslint/compat": "^2.0.2",
 		"@eslint/js": "^9.39.2",
+		"@mdit/plugin-snippet": "^0.23.1",
 		"@repo/ui": "workspace:*",
 		"@sveltejs/adapter-vercel": "^6.3.1",
 		"@sveltejs/kit": "^2.50.2",
