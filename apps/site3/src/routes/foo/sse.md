@@ -19,12 +19,10 @@ import B from './how-to-sse/sse-+server.js?raw'
 <<< ./how-to-sse/sse-+server.js [routes/sse/+server.js]
 :::
 
-<SveltelabRepl files={[{contents:A, name:"src/routes/+page.svelte"}]} />
-
-<!-- <SveltelabRepl files={[
+<SveltelabRepl files="{[
 {contents: A ,name:'src/routes/+page.svelte',},
 {contents: B ,name:'src/routes/sse/+server.js',},
-]} /> -->
+]}" />
 
 ## Reference
 
