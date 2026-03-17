@@ -56,6 +56,9 @@ importers:
       '@eslint/js':
         specifier: ^9.39.2
         version: 9.39.4
+      '@mdit/plugin-container':
+        specifier: ^0.23.1
+        version: 0.23.1
       '@mdit/plugin-snippet':
         specifier: ^0.23.1
         version: 0.23.1
@@ -899,6 +902,15 @@ packages:
 
   '@mdit/helper@0.23.1':
     resolution: {integrity: sha512-ifWDG3VbUAx1ia7eBWEHm5vpv5QFUPY3kFLPPZzYBr15A7/d5w7D+8ZBg8xxqkvyC73Ys+zF14EQCq7eQAXYxg==}
+    engines: {node: '>= 20'}
+    peerDependencies:
+      markdown-it: ^14.1.0
+    peerDependenciesMeta:
+      markdown-it:
+        optional: true
+
+  '@mdit/plugin-container@0.23.1':
+    resolution: {integrity: sha512-mHTp4+zvuE6uqhG6honfR6F5wLgAIcLlGVCu8xHIoO6H8Oc23lrjl+8Ieyr+PKLH3Lz0QFQf0fWdwNi44EsYSg==}
     engines: {node: '>= 20'}
     peerDependencies:
       markdown-it: ^14.1.0
@@ -4136,6 +4148,10 @@ snapshots:
       - supports-color
 
   '@mdit/helper@0.23.1':
+    dependencies:
+      '@types/markdown-it': 14.1.2
+
+  '@mdit/plugin-container@0.23.1':
     dependencies:
       '@types/markdown-it': 14.1.2
 
