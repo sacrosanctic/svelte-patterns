@@ -19,6 +19,7 @@
 		"@mdit/plugin-container": "^0.23.1",
 		"@mdit/plugin-snippet": "^0.23.1",
 		"@repo/ui": "workspace:*",
+		"@shikijs/markdown-exit": "^4.0.2",
 		"@sveltejs/adapter-vercel": "^6.3.1",
 		"@sveltejs/kit": "^2.50.2",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",

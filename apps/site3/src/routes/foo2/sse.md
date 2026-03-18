@@ -12,11 +12,11 @@ If you need **real-time updates** — like live notifications, feed updates, or 
 <<< ./how-to-sse/+page.svelte [routes/+page.svelte]
 <<< ./how-to-sse/sse-+server.js [routes/sse/+server.js]
 
-```test.js
+```js
 console.log('asdf')
 ```
 
-```test.js [idk]
+```js [idk.js]
 console.log('idk')
 ```
 

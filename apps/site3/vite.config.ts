@@ -6,6 +6,7 @@ import svelteMd from 'vite-plugin-svelte-md'
 import { snippet } from '@mdit/plugin-snippet'
 import { container } from '@mdit/plugin-container'
 import { join, resolve } from 'node:path'
+import Shiki from '@shikijs/markdown-exit'
 
 const rootPath = resolve(__dirname)
 
@@ -73,6 +74,7 @@ export default defineConfig({
 							const children = tokens.slice(index + 1, endIndex)
 							const items: { name: string; lang?: string; content: string; isImport: boolean }[] =
 								[]
+							console.log(children)
 
 							for (const child of children) {
 								if (child.type !== 'fence') continue
@@ -81,6 +83,7 @@ export default defineConfig({
 								const info = child.info
 
 								if (src) {
+									// Code Snippt: <<<path [name]
 									const parts = src.split(' ')
 									const lastPart = parts.pop()
 
@@ -88,7 +91,8 @@ export default defineConfig({
 										const name = lastPart.slice(1, -1)
 										const path = parts.join(' ')
 										child.meta.src = path // rename the name for snippet plugin parsing
-										const ext = path.split('.').pop()
+										const ext = name.split('.').pop() ?? ''
+										child.info = ext // Fix incorrect info from container plugin
 										items.push({ name, lang: ext, content: path, isImport: true })
 									} else {
 										if (parts.length > 0) {
@@ -98,7 +102,8 @@ export default defineConfig({
 										}
 										const path = src
 										const name = path.split('/').pop()!
-										const ext = path.split('.').pop()
+										const ext = path.split('.').pop() ?? ''
+										child.info = ext
 										items.push({ name, lang: ext, content: path, isImport: true })
 									}
 								} else {
@@ -106,6 +111,7 @@ export default defineConfig({
 									const nameMatch = info.match(/^(.+?)\s+\[([^\]]+)\]$/)
 									if (nameMatch) {
 										const [, lang, name] = nameMatch
+										// child.info = lang
 										items.push({ name, lang, content: child.content, isImport: false })
 									} else {
 										const lang = info
@@ -155,7 +161,15 @@ export default defineConfig({
 							}
 							return filePath
 						},
-					}),
+					})
+					.use(
+						Shiki({
+							themes: {
+								light: 'vitesse-light',
+								dark: 'vitesse-dark',
+							},
+						}),
+					),
 		}),
 		sveltekit(),
 		devtoolsJson(),
