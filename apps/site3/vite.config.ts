@@ -38,6 +38,8 @@ export default defineConfig({
 								if (match) {
 									const [, path, name] = match
 									child.meta.src = path // Clean path for snippet plugin
+									const ext = name.split('.').pop() ?? ''
+									child.info = ext // Fix incorrect info from container plugin
 									tabNames.push(name)
 								} else {
 									// Default: use filename as tab name
@@ -165,9 +167,10 @@ export default defineConfig({
 					.use(
 						Shiki({
 							themes: {
-								light: 'vitesse-light',
-								dark: 'vitesse-dark',
+								light: 'light-plus',
+								dark: 'dark-plus',
 							},
+							defaultColor: 'light-dark()',
 						}),
 					),
 		}),
