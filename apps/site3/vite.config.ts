@@ -28,8 +28,8 @@ export default defineConfig({
 							const children = tokens.slice(index + 1, endIndex)
 							const tabNames: string[] = []
 
-							children.forEach((child) => {
-								if (child.type !== 'fence') return
+							for (const child of children.values()) {
+								if (child.type !== 'fence') continue
 
 								const src = child.meta?.src || ''
 								const match = src.match(/^(.+?)\s+\[([^\]]+)\]$/)
@@ -42,7 +42,7 @@ export default defineConfig({
 									// Default: use filename as tab name
 									tabNames.push(src.split('/').pop())
 								}
-							})
+							}
 
 							// Build tab list HTML
 							const tabsHtml =
@@ -60,6 +60,87 @@ export default defineConfig({
 							return `<div class="code-group">\n${tabsHtml}`
 						},
 						closeRender: () => `</div>\n`,
+					})
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
+					.use(container, {
+						name: 'svelte-repl',
+						openRender: (tokens, index) => {
+							const endIndex = tokens.findIndex(
+								(token) => token.type === 'container_svelte-repl_close',
+							)
+
+							const children = tokens.slice(index + 1, endIndex)
+							const items: { name: string; lang?: string; content: string; isImport: boolean }[] =
+								[]
+
+							for (const child of children) {
+								if (child.type !== 'fence') continue
+
+								const src = child.meta?.src as string
+								const info = child.info
+
+								if (src) {
+									const parts = src.split(' ')
+									const lastPart = parts.pop()
+
+									if (lastPart?.startsWith('[') && lastPart.endsWith(']')) {
+										const name = lastPart.slice(1, -1)
+										const path = parts.join(' ')
+										child.meta.src = path // rename the name for snippet plugin parsing
+										const ext = path.split('.').pop()
+										items.push({ name, lang: ext, content: path, isImport: true })
+									} else {
+										if (parts.length > 0) {
+											throw new Error(
+												`Invalid snippet syntax: "${src}". Expected "path" or "path [name]"`,
+											)
+										}
+										const path = src
+										const name = path.split('/').pop()!
+										const ext = path.split('.').pop()
+										items.push({ name, lang: ext, content: path, isImport: true })
+									}
+								} else {
+									// Code fence: ```lang [name] content
+									const nameMatch = info.match(/^(.+?)\s+\[([^\]]+)\]$/)
+									if (nameMatch) {
+										const [, lang, name] = nameMatch
+										items.push({ name, lang, content: child.content, isImport: false })
+									} else {
+										const lang = info
+										const name = `file${items.length + 1}` // double check what vitepress does with no name
+										items.push({ name, lang, content: child.content, isImport: false })
+									}
+								}
+							}
+
+							// Generate imports
+							const imports: string[] = []
+							const files: string[] = []
+							let importCounter = 0
+
+							for (const item of items) {
+								if (item.isImport) {
+									const importName = `import_${importCounter++}`
+									imports.push(`import ${importName} from '${item.content}?raw'`)
+									files.push(`{contents: ${importName},name:'${item.name}',lang:'${item.lang}'}`)
+								} else {
+									files.push(
+										`{contents: ${JSON.stringify(item.content)},name:'${item.name}',lang:'${item.lang}'}`,
+									)
+								}
+							}
+
+							return `
+<script>
+	import { SvelteRepl } from '@repo/ui'
+	${imports.join('\n	')}
+</script>
+<SvelteRepl files="{[${files.join(',')}]}" />
+`
+						},
+						closeRender: () => '',
 					})
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
 					// type incompatibility with markdown-it and markdown-exit
