@@ -1,22 +1,26 @@
-import prettier from 'eslint-config-prettier'
 import path from 'node:path'
+
+import svelteConfig from './svelte.config.js'
+
 import { includeIgnoreFile } from '@eslint/compat'
 import js from '@eslint/js'
+import prettier from 'eslint-config-prettier'
+import perfectionist from 'eslint-plugin-perfectionist'
 import svelte from 'eslint-plugin-svelte'
 import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 import ts from 'typescript-eslint'
-import svelteConfig from './svelte.config.js'
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore')
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
 	js.configs.recommended,
-	...ts.configs.recommended,
-	...svelte.configs.recommended,
+	ts.configs.recommended,
+	svelte.configs.recommended,
 	prettier,
-	...svelte.configs.prettier,
+	svelte.configs.prettier,
+	perfectionist.configs['recommended-natural'],
 	{
 		languageOptions: { globals: { ...globals.browser, ...globals.node } },
 		rules: {
@@ -29,11 +33,38 @@ export default defineConfig(
 		files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
 		languageOptions: {
 			parserOptions: {
-				projectService: true,
 				extraFileExtensions: ['.svelte'],
 				parser: ts.parser,
+				projectService: true,
 				svelteConfig,
+				tsconfigRootDir: import.meta.dirname,
 			},
+		},
+	},
+	{
+		rules: {
+			'perfectionist/sort-imports': [
+				'error',
+				{
+					customGroups: [
+						{
+							elementNamePattern: ['^svelte$', '^sveltejs/.+', '^\\$app.+'],
+							groupName: 'svelte',
+						},
+					],
+					groups: [
+						['type-import', 'type-internal', 'type-parent', 'type-sibling', 'type-index'],
+						'value-builtin',
+						'svelte',
+						'value-internal',
+						['value-parent', 'value-sibling', 'value-index'],
+						'value-external',
+						'ts-equals-import',
+						'unknown',
+					],
+					internalPattern: ['^\\$lib/.+', '^@repo/.+'],
+				},
+			],
 		},
 	},
 )

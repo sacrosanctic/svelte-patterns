@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { twMerge, type ClassNameValue } from 'tailwind-merge'
+	import { type ClassNameValue, twMerge } from 'tailwind-merge'
 
 	let {
-		data,
 		class: className,
+		data,
 	}: {
 		class: ClassNameValue
 		data: string[]

@@ -1,9 +1,19 @@
 <script lang="ts">
-	import './layout.css'
+	import { onMount } from 'svelte'
+
+	import { useCopyCode } from '@repo/markdown-it-copy-code/useCopyCode'
 	import favicon from '$lib/assets/favicon.svg'
+
 	import { ModeWatcher } from 'mode-watcher'
 
+	import './layout.css'
+
 	let { children } = $props()
+
+	onMount(() => {
+		const cleanup = useCopyCode()
+		return cleanup
+	})
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>

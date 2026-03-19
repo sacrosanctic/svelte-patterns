@@ -7,7 +7,6 @@ import { snippet } from '@mdit/plugin-snippet'
 import { container } from '@mdit/plugin-container'
 import { join, resolve } from 'node:path'
 import Shiki from '@shikijs/markdown-exit'
-import MarkdownItCopyCode from 'markdown-it-copy-code'
 
 const rootPath = resolve(__dirname)
 
@@ -186,8 +185,7 @@ export default defineConfig({
 							},
 							defaultColor: 'light-dark()',
 						}),
-					)
-					.use(MarkdownItCopyCode),
+					),
 		}),
 		sveltekit(),
 		devtoolsJson(),
