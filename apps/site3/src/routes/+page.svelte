@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { SvelteRepl, SveltelabRepl } from '@repo/ui'
+	import { SveltelabRepl, SvelteRepl } from '@repo/ui'
+
 	import appFile from './App.svelte?raw'
 	import counterFile from './Counter.svelte?raw'
 	import Test from './test.md'
-	import { resolve } from '$app/paths'
 
 	const svelteFiles = [
 		{ name: 'App.svelte', contents: appFile },
@@ -25,5 +25,3 @@
 <SveltelabRepl files={sveltelabFiles} />
 
 <Test />
-
-<a href={resolve('/foo')}>foo</a>

@@ -20,7 +20,7 @@ export default defineConfig(
 	svelte.configs.recommended,
 	prettier,
 	svelte.configs.prettier,
-	perfectionist.configs['recommended-natural'],
+
 	{
 		languageOptions: { globals: { ...globals.browser, ...globals.node } },
 		rules: {
@@ -29,6 +29,7 @@ export default defineConfig(
 			'no-undef': 'off',
 		},
 	},
+
 	{
 		files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
 		languageOptions: {
@@ -41,7 +42,10 @@ export default defineConfig(
 			},
 		},
 	},
+
 	{
+		extends: [perfectionist.configs['recommended-natural']],
+		ignores: ['src/routes/test/**'],
 		rules: {
 			'perfectionist/sort-imports': [
 				'error',
@@ -63,6 +67,16 @@ export default defineConfig(
 						'unknown',
 					],
 					internalPattern: ['^\\$lib/.+', '^@repo/.+'],
+				},
+			],
+			'perfectionist/sort-objects': [
+				'error',
+				{
+					customGroups: [
+						{ elementNamePattern: '^id$', groupName: 'id' },
+						{ elementNamePattern: '^name$', groupName: 'name' },
+					],
+					groups: ['id', 'name'],
 				},
 			],
 		},

@@ -1,12 +1,13 @@
-import devtoolsJson from 'vite-plugin-devtools-json'
-import tailwindcss from '@tailwindcss/vite'
-import { sveltekit } from '@sveltejs/kit/vite'
-import { defineConfig } from 'vite'
-import svelteMd from 'vite-plugin-svelte-md'
-import { snippet } from '@mdit/plugin-snippet'
-import { container } from '@mdit/plugin-container'
 import { join, resolve } from 'node:path'
+
+import { container } from '@mdit/plugin-container'
+import { snippet } from '@mdit/plugin-snippet'
 import Shiki from '@shikijs/markdown-exit'
+import { sveltekit } from '@sveltejs/kit/vite'
+import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vite'
+import devtoolsJson from 'vite-plugin-devtools-json'
+import svelteMd from 'vite-plugin-svelte-md'
 
 const rootPath = resolve(__dirname)
 
@@ -14,7 +15,6 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		svelteMd({
-			wrapperClasses: 'contents',
 			markdownItOptions: {},
 			use: (md) =>
 				md
@@ -22,6 +22,7 @@ export default defineConfig({
 					// type incompatibility with markdown-it and markdown-exit
 					.use(container, {
 						name: 'code-group',
+						closeRender: () => `</div>\n`,
 						openRender: (tokens, index) => {
 							const endIndex = tokens.findIndex(
 								(token) => token.type === 'container_code-group_close',
@@ -63,12 +64,12 @@ export default defineConfig({
 
 							return `<div class="code-group">\n${tabsHtml}`
 						},
-						closeRender: () => `</div>\n`,
 					})
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
 					// type incompatibility with markdown-it and markdown-exit
 					.use(container, {
 						name: 'svelte-repl',
+						closeRender: () => '</div></div>',
 						openRender: (tokens, index) => {
 							const endIndex = tokens.findIndex(
 								(token) => token.type === 'container_svelte-repl_close',
@@ -76,10 +77,10 @@ export default defineConfig({
 
 							const children = tokens.slice(index + 1, endIndex)
 							const items: {
-								name: string
-								lang?: string
 								content: string
 								isImport: boolean
+								lang?: string
+								name: string
 							}[] = []
 
 							for (const child of children) {
@@ -99,7 +100,7 @@ export default defineConfig({
 										child.meta.src = path // rename the name for snippet plugin parsing
 										const ext = name.split('.').pop() ?? ''
 										child.info = ext // Fix incorrect info from container plugin
-										items.push({ name, lang: ext, content: path, isImport: true })
+										items.push({ name, content: path, isImport: true, lang: ext })
 									} else {
 										if (parts.length > 0) {
 											throw new Error(
@@ -110,7 +111,7 @@ export default defineConfig({
 										const name = path.split('/').pop()!
 										const ext = path.split('.').pop() ?? ''
 										child.info = ext
-										items.push({ name, lang: ext, content: path, isImport: true })
+										items.push({ name, content: path, isImport: true, lang: ext })
 									}
 								} else {
 									// Code fence: ```lang [name] content
@@ -118,11 +119,11 @@ export default defineConfig({
 									if (nameMatch) {
 										const [, lang, name] = nameMatch
 										// child.info = lang
-										items.push({ name, lang, content: child.content, isImport: false })
+										items.push({ name, content: child.content, isImport: false, lang })
 									} else {
 										const lang = info
 										const name = `file${items.length + 1}` // double check what vitepress does with no name
-										items.push({ name, lang, content: child.content, isImport: false })
+										items.push({ name, content: child.content, isImport: false, lang })
 									}
 								}
 							}
@@ -161,7 +162,6 @@ export default defineConfig({
 	<div>
 `
 						},
-						closeRender: () => '</div></div>',
 					})
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
 					// type incompatibility with markdown-it and markdown-exit
@@ -179,13 +179,14 @@ export default defineConfig({
 					})
 					.use(
 						Shiki({
-							themes: {
-								light: 'light-plus',
-								dark: 'dark-plus',
-							},
 							defaultColor: 'light-dark()',
+							themes: {
+								dark: 'dark-plus',
+								light: 'light-plus',
+							},
 						}),
 					),
+			wrapperClasses: 'contents',
 		}),
 		sveltekit(),
 		devtoolsJson(),

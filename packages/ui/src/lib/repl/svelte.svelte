@@ -1,6 +1,4 @@
 <script lang="ts" module>
-	import type { Repl } from './types.js'
-
 	// https://github.com/sveltejs/svelte.dev/blob/3bc1aca0060f114684f351c18d0e3c62adfd3807/apps/svelte.dev/src/routes/(authed)/playground/%5Bid%5D/gzip.js#L1-L17
 
 	const compress_and_encode_text = async (input: string): Promise<string> => {
@@ -39,22 +37,32 @@
 
 <script lang="ts">
 	import type { ClassValue } from 'svelte/elements'
+	import type { Repl } from './types.js'
+	import type { Snippet } from 'svelte'
 
 	let {
-		value = 'playground',
+		children,
 		class: className,
 		...rest
-	}: Repl & { value: string; class: ClassValue } = $props()
+	}: Repl & { children?: Snippet; class?: ClassValue } = $props()
 </script>
+
+{#snippet value()}
+	{#if children}
+		{@render children()}
+	{:else}
+		playground
+	{/if}
+{/snippet}
 
 <span class={className}>
 	{#await createHash(rest)}
-		{value}
+		{@render value()}
 	{:then result}
 		<a
 			target="_blank"
 			rel="noopener noreferrer"
-			href="https://svelte.dev/playground/hello-world#{result}">{value}</a
+			href="https://svelte.dev/playground/hello-world#{result}">{@render value()}</a
 		>
 	{/await}
 </span>
