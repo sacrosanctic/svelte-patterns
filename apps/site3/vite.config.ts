@@ -7,6 +7,7 @@ import { snippet } from '@mdit/plugin-snippet'
 import { container } from '@mdit/plugin-container'
 import { join, resolve } from 'node:path'
 import Shiki from '@shikijs/markdown-exit'
+import MarkdownItCopyCode from 'markdown-it-copy-code'
 
 const rootPath = resolve(__dirname)
 
@@ -14,6 +15,7 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		svelteMd({
+			wrapperClasses: 'contents',
 			markdownItOptions: {},
 			use: (md) =>
 				md
@@ -74,9 +76,12 @@ export default defineConfig({
 							)
 
 							const children = tokens.slice(index + 1, endIndex)
-							const items: { name: string; lang?: string; content: string; isImport: boolean }[] =
-								[]
-							console.log(children)
+							const items: {
+								name: string
+								lang?: string
+								content: string
+								isImport: boolean
+							}[] = []
 
 							for (const child of children) {
 								if (child.type !== 'fence') continue
@@ -140,15 +145,24 @@ export default defineConfig({
 								}
 							}
 
+							const tabNames = items.map((item) => item.name)
+
 							return `
 <script>
 	import { SvelteRepl } from '@repo/ui'
+	import Tabs from '$lib/tabs.svelte'
 	${imports.join('\n	')}
 </script>
-<SvelteRepl files="{[${files.join(',')}]}" />
+<div class="code-group">
+	<div class="flex items-center px-2">
+		<Tabs class="flex overflow-x-auto p-px" data="{${JSON.stringify(tabNames)}}" />
+		<div class="mx-auto w-0"></div>
+		<SvelteRepl class="capitalize" files="{[${files.join(',')}]}" />
+	</div>
+	<div>
 `
 						},
-						closeRender: () => '',
+						closeRender: () => '</div></div>',
 					})
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
 					// type incompatibility with markdown-it and markdown-exit
@@ -172,7 +186,8 @@ export default defineConfig({
 							},
 							defaultColor: 'light-dark()',
 						}),
-					),
+					)
+					.use(MarkdownItCopyCode),
 		}),
 		sveltekit(),
 		devtoolsJson(),

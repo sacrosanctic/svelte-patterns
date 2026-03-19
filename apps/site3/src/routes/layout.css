@@ -1,3 +1,35 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+html {
+	overflow-y: scroll;
+}
+
+pre.shiki {
+	margin-top: 0;
+}
+
+pre.shiki[data-active] {
+	display: block;
+}
+
+code {
+	counter-reset: step;
+	counter-increment: step 0;
+}
+
+code .line::before {
+	content: counter(step);
+	counter-increment: step;
+	width: 1rem;
+	margin-right: 1.5rem;
+	display: inline-block;
+	text-align: right;
+	color: rgba(115, 138, 148, 0.4);
+}
+
+pre code {
+	font-size: 14px; /* Example customization */
+	line-height: 1.5;
+}

@@ -38,15 +38,23 @@
 </script>
 
 <script lang="ts">
-	let props: Repl = $props()
+	import type { ClassValue } from 'svelte/elements'
+
+	let {
+		value = 'playground',
+		class: className,
+		...rest
+	}: Repl & { value: string; class: ClassValue } = $props()
 </script>
 
-{#await createHash(props)}
-	Svelte Playground
-{:then result}
-	<a
-		target="_blank"
-		rel="noopener noreferrer"
-		href="https://svelte.dev/playground/hello-world#{result}">Svelte Playground</a
-	>
-{/await}
+<span class={className}>
+	{#await createHash(rest)}
+		{value}
+	{:then result}
+		<a
+			target="_blank"
+			rel="noopener noreferrer"
+			href="https://svelte.dev/playground/hello-world#{result}">{value}</a
+		>
+	{/await}
+</span>

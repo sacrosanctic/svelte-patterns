@@ -32,7 +32,8 @@
 		}
 	},
 	"peerDependencies": {
-		"svelte": "^5.0.0"
+		"svelte": "^5.0.0",
+		"tailwind-merge": "^3.5.0"
 	},
 	"dependencies": {
 		"lz-string": "^1.5.0"
