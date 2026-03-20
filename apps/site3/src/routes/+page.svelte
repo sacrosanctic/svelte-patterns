@@ -7,9 +7,9 @@
 <pre>{JSON.stringify(data, null, 2)}</pre>
 
 <ul class="flex flex-col">
-	{#each Object.entries(data.contentMap) as [slug, { name, frontmatter }] (slug)}
+	{#each data.items as { slug, title } (slug)}
 		<li>
-			<a href={resolve('/[slug]', { slug })}>{frontmatter?.title ?? name}</a>
+			<a href={resolve('/[...slug]', { slug })}>{title}</a>
 		</li>
 	{/each}
 </ul>

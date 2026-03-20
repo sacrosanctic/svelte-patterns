@@ -3,13 +3,13 @@ import type { Component } from 'svelte'
 import { defineErrors, extractErrorMessage, type InferErrors } from 'wellcrafted/error'
 import { Ok, type Result } from 'wellcrafted/result'
 
+export type RawMd = { default: Component; frontmatter: Record<string, unknown> & { title: string } }
+
 type Md = {
 	name: string
 	component: Component
 	frontmatter: Record<string, unknown>
 }
-
-type RawMd = { default: Component; frontmatter: Record<string, unknown> }
 
 const AppError = defineErrors({
 	DocNotFound: ({ path }: { path: string }) => ({
@@ -54,9 +54,11 @@ const modules = Object.entries(rawModules).reduce(
 export const getDoc = (slug: string): Result<Md, AppError> => {
 	try {
 		const module = Object.entries(modules).find(([path]) => {
-			const currentSlug = path.replace('/src/content/', '').replace('.md', '')
-			const possiblematches = [`${slug}/index`, slug]
-			return possiblematches.includes(currentSlug)
+			const currentSlug = path
+				.replace(/^\/src\/content\//, '')
+				.replace(/\.md$/, '')
+				.replace(/\/index$/, '')
+			return slug === currentSlug
 		})
 
 		if (!module) return AppError.DocNotFound({ path: slug })
