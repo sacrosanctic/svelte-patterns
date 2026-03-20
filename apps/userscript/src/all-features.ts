@@ -1,0 +1,46 @@
+// import * as betterVersions from './features/better-versions.ts'
+// import * as dimMode from './features/dim-mode.ts'
+// import * as fixIssuePrCount from './features/fix-issue-pr-count.ts'
+// import * as fixStyles from './features/fix-styles.ts'
+// import * as helpfulLinks from './features/helpful-links.ts'
+// import * as moveFunding from './features/move-funding.ts'
+// import * as noCodeBeta from './features/no-code-beta.ts'
+// import * as npmCreate from './features/npm-create.ts'
+// import * as rememberBanner from './features/remember-banner.ts'
+// import * as removeRunkit from './features/remove-runkit.ts'
+import * as sveltePatternsLink from './features/svelte-patterns-link.ts'
+// import * as tarballSize from './features/tarball-size.ts'
+
+export interface FeatureModule {
+	/**
+	 * Whether this feature is disabled by default
+	 */
+	disabled?: boolean
+	/**
+	 * What this feature does
+	 */
+	description: string
+	/**
+	 * Run as soon as possible on document load. Some elements may not be rendered yet.
+	 */
+	runPre?: () => void | Promise<void>
+	/**
+	 * Run when the page is ready and hydrated.
+	 */
+	run?: () => void | Promise<void>
+}
+
+export const allFeatures: Record<string, FeatureModule> = {
+	// 'better-versions': betterVersions,
+	// 'dim-mode': dimMode,
+	// 'fix-issue-pr-count': fixIssuePrCount,
+	// 'fix-styles': fixStyles,
+	// 'helpful-links': helpfulLinks,
+	// 'move-funding': moveFunding,
+	// 'no-code-beta': noCodeBeta,
+	// 'npm-create': npmCreate,
+	// 'remember-banner': rememberBanner,
+	// 'remove-runkit': removeRunkit,
+	'svelte-patterns-link': sveltePatternsLink,
+	// 'tarball-size': tarballSize,
+}
