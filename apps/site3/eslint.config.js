@@ -5,6 +5,7 @@ import svelteConfig from './svelte.config.js'
 import { includeIgnoreFile } from '@eslint/compat'
 import js from '@eslint/js'
 import prettier from 'eslint-config-prettier'
+import json from 'eslint-plugin-jsonc'
 import perfectionist from 'eslint-plugin-perfectionist'
 import svelte from 'eslint-plugin-svelte'
 import { defineConfig } from 'eslint/config'
@@ -20,6 +21,10 @@ export default defineConfig(
 	svelte.configs.recommended,
 	prettier,
 	svelte.configs.prettier,
+	json.configs['recommended-with-jsonc'],
+	json.configs['recommended-with-json'],
+	json.configs['recommended-with-json5'],
+	json.configs['prettier'],
 
 	{
 		languageOptions: { globals: { ...globals.browser, ...globals.node } },
@@ -40,6 +45,71 @@ export default defineConfig(
 				svelteConfig,
 				tsconfigRootDir: import.meta.dirname,
 			},
+		},
+	},
+
+	{
+		rules: {
+			'jsonc/sort-keys': ['error', { order: { natural: true }, pathPattern: '.*' }],
+		},
+	},
+
+	// custom ordering for package.json
+	{
+		files: ['**/package.json'],
+		rules: {
+			'jsonc/sort-keys': [
+				'error',
+				{
+					order: [
+						'name',
+						'version',
+						'type',
+						'private',
+						'scripts',
+						'engines',
+						'packageManager',
+						'exports',
+						'files',
+						'sideEffects',
+						'dependencies',
+						'devDependencies',
+						'peerDependencies',
+						'optionalDependencies',
+						'bundledDependencies',
+						'author',
+						'contributors',
+						'license',
+						'repository',
+						'bugs',
+						'homepage',
+						'keywords',
+						{ order: { natural: true } },
+					],
+					pathPattern: '^$',
+				},
+			],
+		},
+	},
+	// custom ordering for tsconfig
+	{
+		files: ['**/tsconfig.json'],
+		rules: {
+			'jsonc/sort-keys': [
+				'error',
+				{
+					order: ['extends', { order: { natural: true } }],
+					pathPattern: '^$',
+				},
+			],
+		},
+	},
+
+	// exception for tsconfig.json
+	{
+		files: ['**/tsconfig.json'],
+		rules: {
+			'jsonc/no-comments': 'off',
 		},
 	},
 

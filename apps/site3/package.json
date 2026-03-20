@@ -1,17 +1,17 @@
 {
 	"name": "site3",
-	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"private": true,
 	"scripts": {
-		"dev": "vite dev",
 		"build": "vite build",
-		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"dev": "vite dev",
+		"format": "prettier --write . && eslint . --fix",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write . && eslint . --fix"
+		"prepare": "svelte-kit sync || echo ''",
+		"preview": "vite preview"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.2",
@@ -27,9 +27,9 @@
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.1.18",
 		"@types/node": "^22",
-		"empathic": "^2.0.0",
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-jsonc": "3.1.2",
 		"eslint-plugin-perfectionist": "^5.7.0",
 		"eslint-plugin-svelte": "^3.14.0",
 		"globals": "^17.3.0",

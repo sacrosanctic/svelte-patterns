@@ -1,0 +1,20 @@
+{
+	"$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
+	"tags": ["-lintignore"],
+	"workspaces": {
+		".": {},
+
+		"apps/site3": {
+			"entry": [
+				// part of dynamic code generation and cannot be statically analyzed
+				"src/lib/tabs.svelte",
+			],
+		},
+	},
+	// part of dynamic code generation and cannot be statically analyzed
+	// and theres no entrypoint so have to be ignored
+	"ignoreDependencies": ["@repo/ui"],
+	"svelte": {
+		"entry": ["svelte.config.js", "vite.config.{js,mjs,ts,cjs,mts,cts}"],
+	},
+}
