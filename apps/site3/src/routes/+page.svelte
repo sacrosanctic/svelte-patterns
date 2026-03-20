@@ -1,27 +1,15 @@
 <script lang="ts">
-	import { SveltelabRepl, SvelteRepl } from '@repo/ui'
+	import { resolve } from '$app/paths'
 
-	import appFile from './App.svelte?raw'
-	import counterFile from './Counter.svelte?raw'
-	import Test from './test.md'
-
-	const svelteFiles = [
-		{ name: 'App.svelte', contents: appFile },
-		{ name: 'Counter.svelte', contents: counterFile },
-	]
-
-	const sveltelabFiles = [
-		{ name: 'src/routes/+page.svelte', contents: appFile },
-		{ name: 'src/routes/Counter.svelte', contents: counterFile },
-	]
+	let { data } = $props()
 </script>
 
-<h1>REPL Demos</h1>
+<pre>{JSON.stringify(data, null, 2)}</pre>
 
-<h2>Svelte.dev Playground</h2>
-<SvelteRepl name="test" files={svelteFiles} />
-
-<h2>Sveltelab Playground</h2>
-<SveltelabRepl files={sveltelabFiles} />
-
-<Test />
+<ul class="flex flex-col">
+	{#each Object.entries(data.contentMap) as [slug, { name, frontmatter }] (slug)}
+		<li>
+			<a href={resolve('/[slug]', { slug })}>{frontmatter?.title ?? name}</a>
+		</li>
+	{/each}
+</ul>

@@ -1,5 +1,5 @@
 <script>
-	import Counter from './Counter.svelte'
+	import Counter from '../lib/content/sam/Counter.svelte'
 </script>
 
 <Counter />

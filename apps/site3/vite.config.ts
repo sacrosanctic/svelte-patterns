@@ -5,6 +5,7 @@ import { snippet } from '@mdit/plugin-snippet'
 import Shiki from '@shikijs/markdown-exit'
 import { sveltekit } from '@sveltejs/kit/vite'
 import tailwindcss from '@tailwindcss/vite'
+import markdownItAnchor from 'markdown-it-anchor'
 import { defineConfig } from 'vite'
 import devtoolsJson from 'vite-plugin-devtools-json'
 import svelteMd from 'vite-plugin-svelte-md'
@@ -65,6 +66,7 @@ export default defineConfig({
 							return `<div class="code-group">\n${tabsHtml}`
 						},
 					})
+
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
 					// type incompatibility with markdown-it and markdown-exit
 					.use(container, {
@@ -163,6 +165,7 @@ export default defineConfig({
 `
 						},
 					})
+
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
 					// type incompatibility with markdown-it and markdown-exit
 					.use(snippet, {
@@ -185,7 +188,17 @@ export default defineConfig({
 								light: 'light-plus',
 							},
 						}),
-					),
+					)
+
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
+					.use(markdownItAnchor, {
+						permalink: markdownItAnchor.permalink.linkInsideHeader({
+							class: 'header-anchor',
+							placement: 'before',
+							symbol: '#',
+						}),
+					}),
 			wrapperClasses: 'contents',
 		}),
 		sveltekit(),

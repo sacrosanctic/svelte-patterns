@@ -1,5 +1,5 @@
+import { contentMap } from '$lib/content'
+
 export const load = () => {
-	return {
-		list:
-	}
+	return { contentMap }
 }

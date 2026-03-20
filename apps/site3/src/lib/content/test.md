@@ -1,7 +1,3 @@
----
-title: Markdown to Svelte
----
-
 # Convert Markdown to Svelte Component
 
 - List
@@ -9,8 +5,8 @@ title: Markdown to Svelte
 - List
 
 <script>
-    import MyComponent from './MyComponent.svelte'
-		import Counter from './Counter.svelte'
+    import MyComponent from './sam/MyComponent.svelte'
+		import Counter from './sam/Counter.svelte'
 </script>
 
 <MyComponent>You can use Svelte components in Markdown</MyComponent>
