@@ -86,7 +86,7 @@ export default defineConfig(
 						'keywords',
 						{ order: { natural: true } },
 					],
-					pathPattern: '^$',
+					pathPattern: '.*',
 				},
 			],
 		},

@@ -4,3 +4,51 @@ packages:
 onlyBuiltDependencies:
   - esbuild
   - '@tailwindcss/oxide'
+
+catalogs:
+  svelte:
+    svelte: '^5.51.0'
+    '@sveltejs/kit': '^2.50.2'
+    '@sveltejs/adapter-vercel': '^6.3.1'
+    '@sveltejs/vite-plugin-svelte': '^6.2.4'
+    svelte-check: '^4.4.2'
+
+  tailwind:
+    tailwindcss: '^4.1.18'
+    '@tailwindcss/vite': '^4.1.18'
+    '@tailwindcss/forms': '^0.5.11'
+    '@tailwindcss/typography': '^0.5.19'
+    tailwind-merge: '^3.5.0'
+
+  build:
+    vite: '^7.3.1'
+
+  md:
+    vite-plugin-svelte-md: '^0.4.1'
+    '@mdit/plugin-container': '^0.23.1'
+    '@mdit/plugin-snippet': '^0.23.1'
+    '@shikijs/markdown-exit': '^4.0.2'
+    markdown-it-anchor: '^9.2.0'
+
+  lint:
+    eslint: '^9.39.2'
+    '@eslint/js': '^9.39.2'
+    '@eslint/compat': '^2.0.2'
+    eslint-plugin-svelte: '^3.14.0'
+    eslint-plugin-jsonc: '3.1.2'
+    eslint-plugin-perfectionist: '^5.7.0'
+    eslint-config-prettier: '^10.1.8'
+    typescript-eslint: '^8.54.0'
+    prettier: '^3.8.1'
+    prettier-plugin-svelte: '^3.4.1'
+    prettier-plugin-tailwindcss: '^0.7.2'
+
+  types:
+    typescript: '^5.9.3'
+    '@types/node': '^22'
+    globals: '^17.3.0'
+
+  util:
+    mode-watcher: '^1.1.0'
+    vite-plugin-devtools-json: '^1.0.0'
+    wellcrafted: '0.34.1'
