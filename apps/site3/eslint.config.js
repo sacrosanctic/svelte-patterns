@@ -69,6 +69,16 @@ export default defineConfig(
 					internalPattern: ['^\\$lib/.+', '^@repo/.+'],
 				},
 			],
+			'perfectionist/sort-object-types': [
+				'error',
+				{
+					customGroups: [
+						{ elementNamePattern: '^id$', groupName: 'id' },
+						{ elementNamePattern: '^name$', groupName: 'name' },
+					],
+					groups: ['id', 'name'],
+				},
+			],
 			'perfectionist/sort-objects': [
 				'error',
 				{

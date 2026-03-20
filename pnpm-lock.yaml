@@ -375,6 +375,9 @@ importers:
       vite-plugin-svelte-md:
         specifier: ^0.4.1
         version: 0.4.1(vite@7.3.1(@types/node@22.10.5)(jiti@2.6.1)(lightningcss@1.31.1)(yaml@2.8.2))
+      wellcrafted:
+        specifier: 0.34.1
+        version: 0.34.1
 
   apps/userscript:
     dependencies:
@@ -4748,6 +4751,9 @@ packages:
 
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
+
+  wellcrafted@0.34.1:
+    resolution: {integrity: sha512-oOWFgrf44JC9mEWMGjkocfY/OfSE+TJeZpbxiOJFdiYUVe/4Z8rJrgXq4bMCPCtc90GTN5st2T5ILPOwabYrkQ==}
 
   whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
@@ -9327,6 +9333,8 @@ snapshots:
   webidl-conversions@3.0.1: {}
 
   webpack-virtual-modules@0.6.2: {}
+
+  wellcrafted@0.34.1: {}
 
   whatwg-url@5.0.0:
     dependencies:
