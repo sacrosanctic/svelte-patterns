@@ -79,10 +79,10 @@ export default defineConfig({
 
 							const children = tokens.slice(index + 1, endIndex)
 							const items: {
+								name: string
 								content: string
 								isImport: boolean
 								lang?: string
-								name: string
 							}[] = []
 
 							for (const child of children) {

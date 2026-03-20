@@ -1,0 +1,10 @@
+{
+	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"tags": ["-lintignore"],
+	"workspaces": {
+		".": {}
+	},
+	"svelte": {
+		"entry": ["svelte.config.js", "vite.config.{js,mjs,ts,cjs,mts,cts}"]
+	}
+}
