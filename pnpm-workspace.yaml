@@ -38,6 +38,7 @@ catalogs:
     eslint-plugin-jsonc: '3.1.2'
     eslint-plugin-perfectionist: '^5.7.0'
     eslint-config-prettier: '^10.1.8'
+    knip: ^6.0.1
     typescript-eslint: '^8.54.0'
     prettier: '^3.8.1'
     prettier-plugin-svelte: '^3.4.1'
@@ -52,3 +53,6 @@ catalogs:
     mode-watcher: '^1.1.0'
     vite-plugin-devtools-json: '^1.0.0'
     wellcrafted: '0.34.1'
+  script:
+    ansis: ^4.2.0
+    commander: ^14.0.3

@@ -2,7 +2,7 @@ import { Command } from 'commander'
 import * as readline from 'readline'
 import * as fs from 'fs'
 import * as path from 'path'
-import chalk from 'chalk' // Importing chalk for styling
+import ansis from 'ansis'
 
 const savePath = 'docs/unpublished'
 const program = new Command()
@@ -57,7 +57,7 @@ program
 	.action(async () => {
 		const fileName = await prompt('Enter the name of the markdown file: ')
 		if (!fileName) {
-			console.error(chalk.red('File name cannot be empty.'))
+			console.error(ansis.red('File name cannot be empty.'))
 			process.exit(1)
 		}
 
@@ -74,7 +74,7 @@ program
 
 		// Check if the file already exists
 		if (fs.existsSync(markdownFilePath)) {
-			console.error(chalk.red(`Error: The file "${markdownFilePath}" already exists.`))
+			console.error(ansis.red(`Error: The file "${markdownFilePath}" already exists.`))
 			process.exit(1)
 		}
 
@@ -86,9 +86,9 @@ program
 
 		try {
 			fs.writeFileSync(markdownFilePath, markdownContent, 'utf8')
-			console.log(chalk.green(`Markdown file created: ${markdownFilePath}`))
+			console.log(ansis.green(`Markdown file created: ${markdownFilePath}`))
 		} catch (err) {
-			console.error(chalk.red('Error creating markdown file:', err))
+			console.error(ansis.red(`Error creating markdown file: ${err}`))
 		}
 	})
 

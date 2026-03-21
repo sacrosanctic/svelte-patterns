@@ -1,18 +1,25 @@
 {
-	"name": "svelte-patterns",
-	"type": "module",
-	"scripts": {
-		"new": "pnpm dlx jiti ./scripts/new-markdown.ts",
-		"knip": "knip",
-		"knip-fix": "knip --fix"
-	},
-	"devDependencies": {
-		"@types/node": "^22.10.5",
-		"chalk": "^5.4.1",
-		"commander": "^13.0.0",
-		"knip": "^6.0.0",
-		"prettier": "^3.4.2",
-		"typescript": "^5.9.3"
-	},
-	"packageManager": "pnpm@10.26.0+sha512.3b3f6c725ebe712506c0ab1ad4133cf86b1f4b687effce62a9b38b4d72e3954242e643190fc51fa1642949c735f403debd44f5cb0edd657abe63a8b6a7e1e402"
+  "name": "svelte-patterns",
+  "type": "module",
+  "scripts": {
+    "new": "pnpm dlx jiti ./scripts/new-markdown.ts",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write . && eslint . --fix",
+    "knip": "knip",
+    "knip-fix": "knip --fix"
+  },
+  "devDependencies": {
+    "@eslint/compat": "catalog:lint",
+    "@eslint/js": "catalog:lint",
+    "@types/node": "catalog:types",
+    "ansis": "catalog:script",
+    "commander": "catalog:script",
+    "eslint": "catalog:lint",
+    "eslint-config-prettier": "catalog:lint",
+    "globals": "catalog:types",
+    "knip": "catalog:lint",
+    "prettier": "catalog:lint",
+    "typescript": "catalog:types"
+  },
+  "packageManager": "pnpm@10.26.0+sha512.3b3f6c725ebe712506c0ab1ad4133cf86b1f4b687effce62a9b38b4d72e3954242e643190fc51fa1642949c735f403debd44f5cb0edd657abe63a8b6a7e1e402"
 }

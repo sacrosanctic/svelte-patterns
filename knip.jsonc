@@ -2,7 +2,9 @@
 	"$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
 	"tags": ["-lintignore"],
 	"workspaces": {
-		".": {},
+		".": {
+			"entry": ["scripts/**"],
+		},
 
 		"apps/site3": {
 			"entry": [
