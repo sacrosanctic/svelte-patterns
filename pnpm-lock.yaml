@@ -62,6 +62,10 @@ catalogs:
     vite-plugin-svelte-md:
       specifier: ^0.4.1
       version: 0.4.1
+  other:
+    flexsearch:
+      specifier: ^0.8.212
+      version: 0.8.212
   script:
     ansis:
       specifier: ^4.2.0
@@ -469,6 +473,9 @@ importers:
       eslint-plugin-svelte:
         specifier: catalog:lint
         version: 3.15.2(eslint@9.39.4(jiti@2.6.1))(svelte@5.53.11)
+      flexsearch:
+        specifier: catalog:other
+        version: 0.8.212
       globals:
         specifier: catalog:types
         version: 17.4.0
@@ -3403,6 +3410,9 @@ packages:
 
   flexsearch@0.7.43:
     resolution: {integrity: sha512-c5o/+Um8aqCSOXGcZoqZOm+NqtVwNsvVpWv6lfmSclU954O3wvQKxxK8zj74fPaSJbXpSLTs4PRhh+wnoCXnKg==}
+
+  flexsearch@0.8.212:
+    resolution: {integrity: sha512-wSyJr1GUWoOOIISRu+X2IXiOcVfg9qqBRyCPRUdLMIGJqPzMo+jMRlvE83t14v1j0dRMEaBbER/adQjp6Du2pw==}
 
   focus-trap@7.6.2:
     resolution: {integrity: sha512-9FhUxK1hVju2+AiQIDJ5Dd//9R2n2RAfJ0qfhF4IHGHgcoEUTMpbTeG/zbEuwaiYXfuAH6XE0/aCyxDdRM+W5w==}
@@ -7949,6 +7959,8 @@ snapshots:
   flatted@3.3.2: {}
 
   flexsearch@0.7.43: {}
+
+  flexsearch@0.8.212: {}
 
   focus-trap@7.6.2:
     dependencies:

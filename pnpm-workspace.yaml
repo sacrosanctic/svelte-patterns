@@ -56,3 +56,5 @@ catalogs:
   script:
     ansis: ^4.2.0
     commander: ^14.0.3
+  other:
+    flexsearch: ^0.8.212

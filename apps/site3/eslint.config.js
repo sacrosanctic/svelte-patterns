@@ -27,7 +27,12 @@ export default defineConfig(
 	json.configs['prettier'],
 
 	{
-		languageOptions: { globals: { ...globals.browser, ...globals.node } },
+		languageOptions: {
+			globals: { ...globals.browser, ...globals.node },
+			parserOptions: {
+				projectService: { allowDefaultProject: ['eslint.config.js'] },
+			},
+		},
 		rules: {
 			// typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
 			// see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
@@ -43,7 +48,6 @@ export default defineConfig(
 				parser: ts.parser,
 				projectService: true,
 				svelteConfig,
-				tsconfigRootDir: import.meta.dirname,
 			},
 		},
 	},
