@@ -1,42 +1,60 @@
-import type { RawMd } from '$lib/content'
+type SearchItem = { content: string; slug: string; title: string }
+
+const slugFromPath = (path: string) => {
+	const name = path
+		.replace(/^\/src\/content\//, '')
+		.replace(/\.md$/, '')
+		.replace(/\/index$/, '')
+	return name
+		.toLowerCase()
+		.replace(/\s+/g, '-')
+		.replace(/[^a-z0-9-]/g, '')
+		.replace(/-+/g, '-')
+		.replace(/^-|-$/g, '')
+}
+
+const extractTitle = (content: string, fallback: string) => {
+	const match = content.match(/^#\s+(.+)$/m)
+	return match ? match[1] : fallback
+}
+
+const stripMarkdown = (content: string) => {
+	return content
+		.replace(/^#+\s+.+$/gm, '')
+		.replace(/```[\s\S]*?```/g, '')
+		.replace(/`[^`]+`/g, '')
+		.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+		.replace(/[*_~>]/g, '')
+		.replace(/^\s*[-*+]\s+/gm, '')
+		.replace(/^\s*\d+\.\s+/gm, '')
+		.replace(/\n{3,}/g, '\n\n')
+		.trim()
+}
 
 export const load = async () => {
-	const modules = import.meta.glob<RawMd>(`/src/content/**/*.md`)
-	type Thing = { slug: string; title: string }
-	const flatItems: Thing[] = []
+	const modules = import.meta.glob<string>(`/src/content/**/*.md`, {
+		eager: true,
+		import: 'default',
+		query: '?raw',
+	})
 
-	for (const [path, resolver] of Object.entries(modules)) {
+	const items: SearchItem[] = []
+
+	for (const [path, content] of Object.entries(modules)) {
 		try {
-			const md = await resolver()
-			// if(!md.frontmatter.title) continue
+			const slug = slugFromPath(path)
+			const fallback = slug
+				.split('-')
+				.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+				.join(' ')
+			const title = extractTitle(content, fallback)
+			const stripped = stripMarkdown(content)
 
-			const name = path
-				.replace(/^\/src\/content\//, '')
-				.replace(/\.md$/, '')
-				.replace(/\/index$/, '')
-			const slug = name
-				.toLowerCase() // lowercase
-				.replace(/\s+/g, '-') // spaces → hyphens
-				.replace(/[^a-z0-9-]/g, '') // strip non-alphanumeric chars (keep a-z, 0-9, -)
-				.replace(/-+/g, '-') // collapse consecutive hyphens
-				.replace(/^-|-$/g, '') // trim leading/trailing hyphens
-
-			const { title } = md.frontmatter
-			// const { disabled, external, label, title } = doc.metadata
-			// const item: NavItem = {
-			// 	disabled,
-			// 	external,
-			// 	href,
-			// 	label,
-			// 	title,
-			// }
-			const item = { slug, title: title ?? name } satisfies Thing
-
-			flatItems.push(item)
+			items.push({ content: stripped, slug, title })
 		} catch (e) {
 			console.error(`Error processing ${path}:`, e)
 		}
 	}
 
-	return { items: flatItems }
+	return { items }
 }

@@ -3,13 +3,13 @@ import type { Component } from 'svelte'
 import { defineErrors, extractErrorMessage, type InferErrors } from 'wellcrafted/error'
 import { Ok, type Result } from 'wellcrafted/result'
 
-export type RawMd = { default: Component; frontmatter: Record<string, unknown> & { title: string } }
-
 type Md = {
 	name: string
 	component: Component
 	frontmatter: Record<string, unknown>
 }
+
+type RawMd = { default: Component; frontmatter: Record<string, unknown> & { title: string } }
 
 const AppError = defineErrors({
 	DocNotFound: ({ path }: { path: string }) => ({
