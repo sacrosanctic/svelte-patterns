@@ -6,7 +6,7 @@ title: How To Access Values From A package.json File
 
 :::code-group
 
-```ts [routes/+layout.server.ts]
+```ts [src/routes/+layout.server.ts]
 import { npm_package_version } from '$env/static/private'
 
 export const load = () => {
@@ -16,7 +16,7 @@ export const load = () => {
 }
 ```
 
-```svelte [routes/+page.svelte]
+```svelte [src/routes/+page.svelte]
 <script>
 	let { data } = $props()
 </script>

@@ -4,14 +4,6 @@ publish: false
 tags: pattern
 ---
 
-<script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
-import A from './dynamic-component/+page.svelte?raw'
-import B from './dynamic-component/+page.js?raw'
-import C from './dynamic-component/A.svelte?raw'
-import D from './dynamic-component/B.svelte?raw'
-</script>
-
 ## Describe the problem
 
 - Want to do A/B testing and only load component used
@@ -19,9 +11,11 @@ import D from './dynamic-component/B.svelte?raw'
 
 ## Solution
 
-:::code-group
+<!-- exception -->
 
-```svelte [+page.svelte]
+<!-- :::sveltelab-repl
+
+```svelte [src/routes/+page.svelte]
 <script>
 	import A from './A.svelte' // [!code --]
 	let { data } = $props()
@@ -31,13 +25,7 @@ import D from './dynamic-component/B.svelte?raw'
 <data.component>{data.content}</data.component> // [!code ++]
 ```
 
-<!-- const getComponent = (name) => {
-	// alias does not work with dynamic import
-	// https://github.com/vitejs/vite/issues/10460
-	return import(`./${name}.svelte`)
-} -->
-
-```js [+page.js]
+```js [src/routes/+page.js]
 export const load = async () => {
 	const module = // [!code ++]
 		Math.random() < 0.5 // [!code ++]
@@ -52,17 +40,9 @@ export const load = async () => {
 }
 ```
 
-<<< ./dynamic-component/A.svelte
-<<< ./dynamic-component/B.svelte
-
-:::
-
-<SveltelabRepl :files="[
-{contents: A ,name:'src/routes/+page.svelte',},
-{contents: B ,name:'src/routes/+page.js',},
-{contents: C ,name:'src/routes/A.svelte',},
-{contents: D ,name:'src/routes/B.svelte',},
-]" />
+<<< ./A.svelte [src/routes/A.svelte]
+<<< ./B.svelte [src/routes/B.svelte]
+::: -->
 
 ## Reference
 

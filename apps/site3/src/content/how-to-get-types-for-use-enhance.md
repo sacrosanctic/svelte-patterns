@@ -5,7 +5,7 @@ tags: typescript, form
 
 :::code-group
 
-```svelte [routes/+page.svelte]
+```svelte [src/routes/+page.svelte]
 <script lang="ts">
 	import type { SubmitFunction } from './$types' // [!code ++]
 
