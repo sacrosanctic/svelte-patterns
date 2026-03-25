@@ -120,7 +120,7 @@ export default defineConfig(
 
 	{
 		extends: [perfectionist.configs['recommended-natural']],
-		ignores: ['src/routes/test/**'],
+		ignores: ['src/routes/test/**', 'src/content/**'],
 		rules: {
 			'perfectionist/sort-imports': [
 				'error',
