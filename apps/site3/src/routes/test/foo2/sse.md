@@ -8,15 +8,15 @@ tags:
 
 If you need **real-time updates** — like live notifications, feed updates, or progress events — but don't want the complexity of WebSockets or the overhead of polling, **SSE** offers a simpler, browser-native solution over standard HTTP connections.
 
-:::svelte-repl
-<<< ./how-to-sse/+page.svelte [routes/+page.svelte]
-<<< ./how-to-sse/sse-+server.js [routes/sse/+server.js]
+:::sveltelab-repl
+<<< ./how-to-sse/+page.svelte [src/routes/+page.svelte]
+<<< ./how-to-sse/sse-+server.js [src/routes/sse/+server.js]
 
-```js
+```js [src/routes/important.txt]
 console.log('asdf')
 ```
 
-```js [idk.js]
+```js [a/bffffffffffffff/idk.js]
 console.log('idk')
 ```
 

@@ -82,5 +82,5 @@
 </script>
 
 <a target="_blank" rel="noopener noreferrer" href="https://sveltelab.dev?t=basic#code={hash}"
-	>Sveltelab Playground</a
+	>Playground</a
 >
