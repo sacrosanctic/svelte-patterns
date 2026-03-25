@@ -42,6 +42,7 @@ export default defineConfig(
 
 	{
 		files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
+		ignores: ['src/content/**'],
 		languageOptions: {
 			parserOptions: {
 				extraFileExtensions: ['.svelte'],

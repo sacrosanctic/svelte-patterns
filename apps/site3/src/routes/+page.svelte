@@ -76,7 +76,7 @@
 <ul class="flex flex-col">
 	{#each query.length >= 2 ? results : items as item (item.slug)}
 		<li>
-			<a href={resolve('/[...slug]', { slug: item.slug })}>{item.title}</a>
+			<a href={resolve('/docs/[...slug]', { slug: item.slug })}>{item.title}</a>
 		</li>
 	{/each}
 </ul>
