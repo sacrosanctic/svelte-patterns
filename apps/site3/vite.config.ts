@@ -1,3 +1,4 @@
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
 import { container } from '@mdit/plugin-container'
@@ -201,6 +202,32 @@ export default defineConfig({
 					}),
 			wrapperClasses: 'contents',
 		}),
+		{
+			name: 'debug-svelte-md',
+			async transform(code, id) {
+				if (!id.endsWith('.md') || id.includes('node_modules')) return
+
+				const outputDir = join(rootPath, '.svelte-kit', 'svelte-md-output')
+				if (!existsSync(outputDir)) {
+					mkdirSync(outputDir, { recursive: true })
+				}
+
+				const mdPath = id.replace(rootPath, '')
+				const outPath = mdPath
+					.replace(/^\/src\//, '/')
+					.replace(/\.md$/, '.svelte')
+					.replace(/^\//, '')
+
+				const fullOutPath = join(outputDir, outPath)
+				const outDir = fullOutPath.substring(0, fullOutPath.lastIndexOf('/'))
+				if (!existsSync(outDir)) {
+					mkdirSync(outDir, { recursive: true })
+				}
+
+				writeFileSync(fullOutPath, code)
+				console.log('📝 SvelteMd output:', fullOutPath.replace(rootPath, ''))
+			},
+		},
 		sveltekit(),
 		devtoolsJson(),
 	],
