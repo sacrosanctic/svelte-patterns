@@ -15,13 +15,10 @@ export default defineConfig(
 	prettier,
 
 	{
-		languageOptions: { globals: { ...globals.browser, ...globals.node } },
-	},
-
-	{
 		languageOptions: {
+			globals: { ...globals.browser, ...globals.node },
 			parserOptions: {
-				projectService: true,
+				projectService: { allowDefaultProject: ['eslint.config.js'] },
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},

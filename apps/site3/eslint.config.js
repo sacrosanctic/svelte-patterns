@@ -31,6 +31,7 @@ export default defineConfig(
 			globals: { ...globals.browser, ...globals.node },
 			parserOptions: {
 				projectService: { allowDefaultProject: ['eslint.config.js'] },
+				tsconfigRootDir: import.meta.dirname,
 			},
 		},
 		rules: {
