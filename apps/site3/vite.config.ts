@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
-import { join, resolve } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 
 import { container } from '@mdit/plugin-container'
 import { snippet } from '@mdit/plugin-snippet'
@@ -301,6 +301,17 @@ export default defineConfig({
 					}),
 			wrapperClasses: 'contents',
 		}),
+		{
+			name: 'svelte-md-a11y-ignore',
+			transform(code, id) {
+				if (!id.endsWith('.md') || id.includes('node_modules')) return
+
+				return code.replace(
+					/(<pre[^>]*class="[^"]*shiki[^"]*"[^>]*>)/g,
+					'<!-- svelte-ignore a11y-no-noninteractive-tabindex -->\n$1',
+				)
+			},
+		},
 		{
 			name: 'debug-svelte-md',
 			async transform(code, id) {
