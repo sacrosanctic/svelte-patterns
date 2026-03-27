@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
-import { dirname, join, resolve } from 'node:path'
+import { join, resolve } from 'node:path'
 
-import { container } from '@mdit/plugin-container'
+import { container, type MarkdownItContainerOptions } from '@mdit/plugin-container'
 import { snippet } from '@mdit/plugin-snippet'
 import Shiki from '@shikijs/markdown-exit'
 import { sveltekit } from '@sveltejs/kit/vite'
@@ -12,6 +12,99 @@ import devtoolsJson from 'vite-plugin-devtools-json'
 import svelteMd from 'vite-plugin-svelte-md'
 
 const rootPath = resolve(__dirname)
+
+const createReplTemplate: (name: string, componentName: string) => MarkdownItContainerOptions = (
+	name,
+	componentName,
+) => ({
+	name,
+	closeRender: () => '</div></div>',
+	openRender: (tokens, index) => {
+		const endIndex = tokens.findIndex((token) => token.type === `container_${name}_close`)
+
+		const children = tokens.slice(index + 1, endIndex)
+		const items: {
+			name: string
+			content: string
+			isImport: boolean
+			lang?: string
+		}[] = []
+
+		for (const child of children) {
+			if (child.type !== 'fence') continue
+
+			const src = child.meta?.src as string
+			const info = child.info
+
+			if (src) {
+				const parts = src.split(' ')
+				const lastPart = parts.pop()
+
+				if (lastPart?.startsWith('[') && lastPart.endsWith(']')) {
+					const name = lastPart.slice(1, -1)
+					const path = parts.join(' ')
+					child.meta!.src = path
+					const ext = name.split('.').pop() ?? ''
+					child.info = ext
+					items.push({ name, content: path, isImport: true, lang: ext })
+				} else {
+					if (parts.length > 0) {
+						throw new Error(`Invalid snippet syntax: "${src}". Expected "path" or "path [name]"`)
+					}
+					const path = src
+					const name = path.split('/').pop()!
+					const ext = path.split('.').pop() ?? ''
+					child.info = ext
+					items.push({ name, content: path, isImport: true, lang: ext })
+				}
+			} else {
+				const nameMatch = info.match(/^(.+?)\s+\[([^\]]+)\]$/)
+				if (nameMatch) {
+					const lang = nameMatch[1] ?? ''
+					const name = nameMatch[2] ?? ''
+					items.push({ name, content: child.content, isImport: false, lang })
+				} else {
+					const lang = info
+					const name = `file${items.length + 1}`
+					items.push({ name, content: child.content, isImport: false, lang })
+				}
+			}
+		}
+
+		const imports: string[] = []
+		const files: string[] = []
+		let importCounter = 0
+
+		for (const item of items) {
+			if (item.isImport) {
+				const importName = `import_${importCounter++}`
+				imports.push(`import ${importName} from '${item.content}?raw'`)
+				files.push(`{contents: ${importName},name:'${item.name}',lang:'${item.lang}'}`)
+			} else {
+				files.push(
+					`{contents: ${JSON.stringify(item.content)},name:'${item.name}',lang:'${item.lang}'}`,
+				)
+			}
+		}
+
+		const tabNames = items.map((item) => item.name)
+
+		return `
+<script>
+	import { ${componentName} } from '@repo/ui'
+	import Tabs from '$lib/tabs.svelte'
+	${imports.join('\n	')}
+</script>
+<div class="code-group">
+	<div class="flex items-center px-2">
+		<Tabs class="flex overflow-x-auto p-px" data="{${JSON.stringify(tabNames)}}" />
+		<div class="mx-auto w-0"></div>
+		<${componentName} class="capitalize" files="{[${files.join(',')}]}" />
+	</div>
+	<div>
+`
+	},
+})
 
 export default defineConfig({
 	plugins: [
@@ -69,202 +162,10 @@ export default defineConfig({
 					})
 
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
-					// type incompatibility with markdown-it and markdown-exit
-					.use(container, {
-						name: 'svelte-repl',
-						closeRender: () => '</div></div>',
-						openRender: (tokens, index) => {
-							const endIndex = tokens.findIndex(
-								(token) => token.type === 'container_svelte-repl_close',
-							)
-
-							const children = tokens.slice(index + 1, endIndex)
-							const items: {
-								name: string
-								content: string
-								isImport: boolean
-								lang?: string
-							}[] = []
-
-							for (const child of children) {
-								if (child.type !== 'fence') continue
-
-								const src = child.meta?.src as string
-								const info = child.info
-
-								if (src) {
-									// Code Snippt: <<<path [name]
-									const parts = src.split(' ')
-									const lastPart = parts.pop()
-
-									if (lastPart?.startsWith('[') && lastPart.endsWith(']')) {
-										const name = lastPart.slice(1, -1)
-										const path = parts.join(' ')
-										child.meta.src = path // rename the name for snippet plugin parsing
-										const ext = name.split('.').pop() ?? ''
-										child.info = ext // Fix incorrect info from container plugin
-										items.push({ name, content: path, isImport: true, lang: ext })
-									} else {
-										if (parts.length > 0) {
-											throw new Error(
-												`Invalid snippet syntax: "${src}". Expected "path" or "path [name]"`,
-											)
-										}
-										const path = src
-										const name = path.split('/').pop()!
-										const ext = path.split('.').pop() ?? ''
-										child.info = ext
-										items.push({ name, content: path, isImport: true, lang: ext })
-									}
-								} else {
-									// Code fence: ```lang [name] content
-									const nameMatch = info.match(/^(.+?)\s+\[([^\]]+)\]$/)
-									if (nameMatch) {
-										const [, lang, name] = nameMatch
-										// child.info = lang
-										items.push({ name, content: child.content, isImport: false, lang })
-									} else {
-										const lang = info
-										const name = `file${items.length + 1}` // double check what vitepress does with no name
-										items.push({ name, content: child.content, isImport: false, lang })
-									}
-								}
-							}
-
-							// Generate imports
-							const imports: string[] = []
-							const files: string[] = []
-							let importCounter = 0
-
-							for (const item of items) {
-								if (item.isImport) {
-									const importName = `import_${importCounter++}`
-									imports.push(`import ${importName} from '${item.content}?raw'`)
-									files.push(`{contents: ${importName},name:'${item.name}',lang:'${item.lang}'}`)
-								} else {
-									files.push(
-										`{contents: ${JSON.stringify(item.content)},name:'${item.name}',lang:'${item.lang}'}`,
-									)
-								}
-							}
-
-							const tabNames = items.map((item) => item.name)
-
-							return `
-<script>
-	import { SvelteRepl } from '@repo/ui'
-	import Tabs from '$lib/tabs.svelte'
-	${imports.join('\n	')}
-</script>
-<div class="code-group">
-	<div class="flex items-center px-2">
-		<Tabs class="flex overflow-x-auto p-px" data="{${JSON.stringify(tabNames)}}" />
-		<div class="mx-auto w-0"></div>
-		<SvelteRepl class="capitalize" files="{[${files.join(',')}]}" />
-	</div>
-	<div>
-`
-						},
-					})
+					.use(container, createReplTemplate('svelte-repl', 'SvelteRepl'))
 
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
-					// type incompatibility with markdown-it and markdown-exit
-					.use(container, {
-						name: 'sveltelab-repl',
-						closeRender: () => '</div></div>',
-						openRender: (tokens, index) => {
-							const endIndex = tokens.findIndex(
-								(token) => token.type === 'container_sveltelab-repl_close',
-							)
-
-							const children = tokens.slice(index + 1, endIndex)
-							const items: {
-								name: string
-								content: string
-								isImport: boolean
-								lang?: string
-							}[] = []
-
-							for (const child of children) {
-								if (child.type !== 'fence') continue
-
-								const src = child.meta?.src as string
-								const info = child.info
-
-								if (src) {
-									// Code Snippt: <<<path [name]
-									const parts = src.split(' ')
-									const lastPart = parts.pop()
-
-									if (lastPart?.startsWith('[') && lastPart.endsWith(']')) {
-										const name = lastPart.slice(1, -1)
-										const path = parts.join(' ')
-										child.meta.src = path // rename the name for snippet plugin parsing
-										const ext = name.split('.').pop() ?? ''
-										child.info = ext // Fix incorrect info from container plugin
-										items.push({ name, content: path, isImport: true, lang: ext })
-									} else {
-										if (parts.length > 0) {
-											throw new Error(
-												`Invalid snippet syntax: "${src}". Expected "path" or "path [name]"`,
-											)
-										}
-										const path = src
-										const name = path.split('/').pop()!
-										const ext = path.split('.').pop() ?? ''
-										child.info = ext
-										items.push({ name, content: path, isImport: true, lang: ext })
-									}
-								} else {
-									// Code fence: ```lang [name] content
-									const nameMatch = info.match(/^(.+?)\s+\[([^\]]+)\]$/)
-									if (nameMatch) {
-										const [, lang, name] = nameMatch
-										// child.info = lang
-										items.push({ name, content: child.content, isImport: false, lang })
-									} else {
-										const lang = info
-										const name = `file${items.length + 1}` // double check what vitepress does with no name
-										items.push({ name, content: child.content, isImport: false, lang })
-									}
-								}
-							}
-
-							// Generate imports
-							const imports: string[] = []
-							const files: string[] = []
-							let importCounter = 0
-
-							for (const item of items) {
-								if (item.isImport) {
-									const importName = `import_${importCounter++}`
-									imports.push(`import ${importName} from '${item.content}?raw'`)
-									files.push(`{contents: ${importName},name:'${item.name}',lang:'${item.lang}'}`)
-								} else {
-									files.push(
-										`{contents: ${JSON.stringify(item.content)},name:'${item.name}',lang:'${item.lang}'}`,
-									)
-								}
-							}
-
-							const tabNames = items.map((item) => item.name)
-
-							return `
-<script>
-	import { SveltelabRepl } from '@repo/ui'
-	import Tabs from '$lib/tabs.svelte'
-	${imports.join('\n	')}
-</script>
-<div class="code-group">
-	<div class="flex items-center px-2">
-		<Tabs class="flex overflow-x-auto p-px" data="{${JSON.stringify(tabNames)}}" />
-		<div class="mx-auto w-0"></div>
-		<SveltelabRepl class="capitalize" files="{[${files.join(',')}]}" />
-	</div>
-	<div>
-`
-						},
-					})
+					.use(container, createReplTemplate('sveltelab-repl', 'SveltelabRepl'))
 
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
 					// type incompatibility with markdown-it and markdown-exit
