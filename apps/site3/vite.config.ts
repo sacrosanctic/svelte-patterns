@@ -13,14 +13,26 @@ import svelteMd from 'vite-plugin-svelte-md'
 
 const rootPath = resolve(__dirname)
 
-const createReplTemplate: (name: string, componentName: string) => MarkdownItContainerOptions = (
+const REPL = ['SveltelabRepl', 'SvelteRepl'] as const
+type REPL = (typeof REPL)[number]
+
+const replData: Record<REPL, Map<string, string[]>> = {
+	SveltelabRepl: new Map(),
+	SvelteRepl: new Map(),
+}
+
+let importCounter = 0
+
+const createReplTemplate: (name: string, componentName: REPL) => MarkdownItContainerOptions = (
 	name,
 	componentName,
 ) => ({
 	name,
 	closeRender: () => '</div></div>',
-	openRender: (tokens, index) => {
-		const endIndex = tokens.findIndex((token) => token.type === `container_${name}_close`)
+	openRender: (tokens, index, _, env: { id: string }) => {
+		const endIndex = tokens.findIndex(
+			(token, i) => i > index && token.type === `container_${name}_close`,
+		)
 
 		const children = tokens.slice(index + 1, endIndex)
 		const items: {
@@ -43,8 +55,7 @@ const createReplTemplate: (name: string, componentName: string) => MarkdownItCon
 				if (lastPart?.startsWith('[') && lastPart.endsWith(']')) {
 					const name = lastPart.slice(1, -1)
 					const path = parts.join(' ')
-					child.meta!.src = path
-					const ext = name.split('.').pop() ?? ''
+					const ext = name.split('.').pop()!
 					child.info = ext
 					items.push({ name, content: path, isImport: true, lang: ext })
 				} else {
@@ -53,7 +64,7 @@ const createReplTemplate: (name: string, componentName: string) => MarkdownItCon
 					}
 					const path = src
 					const name = path.split('/').pop()!
-					const ext = path.split('.').pop() ?? ''
+					const ext = path.split('.').pop()!
 					child.info = ext
 					items.push({ name, content: path, isImport: true, lang: ext })
 				}
@@ -73,7 +84,6 @@ const createReplTemplate: (name: string, componentName: string) => MarkdownItCon
 
 		const imports: string[] = []
 		const files: string[] = []
-		let importCounter = 0
 
 		for (const item of items) {
 			if (item.isImport) {
@@ -87,14 +97,16 @@ const createReplTemplate: (name: string, componentName: string) => MarkdownItCon
 			}
 		}
 
+		const mdPath = env.id
+		const replInfo = replData[componentName]
+
+		if (!replInfo.has(mdPath)) replInfo.set(mdPath, [])
+		replInfo.get(mdPath)!.push(...imports)
+
 		const tabNames = items.map((item) => item.name)
 
 		return `
-<script>
-	import { ${componentName} } from '@repo/ui'
-	import Tabs from '$lib/tabs.svelte'
-	${imports.join('\n	')}
-</script>
+<!-- REPL_SCRIPT_PLACEHOLDER -->
 <div class="code-group">
 	<div class="flex items-center px-2">
 		<Tabs class="flex overflow-x-auto p-px" data="{${JSON.stringify(tabNames)}}" />
@@ -108,6 +120,14 @@ const createReplTemplate: (name: string, componentName: string) => MarkdownItCon
 
 export default defineConfig({
 	plugins: [
+		{
+			name: 'reset-repl-state',
+			buildStart() {
+				importCounter = 0
+				replData.SvelteRepl.clear()
+				replData.SveltelabRepl.clear()
+			},
+		},
 		tailwindcss(),
 		svelteMd({
 			markdownItOptions: {},
@@ -120,7 +140,7 @@ export default defineConfig({
 						closeRender: () => `</div>\n`,
 						openRender: (tokens, index) => {
 							const endIndex = tokens.findIndex(
-								(token) => token.type === 'container_code-group_close',
+								(token, i) => i > index && token.type === 'container_code-group_close',
 							)
 
 							const children = tokens.slice(index + 1, endIndex)
@@ -172,13 +192,17 @@ export default defineConfig({
 					.use(snippet, {
 						currentPath: (env) => env.id,
 						resolvePath: (filePath) => {
-							if (filePath.startsWith('/')) {
-								return join(rootPath, filePath.slice(1))
+							const newPath = filePath.split(' ').at(0)!
+
+							const PROJECT_ROOT = '/'
+							if (newPath.startsWith(PROJECT_ROOT)) {
+								return join(rootPath, newPath.slice(PROJECT_ROOT.length))
 							}
-							if (filePath.startsWith('$lib/')) {
-								return join(rootPath, 'src/lib', filePath.slice(5))
+							const LIB_ALIAS = '$lib/'
+							if (newPath.startsWith(LIB_ALIAS)) {
+								return join(rootPath, 'src/lib', newPath.slice(LIB_ALIAS.length))
 							}
-							return filePath
+							return newPath
 						},
 					})
 					.use(
@@ -213,6 +237,56 @@ export default defineConfig({
 				)
 			},
 		},
+
+		{
+			name: 'repl-script-injector',
+			transform(code, id) {
+				if (id.includes('node_modules')) return
+				if (!id.endsWith('.md')) return
+
+				const mdPath = id
+
+				const svelteReplData = replData.SvelteRepl
+				const sveltelabReplData = replData.SveltelabRepl
+				if (!svelteReplData || !sveltelabReplData) return
+
+				const svelteReplImports = svelteReplData.get(mdPath) ?? []
+				const sveltelabReplImports = sveltelabReplData.get(mdPath) ?? []
+
+				if (svelteReplImports.length === 0 && sveltelabReplImports.length === 0) return
+
+				const baseImports: string[] = ["import Tabs from '$lib/tabs.svelte'"]
+
+				if (svelteReplImports.length > 0) {
+					baseImports.push("import { SvelteRepl } from '@repo/ui'")
+				}
+				if (sveltelabReplImports.length > 0) {
+					baseImports.push("import { SveltelabRepl } from '@repo/ui'")
+				}
+
+				const allImports = [...baseImports, ...svelteReplImports, ...sveltelabReplImports]
+
+				const script = `<script lang="ts">\n${allImports.join('\n\t')}\n</script>`
+
+				// Insert after first </script> tag (after <script context="module">)
+				const firstScriptEnd = code.indexOf('</script>')
+				let newCode: string
+
+				if (firstScriptEnd !== -1) {
+					const insertPos = firstScriptEnd + '</script>'.length
+					newCode = code.slice(0, insertPos) + '\n' + script + code.slice(insertPos)
+				} else {
+					// Fallback: use placeholder replacement
+					newCode = code.replace('<!-- REPL_SCRIPT_PLACEHOLDER -->', script)
+				}
+
+				svelteReplData.delete(mdPath)
+				sveltelabReplData.delete(mdPath)
+
+				return newCode
+			},
+		},
+
 		{
 			name: 'debug-svelte-md',
 			async transform(code, id) {
