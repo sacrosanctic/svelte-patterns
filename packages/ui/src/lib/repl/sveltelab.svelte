@@ -6,8 +6,14 @@
 	import type { Repl } from './types.js'
 	import output from './output.json' with { type: 'json' }
 	import { rootLayout, globalCss } from './strings.js'
+	import type { Snippet } from 'svelte'
+	import type { ClassValue } from 'svelte/elements'
 
-	let props: Repl = $props()
+	let {
+		children,
+		class: className,
+		...rest
+	}: Repl & { children?: Snippet; class?: ClassValue } = $props()
 
 	type FileSystemNode = { file: { contents: string } } | { directory: Tree }
 
@@ -76,11 +82,20 @@
 	addFileToTree(fileSystemTree, 'src/routes/+layout.svelte', rootLayout)
 	addFileToTree(fileSystemTree, 'src/global.css', globalCss)
 	// svelte-ignore state_referenced_locally
-	props.files?.forEach(({ name, contents }) => addFileToTree(fileSystemTree, name, contents))
+	rest.files?.forEach(({ name, contents }) => addFileToTree(fileSystemTree, name, contents))
 	injectCss(fileSystemTree, 'src/routes/+layout.svelte', '../global.css')
 	const hash = lzString.compressToEncodedURIComponent(JSON.stringify(fileSystemTree))
 </script>
 
-<a target="_blank" rel="noopener noreferrer" href="https://sveltelab.dev?t=basic#code={hash}"
-	>Playground</a
+<a
+	class={className}
+	target="_blank"
+	rel="noopener noreferrer"
+	href="https://sveltelab.dev?t=basic#code={hash}"
+>
+	{#if children}
+		{@render children()}
+	{:else}
+		playground
+	{/if}</a
 >

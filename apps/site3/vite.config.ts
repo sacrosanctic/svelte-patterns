@@ -1,5 +1,7 @@
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+
+import { debugSvelteMdPlugin } from './plugins/vite/debug-svelte-md'
+import { svelteMdA11YIgnorePlugin } from './plugins/vite/svelte-md-a11y-ignore'
 
 import { container, type MarkdownItContainerOptions } from '@mdit/plugin-container'
 import { snippet } from '@mdit/plugin-snippet'
@@ -55,6 +57,7 @@ const createReplTemplate: (name: string, componentName: REPL) => MarkdownItConta
 				if (lastPart?.startsWith('[') && lastPart.endsWith(']')) {
 					const name = lastPart.slice(1, -1)
 					const path = parts.join(' ')
+					child.meta.src = path
 					const ext = name.split('.').pop()!
 					child.info = ext
 					items.push({ name, content: path, isImport: true, lang: ext })
@@ -89,11 +92,9 @@ const createReplTemplate: (name: string, componentName: REPL) => MarkdownItConta
 			if (item.isImport) {
 				const importName = `import_${importCounter++}`
 				imports.push(`import ${importName} from '${item.content}?raw'`)
-				files.push(`{contents: ${importName},name:'${item.name}',lang:'${item.lang}'}`)
+				files.push(`{contents: ${importName},name:'${item.name}'}`)
 			} else {
-				files.push(
-					`{contents: ${JSON.stringify(item.content)},name:'${item.name}',lang:'${item.lang}'}`,
-				)
+				files.push(`{contents: ${JSON.stringify(item.content)},name:'${item.name}'}`)
 			}
 		}
 
@@ -182,9 +183,12 @@ export default defineConfig({
 					})
 
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
 					.use(container, createReplTemplate('svelte-repl', 'SvelteRepl'))
 
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
+
 					.use(container, createReplTemplate('sveltelab-repl', 'SveltelabRepl'))
 
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
@@ -192,7 +196,7 @@ export default defineConfig({
 					.use(snippet, {
 						currentPath: (env) => env.id,
 						resolvePath: (filePath) => {
-							const newPath = filePath.split(' ').at(0)!
+							const newPath = filePath
 
 							const PROJECT_ROOT = '/'
 							if (newPath.startsWith(PROJECT_ROOT)) {
@@ -226,17 +230,7 @@ export default defineConfig({
 					}),
 			wrapperClasses: 'contents',
 		}),
-		{
-			name: 'svelte-md-a11y-ignore',
-			transform(code, id) {
-				if (!id.endsWith('.md') || id.includes('node_modules')) return
-
-				return code.replace(
-					/(<pre[^>]*class="[^"]*shiki[^"]*"[^>]*>)/g,
-					'<!-- svelte-ignore a11y-no-noninteractive-tabindex -->\n$1',
-				)
-			},
-		},
+		svelteMdA11YIgnorePlugin(),
 
 		{
 			name: 'repl-script-injector',
@@ -287,32 +281,7 @@ export default defineConfig({
 			},
 		},
 
-		{
-			name: 'debug-svelte-md',
-			async transform(code, id) {
-				if (!id.endsWith('.md') || id.includes('node_modules')) return
-
-				const outputDir = join(rootPath, '.svelte-kit', 'svelte-md-output')
-				if (!existsSync(outputDir)) {
-					mkdirSync(outputDir, { recursive: true })
-				}
-
-				const mdPath = id.replace(rootPath, '')
-				const outPath = mdPath
-					.replace(/^\/src\//, '/')
-					.replace(/\.md$/, '.svelte')
-					.replace(/^\//, '')
-
-				const fullOutPath = join(outputDir, outPath)
-				const outDir = fullOutPath.substring(0, fullOutPath.lastIndexOf('/'))
-				if (!existsSync(outDir)) {
-					mkdirSync(outDir, { recursive: true })
-				}
-
-				writeFileSync(fullOutPath, code)
-				console.log('📝 SvelteMd output:', fullOutPath.replace(rootPath, ''))
-			},
-		},
+		debugSvelteMdPlugin(),
 		sveltekit(),
 		devtoolsJson(),
 	],
