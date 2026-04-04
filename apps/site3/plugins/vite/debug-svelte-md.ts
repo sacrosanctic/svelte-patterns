@@ -2,8 +2,9 @@ import type { Plugin } from 'vite'
 
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
+import { cwd } from 'node:process'
 
-const rootPath = resolve(__dirname)
+const rootPath = resolve(cwd())
 
 export const debugSvelteMdPlugin = (): Plugin => ({
 	name: 'debug-svelte-md',

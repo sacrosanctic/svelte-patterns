@@ -21,6 +21,7 @@
 		"@repo/ui": "workspace:*",
 		"@shikijs/markdown-exit": "catalog:md",
 		"@sveltejs/adapter-vercel": "catalog:svelte",
+		"@sveltejs/enhanced-img": "^0.9.3",
 		"@sveltejs/kit": "catalog:svelte",
 		"@sveltejs/vite-plugin-svelte": "catalog:svelte",
 		"@tailwindcss/forms": "catalog:tailwind",

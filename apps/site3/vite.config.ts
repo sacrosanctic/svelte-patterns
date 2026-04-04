@@ -1,11 +1,13 @@
 import { join, resolve } from 'node:path'
 
 import { debugSvelteMdPlugin } from './plugins/vite/debug-svelte-md'
+import { markdownImgToEnhancedPlugin } from './plugins/vite/markdown-img-to-enhanced'
 import { svelteMdA11YIgnorePlugin } from './plugins/vite/svelte-md-a11y-ignore'
 
 import { container, type MarkdownItContainerOptions } from '@mdit/plugin-container'
 import { snippet } from '@mdit/plugin-snippet'
 import Shiki from '@shikijs/markdown-exit'
+import { enhancedImages } from '@sveltejs/enhanced-img'
 import { sveltekit } from '@sveltejs/kit/vite'
 import tailwindcss from '@tailwindcss/vite'
 import markdownItAnchor from 'markdown-it-anchor'
@@ -281,7 +283,9 @@ export default defineConfig({
 			},
 		},
 
+		markdownImgToEnhancedPlugin(),
 		debugSvelteMdPlugin(),
+		enhancedImages(),
 		sveltekit(),
 		devtoolsJson(),
 	],
