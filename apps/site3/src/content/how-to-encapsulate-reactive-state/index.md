@@ -1,17 +1,17 @@
 <script setup>
 import SvelteRepl from '../../Svelte.vue'
-import Asdf from './how-do-i-use-reactive-state/standalone-app.svelte?raw'
-import Asdf2 from './how-do-i-use-reactive-state/parent-child-app.svelte?raw'
-import Asdf3 from './how-do-i-use-reactive-state/parent-child-child.svelte?raw'
-import Asdf4 from './how-do-i-use-reactive-state/parent-grandchild-app.svelte?raw'
-import Asdf5 from './how-do-i-use-reactive-state/parent-grandchild-child.svelte?raw'
-import Asdf6 from './how-do-i-use-reactive-state/parent-grandchild-grandchild.svelte?raw'
-import Asdf7 from './how-do-i-use-reactive-state/contextapi-app.svelte?raw'
-import Asdf8 from './how-do-i-use-reactive-state/contextapi-child.svelte?raw'
-import Asdf9 from './how-do-i-use-reactive-state/contextapi-grandchild.svelte?raw'
-import Asdf10 from './how-do-i-use-reactive-state/jsmodule-app.svelte?raw'
-import Asdf11 from './how-do-i-use-reactive-state/jsmodule-external.svelte.js?raw'
-import Asdf12 from './how-do-i-use-reactive-state/action-app.svelte?raw'
+import Asdf from './standalone-app.svelte?raw'
+import Asdf2 from './parent-child-app.svelte?raw'
+import Asdf3 from './parent-child-child.svelte?raw'
+import Asdf4 from './parent-grandchild-app.svelte?raw'
+import Asdf5 from './parent-grandchild-child.svelte?raw'
+import Asdf6 from './parent-grandchild-grandchild.svelte?raw'
+import Asdf7 from './contextapi-app.svelte?raw'
+import Asdf8 from './contextapi-child.svelte?raw'
+import Asdf9 from './contextapi-grandchild.svelte?raw'
+import Asdf10 from './jsmodule-app.svelte?raw'
+import Asdf11 from './jsmodule-external.svelte.js?raw'
+import Asdf12 from './action-app.svelte?raw'
 </script>
 
 # How To Encapsulate Reactive State
@@ -28,7 +28,7 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 
 ::: code-group
 
-<<< ./how-do-i-use-reactive-state/standalone-app.svelte [App.svelte]
+<<< ./standalone-app.svelte [App.svelte]
 
 :::
 
@@ -43,7 +43,7 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 
 ::: code-group
 
-<<< ./how-do-i-use-reactive-state/action-app.svelte [App.svelte]
+<<< ./action-app.svelte [App.svelte]
 
 :::
 
@@ -60,9 +60,9 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 
 ::: code-group
 
-<<< ./how-do-i-use-reactive-state/parent-child-app.svelte [App.svelte]
+<<< ./parent-child-app.svelte [App.svelte]
 
-<<< ./how-do-i-use-reactive-state/parent-child-child.svelte [Child.svelte]
+<<< ./parent-child-child.svelte [Child.svelte]
 
 :::
 
@@ -81,11 +81,11 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 
 ::: code-group
 
-<<< ./how-do-i-use-reactive-state/parent-grandchild-app.svelte [App.svelte]
+<<< ./parent-grandchild-app.svelte [App.svelte]
 
-<<< ./how-do-i-use-reactive-state/parent-grandchild-child.svelte [Child.svelte]
+<<< ./parent-grandchild-child.svelte [Child.svelte]
 
-<<< ./how-do-i-use-reactive-state/parent-grandchild-grandchild.svelte [Grandchild.svelte]
+<<< ./parent-grandchild-grandchild.svelte [Grandchild.svelte]
 
 :::
 
@@ -111,11 +111,11 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 <!--
 ::: code-group
 
-<<< ./how-do-i-use-reactive-state/contextapi-app.svelte [App.svelte]
+<<< ./contextapi-app.svelte [App.svelte]
 
-<<< ./how-do-i-use-reactive-state/contextapi-child.svelte [Child.svelte]
+<<< ./contextapi-child.svelte [Child.svelte]
 
-<<< ./how-do-i-use-reactive-state/contextapi-grandchild.svelte [Grandchild.svelte]
+<<< ./contextapi-grandchild.svelte [Grandchild.svelte]
 
 :::
 
@@ -148,9 +148,9 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 
 ::: code-group
 
-<<< ./how-do-i-use-reactive-state/jsmodule-app.svelte [App.svelte]
+<<< ./jsmodule-app.svelte [App.svelte]
 
-<<< ./how-do-i-use-reactive-state/jsmodule-external.svelte.js [external.svelte.js]
+<<< ./jsmodule-external.svelte.js [external.svelte.js]
 
 :::
 
