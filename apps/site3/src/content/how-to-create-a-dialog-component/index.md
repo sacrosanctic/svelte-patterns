@@ -4,18 +4,6 @@ publish: false
 tags: component
 ---
 
-<script>
-import { SvelteRepl } from '@repo/ui'
-import FactoryApp from './factory-App.svelte?raw'
-import FactoryDialog from './factory-Dialog.svelte?raw'
-import SingletonApp from './singleton-App.svelte?raw'
-import SingletonDialog from './singleton-Dialog.svelte?raw'
-import SingletonMain from './singleton-Main.svelte?raw'
-import xApp from './x-App.svelte?raw'
-import xDialog from './x-Dialog.svelte?raw'
-import xMain from './x-Main.svelte?raw'
-</script>
-
 ## Single Component
 
 It's simple and easy to grok. But both the button and the body are linked together.

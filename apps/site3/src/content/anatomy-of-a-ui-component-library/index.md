@@ -11,7 +11,8 @@ UI libraries range from plug-and-play components to low-level building blocks. C
 - 🚀 Speed (how fast you need to ship)
 - 🧠 Skill level (your comfort with CSS and design)
 - 🧩 Scope (focused on 1 advanced component vs. a collection of simple comopnents)
-  :::
+
+:::
 
 UI component libraries have gone through many evolutions. This guide breaks down key areas of improvement and the tradeoffs each approach entails.
 
