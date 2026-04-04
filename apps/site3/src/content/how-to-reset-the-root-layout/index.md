@@ -4,10 +4,10 @@ title: How To Reset The Root Layout
 
 <script setup>
 import SveltelabRepl from '../../Sveltelab.vue'
-import A from  './how-to-reset-the-root-layout/routes-(hasHeader)-+layout.svelte?raw'
-import B from  './how-to-reset-the-root-layout/routes-(hasHeader)-about-+page.svelte?raw'
-import D from  './how-to-reset-the-root-layout/routes-+page.svelte?raw'
-import E from  './how-to-reset-the-root-layout/routes-+layout.svelte?raw'
+import A from  './routes-(hasHeader)-+layout.svelte?raw'
+import B from  './routes-(hasHeader)-about-+page.svelte?raw'
+import D from  './routes-+page.svelte?raw'
+import E from  './routes-+layout.svelte?raw'
 </script>
 
 ## Describe the problem

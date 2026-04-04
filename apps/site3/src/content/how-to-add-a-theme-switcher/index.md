@@ -6,8 +6,8 @@ tags:
 
 <script setup>
 import SvelteRepl from '../../Svelte.vue'
-import ThreeState from './how-to-add-a-theme-switcher/three-state.svelte?raw'
-import TwoState from './how-to-add-a-theme-switcher/two-state.svelte?raw'
+import ThreeState from './three-state.svelte?raw'
+import TwoState from './two-state.svelte?raw'
 </script>
 
 ## 3 state switch
@@ -15,7 +15,7 @@ import TwoState from './how-to-add-a-theme-switcher/two-state.svelte?raw'
 ### Standalone Component
 
 ::: code-group
-<<< ./how-to-add-a-theme-switcher/three-state.svelte [App.svelte]
+<<< ./three-state.svelte [App.svelte]
 :::
 <SvelteRepl :files="[
 	{
@@ -27,7 +27,7 @@ import TwoState from './how-to-add-a-theme-switcher/two-state.svelte?raw'
 ## 2 State Switch
 
 ::: code-group
-<<< ./how-to-add-a-theme-switcher/two-state.svelte [App.svelte]
+<<< ./two-state.svelte [App.svelte]
 :::
 <SvelteRepl :files="[
 	{

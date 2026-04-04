@@ -6,10 +6,10 @@ tags: pattern
 
 <script setup>
 import SveltelabRepl from '../../Sveltelab.vue'
-import A from './dynamic-component/+page.svelte?raw'
-import B from './dynamic-component/+page.js?raw'
-import C from './dynamic-component/A.svelte?raw'
-import D from './dynamic-component/B.svelte?raw'
+import A from './+page.svelte?raw'
+import B from './+page.js?raw'
+import C from './A.svelte?raw'
+import D from './B.svelte?raw'
 </script>
 
 ## Describe the problem
@@ -52,8 +52,8 @@ export const load = async () => {
 }
 ```
 
-<<< ./dynamic-component/A.svelte
-<<< ./dynamic-component/B.svelte
+<<< ./A.svelte
+<<< ./B.svelte
 
 :::
 

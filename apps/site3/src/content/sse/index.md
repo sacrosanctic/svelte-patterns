@@ -10,13 +10,13 @@ If you need **real-time updates** — like live notifications, feed updates, or 
 
 <script setup>
 import SveltelabRepl from '../../Sveltelab.vue'
-import A from './how-to-sse/+page.svelte?raw'
-import B from './how-to-sse/sse-+server.js?raw'
+import A from './+page.svelte?raw'
+import B from './sse-+server.js?raw'
 </script>
 
 :::code-group
-<<< ./how-to-sse/+page.svelte [routes/+page.svelte]
-<<< ./how-to-sse/sse-+server.js [routes/sse/+server.js]
+<<< ./+page.svelte [routes/+page.svelte]
+<<< ./sse-+server.js [routes/sse/+server.js]
 :::
 
 <SveltelabRepl :files="[

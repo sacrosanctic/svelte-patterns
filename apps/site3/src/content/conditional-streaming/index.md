@@ -6,13 +6,13 @@ tags:
 
 <script setup>
 import SveltelabRepl from '../../Sveltelab.vue'
-import A from './conditional-streaming/ssr-routes-+page.server.js?raw'
-import B from './conditional-streaming/ssr-routes-+page.svelte?raw'
-import C from './conditional-streaming/ssr-routes-+layout.svelte?raw'
-import D from './conditional-streaming/ssr-routes-about-+page.svelte?raw'
-import E from './conditional-streaming/loader-routes-about-+page.server.js?raw'
-import F from './conditional-streaming/loader-routes-+page.svelte?raw'
-import H from './conditional-streaming/loader-routes-about-+page.svelte?raw'
+import A from './ssr-routes-+page.server.js?raw'
+import B from './ssr-routes-+page.svelte?raw'
+import C from './ssr-routes-+layout.svelte?raw'
+import D from './ssr-routes-about-+page.svelte?raw'
+import E from './loader-routes-about-+page.server.js?raw'
+import F from './loader-routes-+page.svelte?raw'
+import H from './loader-routes-about-+page.svelte?raw'
 </script>
 
 ## For SSR
@@ -21,8 +21,8 @@ This returns either `data` for SSR or a promise of `data` for CSR.
 
 :::code-group
 
-<<< ./conditional-streaming/ssr-routes-+page.server.js [routes/+page.server.js]
-<<< ./conditional-streaming/ssr-routes-+page.svelte [routes/+page.svelte]
+<<< ./ssr-routes-+page.server.js [routes/+page.server.js]
+<<< ./ssr-routes-+page.svelte [routes/+page.svelte]
 
 :::
 
@@ -39,8 +39,8 @@ Used to display a loading indicator only when the data is slow.
 
 :::code-group
 
-<<< ./conditional-streaming/loader-routes-about-+page.server.js [+page.server.js]
-<<< ./conditional-streaming/loader-routes-about-+page.svelte [+page.svelte]
+<<< ./loader-routes-about-+page.server.js [+page.server.js]
+<<< ./loader-routes-about-+page.svelte [+page.svelte]
 :::
 <SveltelabRepl :files="[
 {contents: E ,name:'src/routes/about/+page.server.js',},

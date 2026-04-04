@@ -5,8 +5,8 @@ tags: concept
 
 <script setup>
 import SvelteRepl from '../../Svelte.vue'
-import App from './props-down-events-up/App.svelte?raw'
-import Button from './props-down-events-up/Button.svelte?raw'
+import App from './App.svelte?raw'
+import Button from './Button.svelte?raw'
 </script>
 
 "Props Down, Events Up" is a fundamental pattern for managing data flow between components, ensuring that the parent, as the owner of the reactive state, is the only component responsible for modifying it:
@@ -15,8 +15,8 @@ import Button from './props-down-events-up/Button.svelte?raw'
 - Events Up: The child emits an event to notify the parent, which then updates the reactive state.
 
 :::code-group
-<<< ./props-down-events-up/App.svelte
-<<< ./props-down-events-up/Button.svelte
+<<< ./App.svelte
+<<< ./Button.svelte
 :::
 
 <SvelteRepl name="Props Down Events Up" :files="[

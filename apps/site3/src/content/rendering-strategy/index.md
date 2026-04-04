@@ -4,7 +4,7 @@ publish: false
 tags:
 ---
 
-![alt text](rendering-strategy.png)
+![alt text](./rendering-strategy.png)
 
 ## Reference
 

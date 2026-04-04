@@ -12,7 +12,7 @@ https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode
 
 ## Enable File Nesting
 
-![alt text](getting-started-with-vscode-1.png)
+![alt text](./getting-started-with-vscode-1.png)
 
 Keep your `Explorer View` compact by nesting related files together.
 

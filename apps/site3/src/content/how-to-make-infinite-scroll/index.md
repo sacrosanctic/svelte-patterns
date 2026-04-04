@@ -6,10 +6,10 @@ tags:
 
 <script setup>
 import SveltelabRepl from '../../Sveltelab.vue'
-import A from './how-to-make-infinite-scroll/+page.server.js?raw'
-import B from './how-to-make-infinite-scroll/+page.svelte?raw'
-import C from './how-to-make-infinite-scroll/db.js?raw'
-import D from './how-to-make-infinite-scroll/InfiniteList.svelte?raw'
+import A from './+page.server.js?raw'
+import B from './+page.svelte?raw'
+import C from './db.js?raw'
+import D from './InfiniteList.svelte?raw'
 </script>
 
 ## Disclaimer
@@ -22,10 +22,10 @@ Infinite scroll is historically really hard to make work. It is recommended to u
 
 :::code-group
 
-<<< ./how-to-make-infinite-scroll/+page.svelte
-<<< ./how-to-make-infinite-scroll/+page.server.js
-<<< ./how-to-make-infinite-scroll/InfiniteList.svelte
-<<< ./how-to-make-infinite-scroll/db.js
+<<< ./+page.svelte
+<<< ./+page.server.js
+<<< ./InfiniteList.svelte
+<<< ./db.js
 
 :::
 

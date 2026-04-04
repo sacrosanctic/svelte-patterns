@@ -5,7 +5,7 @@ tags: tailwind, css
 
 <script setup>
 import SvelteRepl from '../../Svelte.vue'
-import Asdf from './why-are-tailwind-styles-not-rendering/A.svelte?raw'
+import Asdf from './A.svelte?raw'
 </script>
 
 ## Describe The Problem
@@ -62,7 +62,7 @@ So code like this will not work.
 
 ## Use Vanilla CSS
 
-<<< ./why-are-tailwind-styles-not-rendering/A.svelte {7-9}
+<<< ./A.svelte {7-9}
 
 <SvelteRepl :files="[
 	{

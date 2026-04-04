@@ -6,14 +6,14 @@ tags: component
 
 <script setup>
 import SvelteRepl from '../../Svelte.vue'
-import FactoryApp from './how-to-create-a-dialog-component/factory-App.svelte?raw'
-import FactoryDialog from './how-to-create-a-dialog-component/factory-Dialog.svelte?raw'
-import SingletonApp from './how-to-create-a-dialog-component/singleton-App.svelte?raw'
-import SingletonDialog from './how-to-create-a-dialog-component/singleton-Dialog.svelte?raw'
-import SingletonMain from './how-to-create-a-dialog-component/singleton-Main.svelte?raw'
-import xApp from './how-to-create-a-dialog-component/x-App.svelte?raw'
-import xDialog from './how-to-create-a-dialog-component/x-Dialog.svelte?raw'
-import xMain from './how-to-create-a-dialog-component/x-Main.svelte?raw'
+import FactoryApp from './factory-App.svelte?raw'
+import FactoryDialog from './factory-Dialog.svelte?raw'
+import SingletonApp from './singleton-App.svelte?raw'
+import SingletonDialog from './singleton-Dialog.svelte?raw'
+import SingletonMain from './singleton-Main.svelte?raw'
+import xApp from './x-App.svelte?raw'
+import xDialog from './x-Dialog.svelte?raw'
+import xMain from './x-Main.svelte?raw'
 </script>
 
 ## Single Component
@@ -21,8 +21,8 @@ import xMain from './how-to-create-a-dialog-component/x-Main.svelte?raw'
 It's simple and easy to grok. But both the button and the body are linked together.
 
 :::code-group
-<<< ./how-to-create-a-dialog-component/factory-App.svelte [App.svelte]
-<<< ./how-to-create-a-dialog-component/factory-Dialog.svelte [Dialog.svelte]
+<<< ./factory-App.svelte [App.svelte]
+<<< ./factory-Dialog.svelte [Dialog.svelte]
 :::
 <SvelteRepl :files="[
 	{
@@ -42,9 +42,9 @@ https://svelte.dev/playground/hello-world?version=5.28.2#H4sIAAAAAAAACqVTwW6cMBD
 ## Decoupled
 
 :::code-group
-<<< ./how-to-create-a-dialog-component/singleton-App.svelte [App.svelte]
-<<< ./how-to-create-a-dialog-component/singleton-Main.svelte [Main.svelte]
-<<< ./how-to-create-a-dialog-component/singleton-Dialog.svelte [Dialog.svelte]
+<<< ./singleton-App.svelte [App.svelte]
+<<< ./singleton-Main.svelte [Main.svelte]
+<<< ./singleton-Dialog.svelte [Dialog.svelte]
 :::
 <SvelteRepl :files="[
 	{
@@ -70,9 +70,9 @@ instanced lets you have multiple, though im not sure how applicable that is in a
 
 
 :::code-group
-<<< ./how-to-create-a-dialog-component/x-App.svelte [App.svelte]
-<<< ./how-to-create-a-dialog-component/x-Main.svelte [Main.svelte]
-<<< ./how-to-create-a-dialog-component/x-Dialog.svelte [Dialog.svelte]
+<<< ./x-App.svelte [App.svelte]
+<<< ./x-Main.svelte [Main.svelte]
+<<< ./x-Dialog.svelte [Dialog.svelte]
 :::
 <SvelteRepl :files="[
 	{

@@ -6,8 +6,8 @@ tags:
 
 <script setup>
 import SvelteRepl from '../../Svelte.vue'
-import App from './polyfill/App.svelte?raw'
-import Polyfill from './polyfill/Polyfill.svelte?raw'
+import App from './App.svelte?raw'
+import Polyfill from './Polyfill.svelte?raw'
 </script>
 
 ## Sveltekit
@@ -17,8 +17,8 @@ TBD
 ## Svelte
 
 :::code-group
-<<< ./polyfill/App.svelte
-<<< ./polyfill/Polyfill.svelte
+<<< ./App.svelte
+<<< ./Polyfill.svelte
 :::
 
 <SvelteRepl name="Polyfill" :files="[

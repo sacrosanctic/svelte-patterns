@@ -4,7 +4,7 @@ publish: false
 tags: help
 ---
 
-![alt text](code-quality-spectrum.svg)
+![alt text](./code-quality-spectrum.svg)
 
 ## Idiomatic
 

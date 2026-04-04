@@ -19,7 +19,7 @@ Libraries often fall into one or more categories, and there is significant cross
 
 ## Component Types
 
-![alt text](anatomy-of-a-ui-component-library.svg)
+![alt text](./anatomy-of-a-ui-component-library.svg)
 
 Component libraries have evolved to support varying levels of flexibility and control, catering to different domain experts—such as designers, front-end developers, and back-end developers—as well as different skill levels. The list below is ordered from most opinionated to least, which generally correlates with ease of use on one end and customizability on the other.
 
@@ -31,7 +31,7 @@ Component libraries have evolved to support varying levels of flexibility and co
 
 Not to be confused with [styled-components](https://styled-components.com/), these are plug-and-play UI kits often available as npm packages.
 
-![alt text](anatomy-of-a-ui-component-library-1.png)
+![alt text](./anatomy-of-a-ui-component-library-1.png)
 Source: https://youtu.be/CQuTF-bkOgc?t=784
 
 #### Examples
