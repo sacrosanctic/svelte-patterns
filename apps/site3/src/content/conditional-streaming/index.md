@@ -6,11 +6,11 @@ tags:
 
 <script setup>
 import SveltelabRepl from '../../Sveltelab.vue'
-import A from './ssr-routes-+page.server.js?raw'
+import A from './ssr-routes-+page.s.js?raw'
 import B from './ssr-routes-+page.svelte?raw'
 import C from './ssr-routes-+layout.svelte?raw'
 import D from './ssr-routes-about-+page.svelte?raw'
-import E from './loader-routes-about-+page.server.js?raw'
+import E from './loader-routes-about-+page.s.js?raw'
 import F from './loader-routes-+page.svelte?raw'
 import H from './loader-routes-about-+page.svelte?raw'
 </script>
@@ -21,7 +21,7 @@ This returns either `data` for SSR or a promise of `data` for CSR.
 
 :::code-group
 
-<<< ./ssr-routes-+page.server.js [routes/+page.server.js]
+<<< ./ssr-routes-+page.s.js [routes/+page.s.js]
 <<< ./ssr-routes-+page.svelte [routes/+page.svelte]
 
 :::
@@ -39,7 +39,7 @@ Used to display a loading indicator only when the data is slow.
 
 :::code-group
 
-<<< ./loader-routes-about-+page.server.js [+page.server.js]
+<<< ./loader-routes-about-+page.s.js [+page.server.js]
 <<< ./loader-routes-about-+page.svelte [+page.svelte]
 :::
 <SveltelabRepl :files="[

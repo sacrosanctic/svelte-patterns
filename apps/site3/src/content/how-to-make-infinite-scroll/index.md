@@ -6,7 +6,7 @@ tags:
 
 <script setup>
 import SveltelabRepl from '../../Sveltelab.vue'
-import A from './+page.server.js?raw'
+import A from './+page.s.js?raw'
 import B from './+page.svelte?raw'
 import C from './db.js?raw'
 import D from './InfiniteList.svelte?raw'
@@ -23,7 +23,7 @@ Infinite scroll is historically really hard to make work. It is recommended to u
 :::code-group
 
 <<< ./+page.svelte
-<<< ./+page.server.js
+<<< ./+page.s.js
 <<< ./InfiniteList.svelte
 <<< ./db.js
 

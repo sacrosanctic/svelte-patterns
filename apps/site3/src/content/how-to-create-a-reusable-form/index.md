@@ -6,9 +6,9 @@ title: How To Create A Reusable Form
 import SveltelabRepl from '../../Sveltelab.vue'
 import A from './$lib-contact_form-Component.svelte?raw'
 import B from './$lib-contact_form-form_action.js?raw'
-import C from './routes-+page.server.js?raw'
+import C from './routes-+page.s.js?raw'
 import D from './routes-+page.svelte?raw'
-import E from './routes-contact-+page.server.js?raw'
+import E from './routes-contact-+page.s.js?raw'
 import F from './routes-contact-+page.svelte?raw'
 import G from './routes-+layout.svelte?raw'
 </script>
@@ -25,9 +25,9 @@ The components being used in different `+page.svelte`
 :::code-group
 
 <<< ./routes-+page.svelte [routes/+page.svelte]
-<<< ./routes-+page.server.js [routes/+page.server.js]
+<<< ./routes-+page.s.js [routes/+page.server.js]
 <<< ./routes-contact-+page.svelte [routes/contact/+page.svelte]
-<<< ./routes-contact-+page.server.js [routes/contact/+page.server.js]
+<<< ./routes-contact-+page.s.js [routes/contact/+page.server.js]
 :::
 <SveltelabRepl :files="[
 {contents: A ,name:'src/lib/contact_form/Component.svelte',},
