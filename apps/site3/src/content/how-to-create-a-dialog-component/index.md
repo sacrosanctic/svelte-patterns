@@ -4,8 +4,8 @@ publish: false
 tags: component
 ---
 
-<script setup>
-import SvelteRepl from '../../Svelte.vue'
+<script>
+import { SvelteRepl } from '@repo/ui'
 import FactoryApp from './factory-App.svelte?raw'
 import FactoryDialog from './factory-Dialog.svelte?raw'
 import SingletonApp from './singleton-App.svelte?raw'
@@ -20,20 +20,10 @@ import xMain from './x-Main.svelte?raw'
 
 It's simple and easy to grok. But both the button and the body are linked together.
 
-:::code-group
+:::svelte-repl
 <<< ./factory-App.svelte [App.svelte]
 <<< ./factory-Dialog.svelte [Dialog.svelte]
 :::
-<SvelteRepl :files="[
-	{
-		name:'App.svelte',
-		contents:FactoryApp,
-	},
-	{
-		name:'Dialog.svelte',
-		contents:FactoryDialog,
-	},
-]" />
 
 <!-- ## Scoped pattern
 
@@ -41,25 +31,11 @@ https://svelte.dev/playground/hello-world?version=5.28.2#H4sIAAAAAAAACqVTwW6cMBD
 
 ## Decoupled
 
-:::code-group
+:::svelte-repl
 <<< ./singleton-App.svelte [App.svelte]
 <<< ./singleton-Main.svelte [Main.svelte]
 <<< ./singleton-Dialog.svelte [Dialog.svelte]
 :::
-<SvelteRepl :files="[
-	{
-		name:'App.svelte',
-		contents:SingletonApp,
-	},
-	{
-		name:'Main.svelte',
-		contents:SingletonMain,
-	},
-	{
-		name:'Dialog.svelte',
-		contents:SingletonDialog,
-	},
-]" />
 
 <!-- ## Something
 

@@ -4,37 +4,19 @@ publish: false
 tags:
 ---
 
-<script setup>
-import SvelteRepl from '../../Svelte.vue'
-import ThreeState from './three-state.svelte?raw'
-import TwoState from './two-state.svelte?raw'
-</script>
-
 ## 3 state switch
 
 ### Standalone Component
 
-::: code-group
+:::svelte-repl
 <<< ./three-state.svelte [App.svelte]
 :::
-<SvelteRepl :files="[
-	{
-	name:'App.svelte',
-	contents:ThreeState,
-	},
-]" />
 
 ## 2 State Switch
 
-::: code-group
+:::svelte-repl
 <<< ./two-state.svelte [App.svelte]
 :::
-<SvelteRepl :files="[
-	{
-	name:'App.svelte',
-	contents:TwoState,
-	},
-]" />
 
 <!-- - https://github.com/sveltejs/svelte.dev/blob/eb1eb2b0fd928887dd2da48df54d633849070583/packages/site-kit/src/lib/state/theme.svelte.ts
 - https://github.com/sveltejs/svelte.dev/blob/eb1eb2b0fd928887dd2da48df54d633849070583/packages/site-kit/src/lib/components/ThemeToggle.svelte -->

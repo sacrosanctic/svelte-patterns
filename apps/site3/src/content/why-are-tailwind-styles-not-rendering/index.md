@@ -3,11 +3,6 @@ title: Why Are Tailwind Styles Not Rendering
 tags: tailwind, css
 ---
 
-<script setup>
-import SvelteRepl from '../../Svelte.vue'
-import Asdf from './A.svelte?raw'
-</script>
-
 ## Describe The Problem
 
 Tailwind statically analyses your app for tailwind classes and only looks for complete class names. <a href="https://tailwindcss.com/docs/detecting-classes-in-source-files#dynamic-class-names"><Badge type="tip" text="src" />
@@ -32,7 +27,7 @@ So code like this will not work.
 
 <button
 	class={[
-		'text-white rounded-lg px-5 py-2.5',
+		'rounded-lg px-5 py-2.5 text-white',
 		toggle ? 'bg-blue-500' : 'bg-red-500', // [!code highlight]
 	]}
 	onclick={() => (toggle = !toggle)}
@@ -62,11 +57,6 @@ So code like this will not work.
 
 ## Use Vanilla CSS
 
-<<< ./A.svelte {7-9}
-
-<SvelteRepl :files="[
-	{
-		name:'App.svelte',
-		contents:Asdf,
-	}
-]" />
+:::svelte-repl
+<<< ./A.svelte
+:::

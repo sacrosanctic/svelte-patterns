@@ -4,14 +4,6 @@ publish: false
 tags:
 ---
 
-<script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
-import A from './+page.s.js?raw'
-import B from './+page.svelte?raw'
-import C from './db.js?raw'
-import D from './InfiniteList.svelte?raw'
-</script>
-
 ## Disclaimer
 
 Infinite scroll is historically really hard to make work. It is recommended to use pagination instead. With that said, if you're still interested, push on ahead.
@@ -20,7 +12,7 @@ Infinite scroll is historically really hard to make work. It is recommended to u
 
 ## Via Load Function
 
-:::code-group
+:::sveltelab-repl
 
 <<< ./+page.svelte
 <<< ./+page.s.js
@@ -28,13 +20,6 @@ Infinite scroll is historically really hard to make work. It is recommended to u
 <<< ./db.js
 
 :::
-
-<SveltelabRepl :files="[
-{contents: A ,name:'src/routes/+page.server.js'},
-{contents: B ,name:'src/routes/+page.svelte',},
-{contents: C ,name:'src/routes/db.js',},
-{contents: D ,name:'src/routes/InfiniteList.svelte',},
-]" />
 
 ## Via API endpoint
 

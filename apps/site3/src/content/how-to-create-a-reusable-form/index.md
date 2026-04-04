@@ -2,19 +2,8 @@
 title: How To Create A Reusable Form
 ---
 
-<script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
-import A from './$lib-contact_form-Component.svelte?raw'
-import B from './$lib-contact_form-form_action.js?raw'
-import C from './routes-+page.s.js?raw'
-import D from './routes-+page.svelte?raw'
-import E from './routes-contact-+page.s.js?raw'
-import F from './routes-contact-+page.svelte?raw'
-import G from './routes-+layout.svelte?raw'
-</script>
-
 The reusable components.
-:::code-group
+:::sveltelab-repl
 <<< ./$lib-contact_form-Component.svelte [$lib/contact_form/Component.svelte]
 <<< ./$lib-contact_form-form_action.js [$lib/contact_form/form_action.js]
 :::
@@ -22,22 +11,13 @@ The reusable components.
 ---
 
 The components being used in different `+page.svelte`
-:::code-group
-
-<<< ./routes-+page.svelte [routes/+page.svelte]
-<<< ./routes-+page.s.js [routes/+page.server.js]
-<<< ./routes-contact-+page.svelte [routes/contact/+page.svelte]
-<<< ./routes-contact-+page.s.js [routes/contact/+page.server.js]
+:::sveltelab-repl
+<<< ./routes-+page.svelte [src/routes/+page.svelte]
+<<< ./routes-+page.s.js [src/routes/+page.server.js]
+<<< ./routes-+layout.svelte [src/routes/+layout.svelte]
+<<< ./routes-contact-+page.svelte [src/routes/contact/+page.svelte]
+<<< ./routes-contact-+page.s.js [src/routes/contact/+page.server.js]
 :::
-<SveltelabRepl :files="[
-{contents: A ,name:'src/lib/contact_form/Component.svelte',},
-{contents: B ,name:'src/lib/contact_form/form_action.js',},
-{contents: C ,name:'src/routes/+page.server.js',},
-{contents: D ,name:'src/routes/+page.svelte',},
-{contents: E ,name:'src/routes/contact/+page.server.js',},
-{contents: F ,name:'src/routes/contact/+page.svelte',},
-{contents: G,name: 'src/routes/+layout.svelte'}
-]" />
 
 ## Why repeat the form action on multiple endpoints instead of reusing the endpoint
 

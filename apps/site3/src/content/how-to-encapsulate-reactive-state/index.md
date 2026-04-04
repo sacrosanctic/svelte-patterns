@@ -1,19 +1,3 @@
-<script setup>
-import SvelteRepl from '../../Svelte.vue'
-import Asdf from './standalone-app.svelte?raw'
-import Asdf2 from './parent-child-app.svelte?raw'
-import Asdf3 from './parent-child-child.svelte?raw'
-import Asdf4 from './parent-grandchild-app.svelte?raw'
-import Asdf5 from './parent-grandchild-child.svelte?raw'
-import Asdf6 from './parent-grandchild-grandchild.svelte?raw'
-import Asdf7 from './contextapi-app.svelte?raw'
-import Asdf8 from './contextapi-child.svelte?raw'
-import Asdf9 from './contextapi-grandchild.svelte?raw'
-import Asdf10 from './jsmodule-app.svelte?raw'
-import Asdf11 from './jsmodule-external.svelte.js?raw'
-import Asdf12 from './action-app.svelte?raw'
-</script>
-
 # How To Encapsulate Reactive State
 
 `Standalone` State is scoped within a single `*.svelte` file.
@@ -26,39 +10,25 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 
 ## Standalone
 
-::: code-group
+:::svelte-repl
 
 <<< ./standalone-app.svelte [App.svelte]
 
 :::
 
-<SvelteRepl name="Hello world (edited)" :files="[
-	{
-		name:'App.svelte',
-		contents:Asdf,
-	}
-]" />
-
 ## Action
 
-::: code-group
+:::svelte-repl
 
 <<< ./action-app.svelte [App.svelte]
 
 :::
 
-<SvelteRepl name="Hello world (edited)" :files="[
-	{
-		name:'App.svelte',
-		contents:Asdf12,
-	}
-]" />
-
 ## Directed tree (graph)
 
 ### Props
 
-::: code-group
+:::svelte-repl
 
 <<< ./parent-child-app.svelte [App.svelte]
 
@@ -66,20 +36,9 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 
 :::
 
-<SvelteRepl name="Hello world (edited)" :files="[
-	{
-		name:'App.svelte',
-		contents:Asdf2,
-	},
-	{
-		name:'Child.svelte',
-		contents:Asdf3,
-	},
-]" />
-
 ### Prop Drilling
 
-::: code-group
+:::svelte-repl
 
 <<< ./parent-grandchild-app.svelte [App.svelte]
 
@@ -88,21 +47,6 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 <<< ./parent-grandchild-grandchild.svelte [Grandchild.svelte]
 
 :::
-
-<SvelteRepl name="Hello world (edited)" :files="[
-	{
-		name:'App.svelte',
-		contents:Asdf4,
-	},
-	{
-		name:'Child.svelte',
-		contents:Asdf5,
-	},
-	{
-		name:'Grandchild.svelte',
-		contents:Asdf6,
-	},
-]" />
 
 ### Load Function
 
@@ -146,21 +90,10 @@ One way to look at these options is to say who owns the data, `Standalone` is th
 
 ### JS Module
 
-::: code-group
+:::svelte-repl
 
 <<< ./jsmodule-app.svelte [App.svelte]
 
 <<< ./jsmodule-external.svelte.js [external.svelte.js]
 
 :::
-
-<SvelteRepl name="Hello world (edited)" :files="[
-	{
-		name:'App.svelte',
-		contents:Asdf10,
-	},
-	{
-		name:'external.svelte.js',
-		contents:Asdf11,
-	},
-]" />

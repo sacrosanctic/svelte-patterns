@@ -2,14 +2,6 @@
 title: How To Reset The Root Layout
 ---
 
-<script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
-import A from  './routes-(hasHeader)-+layout.svelte?raw'
-import B from  './routes-(hasHeader)-about-+page.svelte?raw'
-import D from  './routes-+page.svelte?raw'
-import E from  './routes-+layout.svelte?raw'
-</script>
-
 ## Describe the problem
 
 The root layout is applied globally to all pages, meaning every route inherits from it by default. This can be problematic when you want certain pages to have a completely different layout. [Resetting](https://svelte.dev/docs/kit/advanced-routing#Advanced-layouts-Breaking-out-of-layouts) is not an option since there isn't any level above the root layout to break out to.
@@ -35,11 +27,9 @@ Create two [layout groups](<https://svelte.dev/docs/kit/advanced-routing#Advance
         └── +page.svelte
 ```
 
-:::code-group
-
-<SveltelabRepl :files="[
-{contents: A , name:'src/routes/(hasHeader)/+layout.svelte'},
-{contents: B , name:'src/routes/(hasHeader)/about/+page.svelte'},
-{contents: D , name:'src/routes/+page.svelte'},
-{contents: E , name:'src/routes/+layout.svelte'},
-]" />
+:::sveltelab-repl
+<<< ./routes-(hasHeader)-+layout.svelte [src/routes/(hasHeader)/+layout.svelte]
+<<< ./routes-(hasHeader)-about-+page.svelte [src/routes/(hasHeader)/about/+page.svelte]
+<<< ./routes-+page.svelte [src/routes/+page.svelte]
+<<< ./routes-+layout.svelte [src/routes/+layout.svelte]
+:::

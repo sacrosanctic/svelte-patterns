@@ -4,14 +4,6 @@ publish: false
 tags: pattern
 ---
 
-<script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
-import A from './+page.svelte?raw'
-import B from './+page.js?raw'
-import C from './A.svelte?raw'
-import D from './B.svelte?raw'
-</script>
-
 ## Describe the problem
 
 - Want to do A/B testing and only load component used
@@ -19,9 +11,9 @@ import D from './B.svelte?raw'
 
 ## Solution
 
-:::code-group
+:::svelte-repl
 
-```svelte [+page.svelte]
+```svelte [src/routes/+page.svelte]
 <script>
 	import A from './A.svelte' // [!code --]
 	let { data } = $props()
@@ -37,7 +29,7 @@ import D from './B.svelte?raw'
 	return import(`./${name}.svelte`)
 } -->
 
-```js [+page.js]
+```js [src/routes/+page.js]
 export const load = async () => {
 	const module = // [!code ++]
 		Math.random() < 0.5 // [!code ++]
@@ -56,13 +48,6 @@ export const load = async () => {
 <<< ./B.svelte
 
 :::
-
-<SveltelabRepl :files="[
-{contents: A ,name:'src/routes/+page.svelte',},
-{contents: B ,name:'src/routes/+page.js',},
-{contents: C ,name:'src/routes/A.svelte',},
-{contents: D ,name:'src/routes/B.svelte',},
-]" />
 
 ## Reference
 

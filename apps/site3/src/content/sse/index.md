@@ -8,21 +8,10 @@ tags:
 
 If you need **real-time updates** — like live notifications, feed updates, or progress events — but don't want the complexity of WebSockets or the overhead of polling, **SSE** offers a simpler, browser-native solution over standard HTTP connections.
 
-<script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
-import A from './+page.svelte?raw'
-import B from './sse-+s.js?raw'
-</script>
-
-:::code-group
-<<< ./+page.svelte [routes/+page.svelte]
-<<< ./sse-+s.js [routes/sse/+server.js]
+:::sveltelab-repl
+<<< ./+page.svelte [src/routes/+page.svelte]
+<<< ./sse-+s.js [src/routes/sse/+server.js]
 :::
-
-<SveltelabRepl :files="[
-{contents: A ,name:'src/routes/+page.svelte',},
-{contents: B ,name:'src/routes/sse/+server.js',},
-]" />
 
 ## Reference
 

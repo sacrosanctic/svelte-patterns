@@ -4,49 +4,25 @@ publish: false
 tags:
 ---
 
-<script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
-import A from './ssr-routes-+page.s.js?raw'
-import B from './ssr-routes-+page.svelte?raw'
-import C from './ssr-routes-+layout.svelte?raw'
-import D from './ssr-routes-about-+page.svelte?raw'
-import E from './loader-routes-about-+page.s.js?raw'
-import F from './loader-routes-+page.svelte?raw'
-import H from './loader-routes-about-+page.svelte?raw'
-</script>
-
 ## For SSR
 
 This returns either `data` for SSR or a promise of `data` for CSR.
 
-:::code-group
+:::sveltelab-repl
 
-<<< ./ssr-routes-+page.s.js [routes/+page.s.js]
-<<< ./ssr-routes-+page.svelte [routes/+page.svelte]
+<<< ./ssr-routes-+page.s.js [src/routes/+page.s.js]
+<<< ./ssr-routes-+page.svelte [src/routes/+page.svelte]
 
 :::
-
-<SveltelabRepl :files="[
-{contents: A ,name:'src/routes/+page.server.js',},
-{contents: B ,name:'src/routes/+page.svelte',},
-{contents: C ,name:'src/routes/+layout.svelte',},
-{contents: D ,name:'src/routes/about/+page.svelte',},
-]" />
 
 ## For Loading Indicator
 
 Used to display a loading indicator only when the data is slow.
 
-:::code-group
-
-<<< ./loader-routes-about-+page.s.js [+page.server.js]
-<<< ./loader-routes-about-+page.svelte [+page.svelte]
+:::sveltelab-repl
+<<< ./loader-routes-about-+page.s.js [src/routes/about/+page.server.js]
+<<< ./loader-routes-about-+page.svelte [src/routes/about/+page.svelte]
 :::
-<SveltelabRepl :files="[
-{contents: E ,name:'src/routes/about/+page.server.js',},
-{contents: F ,name:'src/routes/+page.svelte',},
-{contents: H ,name:'src/routes/about/+page.svelte',},
-]" />
 
 <!--
 cant seem to make this work
