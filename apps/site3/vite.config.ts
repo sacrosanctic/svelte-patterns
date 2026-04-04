@@ -229,6 +229,61 @@ export default defineConfig({
 							placement: 'before',
 							symbol: '#',
 						}),
+					})
+
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
+					.use(container, {
+						name: 'info',
+						closeRender: () => '</div>\n',
+						openRender: (tokens, index) => {
+							const title = tokens[index]?.info?.trim().replace(/^info\s*/, '') || 'INFO'
+							return `<div class="callout callout-info"><p class="callout-title">${title}</p>\n`
+						},
+					})
+
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
+					.use(container, {
+						name: 'tip',
+						closeRender: () => '</div>\n',
+						openRender: (tokens, index) => {
+							const title = tokens[index]?.info?.trim().replace(/^tip\s*/, '') || 'TIP'
+							return `<div class="callout callout-tip"><p class="callout-title">${title}</p>\n`
+						},
+					})
+
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
+					.use(container, {
+						name: 'warning',
+						closeRender: () => '</div>\n',
+						openRender: (tokens, index) => {
+							const title = tokens[index]?.info?.trim().replace(/^warning\s*/, '') || 'WARNING'
+							return `<div class="callout callout-warning"><p class="callout-title">${title}</p>\n`
+						},
+					})
+
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
+					.use(container, {
+						name: 'danger',
+						closeRender: () => '</div>\n',
+						openRender: (tokens, index) => {
+							const title = tokens[index]?.info?.trim().replace(/^danger\s*/, '') || 'DANGER'
+							return `<div class="callout callout-danger"><p class="callout-title">${title}</p>\n`
+						},
+					})
+
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// type incompatibility with markdown-it and markdown-exit
+					.use(container, {
+						name: 'details',
+						closeRender: () => '</details>\n',
+						openRender: (tokens, index) => {
+							const title = tokens[index]?.info?.trim().replace(/^details\s*/, '') || 'Details'
+							return `<details class="callout-details"><summary class="callout-title">${title}</summary>\n`
+						},
 					}),
 			wrapperClasses: 'contents',
 		}),
