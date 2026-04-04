@@ -74,7 +74,13 @@ Because they provide little to no default styling, they may seem incomplete—ov
 import { Input } from '@headlessui/react'
 
 function Example() {
-	return <Input type="text" name="full_name" className="border data-[hover]:shadow data-[focus]:bg-blue-100" />
+	return (
+		<Input
+			type="text"
+			name="full_name"
+			className="border data-[focus]:bg-blue-100 data-[hover]:shadow"
+		/>
+	)
 }
 ```
 
