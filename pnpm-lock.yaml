@@ -126,6 +126,11 @@ catalogs:
       specifier: 0.34.1
       version: 0.34.1
 
+patchedDependencies:
+  '@better-fetch/fetch':
+    hash: 90b14d46224254ee4ef02a438a07200854c431032fa574cf4ac5e375890d7dc4
+    path: patches/@better-fetch__fetch.patch
+
 importers:
 
   .:
@@ -419,6 +424,9 @@ importers:
 
   apps/site3:
     devDependencies:
+      '@better-fetch/fetch':
+        specifier: ^1.1.21
+        version: 1.1.21(patch_hash=90b14d46224254ee4ef02a438a07200854c431032fa574cf4ac5e375890d7dc4)
       '@eslint/compat':
         specifier: catalog:lint
         version: 2.0.3(eslint@9.39.4(jiti@2.6.1))
@@ -729,6 +737,9 @@ packages:
   '@babel/types@7.28.4':
     resolution: {integrity: sha512-bkFqkLhh3pMBUQQkpVgWDWq/lqzc2678eUyDlTBhRqhCHFguYYGM0Efga7tYk4TogG/3x0EEl66/OQ+WGbWB/Q==}
     engines: {node: '>=6.9.0'}
+
+  '@better-fetch/fetch@1.1.21':
+    resolution: {integrity: sha512-/ImESw0sskqlVR94jB+5+Pxjf+xBwDZF/N5+y2/q4EqD7IARUTSpPfIo8uf39SYpCxyOCtbyYpUrZ3F/k0zT4A==}
 
   '@blazediff/core@1.9.1':
     resolution: {integrity: sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==}
@@ -5324,6 +5335,8 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
+
+  '@better-fetch/fetch@1.1.21(patch_hash=90b14d46224254ee4ef02a438a07200854c431032fa574cf4ac5e375890d7dc4)': {}
 
   '@blazediff/core@1.9.1': {}
 

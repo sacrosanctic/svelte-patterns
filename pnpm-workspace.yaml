@@ -58,3 +58,6 @@ catalogs:
     commander: ^14.0.3
   other:
     flexsearch: ^0.8.212
+
+patchedDependencies:
+  '@better-fetch/fetch': patches/@better-fetch__fetch.patch

@@ -14,6 +14,7 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
+		"@better-fetch/fetch": "^1.1.21",
 		"@eslint/compat": "catalog:lint",
 		"@eslint/js": "catalog:lint",
 		"@mdit/plugin-container": "catalog:md",

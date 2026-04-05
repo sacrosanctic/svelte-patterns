@@ -1,0 +1,66 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+index 074d2053454e491a4b3dadda253ab227434954f1..2a25682fad7083f4eebccd589ed287fcdda1c97f 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -635,7 +635,7 @@ var betterFetch = async (url, options) => {
+     const hasBody = context.method !== "HEAD";
+     if (!hasBody) {
+       return {
+-        data: "",
++        data: response,
+         error: null
+       };
+     }
+diff --git a/dist/index.d.cts b/dist/index.d.cts
+index c7953bf4cbb8b752e85dfc043311e9206c3e35d9..14050957a05275199fb65816f21292d87955c867 100644
+--- a/dist/index.d.cts
++++ b/dist/index.d.cts
+@@ -626,7 +626,14 @@ type Error$1<E> = {
+         statusText: string;
+     }>;
+ };
+-type BetterFetchResponse<T, E extends Record<string, unknown> | unknown = unknown, Throw extends boolean = false> = Throw extends true ? T : Data<T> | Error$1<E>;
++type BetterFetchResponse<
++	T,
++	E extends Record<string, unknown> | unknown = unknown,
++	Throw extends boolean = false,
++	M extends Method = Method
++> = M extends "HEAD"
++		? Response
++		: (Throw extends true ? T : Data<T> | Error$1<E>);
+ 
+ type typeOrTypeReturning<T> = T | (() => T);
+ /**
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index c7953bf4cbb8b752e85dfc043311e9206c3e35d9..77a8434992621d620eace73c5ca4aac7fc6c65d3 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -626,7 +626,14 @@ type Error$1<E> = {
+         statusText: string;
+     }>;
+ };
+-type BetterFetchResponse<T, E extends Record<string, unknown> | unknown = unknown, Throw extends boolean = false> = Throw extends true ? T : Data<T> | Error$1<E>;
++type BetterFetchResponse<
++  T,
++  E extends Record<string, unknown> | unknown = unknown,
++  Throw extends boolean = false,
++  M extends Method = Method
++> = M extends "HEAD"
++    ? Response
++    : (Throw extends true ? T : Data<T> | Error$1<E>);
+ 
+ type typeOrTypeReturning<T> = T | (() => T);
+ /**
+diff --git a/dist/index.js b/dist/index.js
+index 3fb614a9d607c3611f7a7631b7f541eba019b761..5fc98528761761b0f84a4420a51b3c0172693257 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -588,7 +588,7 @@ var betterFetch = async (url, options) => {
+     const hasBody = context.method !== "HEAD";
+     if (!hasBody) {
+       return {
+-        data: "",
++        data: response,
+         error: null
+       };
+     }
