@@ -128,7 +128,7 @@ catalogs:
 
 patchedDependencies:
   '@better-fetch/fetch':
-    hash: 90b14d46224254ee4ef02a438a07200854c431032fa574cf4ac5e375890d7dc4
+    hash: 7bd8d10a88649b3ddbcff3201d661f10690494a14b17682f6cd40fb67e1fe132
     path: patches/@better-fetch__fetch.patch
 
 importers:
@@ -426,7 +426,7 @@ importers:
     devDependencies:
       '@better-fetch/fetch':
         specifier: ^1.1.21
-        version: 1.1.21(patch_hash=90b14d46224254ee4ef02a438a07200854c431032fa574cf4ac5e375890d7dc4)
+        version: 1.1.21(patch_hash=7bd8d10a88649b3ddbcff3201d661f10690494a14b17682f6cd40fb67e1fe132)
       '@eslint/compat':
         specifier: catalog:lint
         version: 2.0.3(eslint@9.39.4(jiti@2.6.1))
@@ -5339,7 +5339,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@better-fetch/fetch@1.1.21(patch_hash=90b14d46224254ee4ef02a438a07200854c431032fa574cf4ac5e375890d7dc4)': {}
+  '@better-fetch/fetch@1.1.21(patch_hash=7bd8d10a88649b3ddbcff3201d661f10690494a14b17682f6cd40fb67e1fe132)': {}
 
   '@blazediff/core@1.9.1': {}
 
