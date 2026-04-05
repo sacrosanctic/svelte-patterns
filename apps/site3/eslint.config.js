@@ -30,7 +30,7 @@ export default defineConfig(
 		languageOptions: {
 			globals: { ...globals.browser, ...globals.node },
 			parserOptions: {
-				projectService: { allowDefaultProject: ['eslint.config.js'] },
+				projectService: { allowDefaultProject: ['eslint.config.js', 'svelte.config.js'] },
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},
