@@ -17,13 +17,16 @@ import svelteMd from 'vite-plugin-svelte-md'
 
 const rootPath = resolve(__dirname)
 
-const REPL = ['SveltelabRepl', 'SvelteRepl'] as const
+const REPL = ['SveltelabRepl', 'SvelteRepl', 'code_group'] as const
 type REPL = (typeof REPL)[number]
 
-const replData: Record<REPL, Map<string, string[]>> = {
-	SveltelabRepl: new Map(),
-	SvelteRepl: new Map(),
+type ReplEntry = {
+	codeGroup?: boolean
+	SveltelabRepl?: string[]
+	SvelteRepl?: string[]
 }
+
+const replData = new Map<string, ReplEntry>()
 
 let importCounter = 0
 
@@ -101,12 +104,25 @@ const createReplTemplate: (name: string, componentName: REPL) => MarkdownItConta
 		}
 
 		const mdPath = env.id
-		const replInfo = replData[componentName]
+		let entry = replData.get(mdPath)
+		if (!entry) {
+			entry = {}
+			replData.set(mdPath, entry)
+		}
 
-		if (!replInfo.has(mdPath)) replInfo.set(mdPath, [])
-		replInfo.get(mdPath)!.push(...imports)
+		if (componentName === 'code_group') {
+			entry.codeGroup = true
+		} else {
+			const existingImports = entry[componentName] ?? []
+			entry[componentName] = [...existingImports, ...imports]
+		}
 
 		const tabNames = items.map((item) => item.name)
+
+		const componentHtml =
+			componentName !== 'code_group'
+				? `<${componentName} class="capitalize" files="{[${files.join(',')}]}" />`
+				: ''
 
 		return `
 <!-- REPL_SCRIPT_PLACEHOLDER -->
@@ -114,7 +130,7 @@ const createReplTemplate: (name: string, componentName: REPL) => MarkdownItConta
 	<div class="flex items-center px-2">
 		<Tabs class="flex overflow-x-auto p-px" data="{${JSON.stringify(tabNames)}}" />
 		<div class="mx-auto w-0"></div>
-		<${componentName} class="capitalize" files="{[${files.join(',')}]}" />
+		${componentHtml}
 	</div>
 	<div>
 `
@@ -127,8 +143,7 @@ export default defineConfig({
 			name: 'reset-repl-state',
 			buildStart() {
 				importCounter = 0
-				replData.SvelteRepl.clear()
-				replData.SveltelabRepl.clear()
+				replData.clear()
 			},
 		},
 		tailwindcss(),
@@ -138,57 +153,13 @@ export default defineConfig({
 				md
 					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
 					// type incompatibility with markdown-it and markdown-exit
-					.use(container, {
-						name: 'code-group',
-						closeRender: () => `</div>\n`,
-						openRender: (tokens, index) => {
-							const endIndex = tokens.findIndex(
-								(token, i) => i > index && token.type === 'container_code-group_close',
-							)
+					.use(container, createReplTemplate('code-group', 'code_group'))
 
-							const children = tokens.slice(index + 1, endIndex)
-							const tabNames: string[] = []
-
-							for (const child of children.values()) {
-								if (child.type !== 'fence') continue
-
-								const src = child.meta?.src || ''
-								const match = src.match(/^(.+?)\s+\[([^\]]+)\]$/)
-
-								if (match) {
-									const [, path, name] = match
-									child.meta.src = path // Clean path for snippet plugin
-									const ext = name.split('.').pop() ?? ''
-									child.info = ext // Fix incorrect info from container plugin
-									tabNames.push(name)
-								} else {
-									// Default: use filename as tab name
-									tabNames.push(src.split('/').pop())
-								}
-							}
-
-							// Build tab list HTML
-							const tabsHtml =
-								tabNames.length > 0
-									? `<ul class="code-group-tabs" data-tabs="${tabNames.map((_, i) => i).join(',')}">
-                ${tabNames
-									.map(
-										(name, i) =>
-											`<li data-tab="${i}"${i === 0 ? ' class="active"' : ''}>${name}</li>`,
-									)
-									.join('')}
-                </ul>`
-									: ''
-
-							return `<div class="code-group">\n${tabsHtml}`
-						},
-					})
-
-					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues 30
 					// type incompatibility with markdown-it and markdown-exit
 					.use(container, createReplTemplate('svelte-repl', 'SvelteRepl'))
 
-					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+					// @ts-expect-error https://github.com/serkodev/markdown-exit/issues 30
 					// type incompatibility with markdown-it and markdown-exit
 
 					.use(container, createReplTemplate('sveltelab-repl', 'SveltelabRepl'))
@@ -297,14 +268,14 @@ export default defineConfig({
 
 				const mdPath = id
 
-				const svelteReplData = replData.SvelteRepl
-				const sveltelabReplData = replData.SveltelabRepl
-				if (!svelteReplData || !sveltelabReplData) return
+				const entry = replData.get(mdPath)
+				if (!entry) return
 
-				const svelteReplImports = svelteReplData.get(mdPath) ?? []
-				const sveltelabReplImports = sveltelabReplData.get(mdPath) ?? []
+				const svelteReplImports = entry.SvelteRepl ?? []
+				const sveltelabReplImports = entry.SveltelabRepl ?? []
+				const hasCodeGroup = entry.codeGroup ?? false
 
-				if (svelteReplImports.length === 0 && sveltelabReplImports.length === 0) return
+				if (!svelteReplImports.length && !sveltelabReplImports.length && !hasCodeGroup) return
 
 				const baseImports: string[] = ["import Tabs from '$lib/tabs.svelte'"]
 
@@ -331,8 +302,7 @@ export default defineConfig({
 					newCode = code.replace('<!-- REPL_SCRIPT_PLACEHOLDER -->', script)
 				}
 
-				svelteReplData.delete(mdPath)
-				sveltelabReplData.delete(mdPath)
+				replData.delete(mdPath)
 
 				return newCode
 			},
