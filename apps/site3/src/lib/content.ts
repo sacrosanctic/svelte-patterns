@@ -11,9 +11,13 @@ type Md = {
 
 type RawMd = { default: Component; frontmatter: Record<string, unknown> & { title: string } }
 
-const AppError = defineErrors({
+export const AppError = defineErrors({
+	DocMissing: ({ path }: { path: string }) => ({
+		message: 'This doc has not been created yet.',
+		path,
+	}),
 	DocNotFound: ({ path }: { path: string }) => ({
-		message: 'Failed to load MD.',
+		message: 'Page not found',
 		path,
 	}),
 	Unexpected: ({ cause }: { cause: unknown }) => ({
