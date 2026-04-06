@@ -1,5 +1,5 @@
 <script setup>
-import SvelteRepl from '../../Svelte.vue'
+import SvelteRepl from '../Svelte.vue'
 import Asdf from './how-do-i-use-reactive-state/standalone-app.svelte?raw'
 import Asdf2 from './how-do-i-use-reactive-state/parent-child-app.svelte?raw'
 import Asdf3 from './how-do-i-use-reactive-state/parent-child-child.svelte?raw'

@@ -5,7 +5,7 @@ tags: pattern
 ---
 
 <script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
+import SveltelabRepl from '../Sveltelab.vue'
 import A from './dynamic-component/+page.svelte?raw'
 import B from './dynamic-component/+page.js?raw'
 import C from './dynamic-component/A.svelte?raw'

@@ -6,7 +6,7 @@ tags:
 
 <script setup>
 import SvelteRepl from '../../Svelte.vue'
-import SvelteLabRepl from '../../SvelteLab.vue'
+import SvelteLabRepl from '../../Sveltelab.vue'
 import App from './view-transition-api/svelte-app.svelte?raw'
 import A from './view-transition-api/kit-+layout.svelte?raw'
 </script>

@@ -3,7 +3,7 @@ title: How To Create A Reusable Form
 ---
 
 <script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
+import SveltelabRepl from '../Sveltelab.vue'
 import A from './how-to-create-a-reusable-form/$lib-contact_form-Component.svelte?raw'
 import B from './how-to-create-a-reusable-form/$lib-contact_form-form_action.js?raw'
 import C from './how-to-create-a-reusable-form/routes-+page.server.js?raw'

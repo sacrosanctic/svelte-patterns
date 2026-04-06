@@ -5,7 +5,7 @@ tags:
 ---
 
 <script setup>
-import SvelteRepl from '../../Svelte.vue'
+import SvelteRepl from '../Svelte.vue'
 import ThreeState from './how-to-add-a-theme-switcher/three-state.svelte?raw'
 import TwoState from './how-to-add-a-theme-switcher/two-state.svelte?raw'
 </script>

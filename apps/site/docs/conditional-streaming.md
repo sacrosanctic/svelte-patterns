@@ -5,7 +5,7 @@ tags:
 ---
 
 <script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
+import SveltelabRepl from '../Sveltelab.vue'
 import A from './conditional-streaming/ssr-routes-+page.server.js?raw'
 import B from './conditional-streaming/ssr-routes-+page.svelte?raw'
 import C from './conditional-streaming/ssr-routes-+layout.svelte?raw'

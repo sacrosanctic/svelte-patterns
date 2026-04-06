@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import chalk from 'chalk' // Importing chalk for styling
 
-const savePath = 'docs/unpublished'
+const savePath = 'apps/site/docs/unpublished'
 const program = new Command()
 
 /**

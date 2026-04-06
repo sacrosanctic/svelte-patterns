@@ -5,7 +5,7 @@ tags: component
 ---
 
 <script setup>
-import SvelteRepl from '../../Svelte.vue'
+import SvelteRepl from '../Svelte.vue'
 import FactoryApp from './how-to-create-a-dialog-component/factory-App.svelte?raw'
 import FactoryDialog from './how-to-create-a-dialog-component/factory-Dialog.svelte?raw'
 import SingletonApp from './how-to-create-a-dialog-component/singleton-App.svelte?raw'

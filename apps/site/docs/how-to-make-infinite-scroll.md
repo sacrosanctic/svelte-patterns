@@ -5,7 +5,7 @@ tags:
 ---
 
 <script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
+import SveltelabRepl from '../Sveltelab.vue'
 import A from './how-to-make-infinite-scroll/+page.server.js?raw'
 import B from './how-to-make-infinite-scroll/+page.svelte?raw'
 import C from './how-to-make-infinite-scroll/db.js?raw'

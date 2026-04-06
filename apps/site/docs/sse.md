@@ -9,7 +9,7 @@ tags:
 If you need **real-time updates** — like live notifications, feed updates, or progress events — but don't want the complexity of WebSockets or the overhead of polling, **SSE** offers a simpler, browser-native solution over standard HTTP connections.
 
 <script setup>
-import SveltelabRepl from '../../Sveltelab.vue'
+import SveltelabRepl from '../Sveltelab.vue'
 import A from './how-to-sse/+page.svelte?raw'
 import B from './how-to-sse/sse-+server.js?raw'
 </script>

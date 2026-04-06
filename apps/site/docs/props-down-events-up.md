@@ -4,7 +4,7 @@ tags: concept
 ---
 
 <script setup>
-import SvelteRepl from '../../Svelte.vue'
+import SvelteRepl from '../Svelte.vue'
 import App from './props-down-events-up/App.svelte?raw'
 import Button from './props-down-events-up/Button.svelte?raw'
 </script>

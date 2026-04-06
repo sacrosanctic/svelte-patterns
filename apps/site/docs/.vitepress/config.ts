@@ -3,7 +3,7 @@ import { withSidebar } from 'vitepress-sidebar'
 import { VitePressSidebarOptions } from 'vitepress-sidebar/types'
 
 const _prod = process.env.NODE_ENV === 'production'
-const dev = !_prod
+const draftPath = 'unpublished/**'
 
 const vitePressOptions = defineConfig({
 	head: [
@@ -26,15 +26,7 @@ const vitePressOptions = defineConfig({
 	markdown: {
 		lineNumbers: true,
 	},
-	rewrites(id) {
-		const parts = id.split('/')
-
-		if (parts.length === 1) return id
-		if (parts.length === 2) return parts[1]
-
-		return id
-	},
-
+	srcExclude: _prod ? [draftPath] : [],
 	lastUpdated: true,
 	cleanUrls: true,
 	title: 'Svelte Patterns',
@@ -64,11 +56,7 @@ const vitePressSidebarOptions = {
 	capitalizeFirst: true,
 	documentRootPath: '/docs',
 	collapsed: false,
-	...(dev
-		? {}
-		: {
-				scanStartPath: 'published',
-			}),
+	excludePattern: _prod ? [draftPath] : [],
 } satisfies VitePressSidebarOptions
 
 export default defineConfig(withSidebar(vitePressOptions, vitePressSidebarOptions))

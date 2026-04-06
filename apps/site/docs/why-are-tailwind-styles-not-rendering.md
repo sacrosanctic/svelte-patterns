@@ -4,7 +4,7 @@ tags: tailwind, css
 ---
 
 <script setup>
-import SvelteRepl from '../../Svelte.vue'
+import SvelteRepl from '../Svelte.vue'
 import Asdf from './why-are-tailwind-styles-not-rendering/A.svelte?raw'
 </script>
 
