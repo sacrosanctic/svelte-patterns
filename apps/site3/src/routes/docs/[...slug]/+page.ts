@@ -1,9 +1,10 @@
 /* eslint-disable no-fallthrough */
-import { AppError, getDoc } from '$lib/content'
+import { AppError, getDoc, listDocs } from '$lib/content'
 
 import { error } from '@sveltejs/kit'
 
 export const load = async ({ params }) => {
+	const docs = listDocs()
 	const result = getDoc(params.slug)
 
 	if (result.error?.name === 'DocNotFound') {
@@ -28,7 +29,11 @@ export const load = async ({ params }) => {
 		}
 	}
 
-	return { component: result.data.component }
+	return {
+		currentDoc: result.data,
+		currentSlug: params.slug,
+		docs,
+	}
 }
 
 const checkEndpoint = async (url: string) => {

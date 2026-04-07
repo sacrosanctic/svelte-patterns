@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { resolve } from '$app/paths'
+	import DocsShell from '$lib/components/docs-shell.svelte'
 
 	let { data } = $props()
 </script>
 
-<a href={resolve('/')}>back</a>
-
-<data.component />
+<DocsShell docs={data.docs} currentDoc={data.currentDoc} currentSlug={data.currentSlug} />
