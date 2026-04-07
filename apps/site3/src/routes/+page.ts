@@ -15,7 +15,7 @@ const slugFromPath = (path: string) => {
 
 const extractTitle = (content: string, fallback: string) => {
 	const match = content.match(/^#\s+(.+)$/m)
-	return match ? match[1] : fallback
+	return match?.[1] ?? fallback
 }
 
 const stripMarkdown = (content: string) => {
