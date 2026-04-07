@@ -70,11 +70,18 @@
 		'prose sm:prose-sm md:prose-base lg:prose-lg xl:prose-xl',
 	]}
 >
-	<h1
-		class="not-prose mb-6 text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100"
-	>
-		Search
-	</h1>
+	<header class="not-prose mb-6">
+		<p class="mb-3 text-sm">
+			<a
+				href={resolve('/')}
+				class="inline-flex items-center gap-1.5 font-medium text-blue-600 transition hover:text-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+			>
+				<span aria-hidden="true">←</span>
+				Documentation
+			</a>
+		</p>
+		<h1 class="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">Search</h1>
+	</header>
 
 	<div class="not-prose mb-6">
 		<label class="sr-only" for="doc-search">Search documentation</label>
