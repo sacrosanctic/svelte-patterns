@@ -1,6 +1,5 @@
 import { join, resolve } from 'node:path'
 
-import { debugSvelteMdPlugin } from './plugins/vite/debug-svelte-md'
 import { markdownImgToEnhancedPlugin } from './plugins/vite/markdown-img-to-enhanced'
 import { svelteMdA11YIgnorePlugin } from './plugins/vite/svelte-md-a11y-ignore'
 
@@ -309,7 +308,7 @@ export default defineConfig({
 		},
 
 		markdownImgToEnhancedPlugin(),
-		debugSvelteMdPlugin(),
+		// debugSvelteMdPlugin(),
 		enhancedImages(),
 		sveltekit(),
 		devtoolsJson(),
