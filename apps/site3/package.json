@@ -5,12 +5,13 @@
 	"private": true,
 	"scripts": {
 		"build": "vite build",
+		"build:ui": "pnpm --filter @repo/ui build",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"dev": "vite dev",
 		"format": "prettier --write . && eslint . --fix",
 		"lint": "prettier --check . && eslint .",
-		"prepare": "svelte-kit sync || echo ''",
+		"prepare": "pnpm build:ui & svelte-kit sync || echo ''",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
