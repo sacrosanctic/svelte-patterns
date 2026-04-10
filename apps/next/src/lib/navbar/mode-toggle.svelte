@@ -2,39 +2,36 @@
 	import IconMoon from '~icons/mdi/weather-night'
 	import IconSun from '~icons/mdi/weather-sunny'
 	import { mode, toggleMode } from 'mode-watcher'
+
+	const isDark = $derived(mode.current === 'dark')
 </script>
 
 <button
 	type="button"
-	role="switch"
-	aria-checked={mode.current === 'dark'}
-	aria-label="Toggle dark mode"
-	class="relative inline-flex h-9 w-16 cursor-pointer items-center rounded-full border bg-muted transition-colors"
 	onclick={toggleMode}
+	aria-label="Toggle dark mode"
+	title="Toggle dark mode"
+	class="group relative flex size-10 cursor-pointer items-center justify-center rounded-full bg-muted-foreground/10 text-muted-foreground ring-1 ring-border transition-all hover:bg-muted-foreground/20 hover:text-foreground active:scale-95"
 >
-	<span
-		class={[
-			'absolute left-1 size-7 rounded-full bg-background shadow-sm ring-1 ring-border/50 transition-transform duration-200 ease-out',
-			mode.current === 'dark' ? 'translate-x-7' : 'translate-x-0',
-		]}
-		aria-hidden="true"
-	></span>
+	<span class="sr-only">Toggle dark mode</span>
 
+	<!-- Sun Icon -->
 	<span
 		class={[
-			'relative z-10 flex flex-1 items-center justify-center transition-colors duration-200',
-			mode.current !== 'dark' ? 'text-amber-500' : 'text-muted-foreground/40',
+			'absolute inset-0 flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]',
+			isDark ? 'scale-0 rotate-90 opacity-0' : 'scale-100 rotate-0 opacity-100',
 		]}
 	>
-		<IconSun class="size-4" aria-hidden="true" />
+		<IconSun class="size-5" />
 	</span>
 
+	<!-- Moon Icon -->
 	<span
 		class={[
-			'relative z-10 flex flex-1 items-center justify-center transition-colors duration-200',
-			mode.current === 'dark' ? 'text-indigo-400' : 'text-muted-foreground/40',
+			'absolute inset-0 flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]',
+			isDark ? 'scale-100 rotate-0 opacity-100' : 'scale-0 -rotate-90 opacity-0',
 		]}
 	>
-		<IconMoon class="size-4" aria-hidden="true" />
+		<IconMoon class="size-5" />
 	</span>
 </button>
