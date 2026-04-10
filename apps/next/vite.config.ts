@@ -207,8 +207,8 @@ export default defineConfig({
 						name: 'info',
 						closeRender: () => '</div>\n',
 						openRender: (tokens, index) => {
-							const title = tokens[index]?.info?.trim().replace(/^info\s*/, '') || 'INFO'
-							return `<div class="callout callout-info"><p class="callout-title">${title}</p>\n`
+							const title = tokens[index]?.info?.trim().replace(/^info\s*/, '')
+							return `<div class="callout callout-info">${title ? `<p class="callout-title">${title}</p>` : ''}\n`
 						},
 					})
 
@@ -218,8 +218,8 @@ export default defineConfig({
 						name: 'tip',
 						closeRender: () => '</div>\n',
 						openRender: (tokens, index) => {
-							const title = tokens[index]?.info?.trim().replace(/^tip\s*/, '') || 'TIP'
-							return `<div class="callout callout-tip"><p class="callout-title">${title}</p>\n`
+							const title = tokens[index]?.info?.trim().replace(/^tip\s*/, '')
+							return `<div class="callout callout-tip">${title ? `<p class="callout-title">${title}</p>` : ''}\n`
 						},
 					})
 
@@ -229,8 +229,8 @@ export default defineConfig({
 						name: 'warning',
 						closeRender: () => '</div>\n',
 						openRender: (tokens, index) => {
-							const title = tokens[index]?.info?.trim().replace(/^warning\s*/, '') || 'WARNING'
-							return `<div class="callout callout-warning"><p class="callout-title">${title}</p>\n`
+							const title = tokens[index]?.info?.trim().replace(/^warning\s*/, '')
+							return `<div class="callout callout-warning">${title ? `<p class="callout-title">${title}</p>` : ''}\n`
 						},
 					})
 
@@ -240,8 +240,8 @@ export default defineConfig({
 						name: 'danger',
 						closeRender: () => '</div>\n',
 						openRender: (tokens, index) => {
-							const title = tokens[index]?.info?.trim().replace(/^danger\s*/, '') || 'DANGER'
-							return `<div class="callout callout-danger"><p class="callout-title">${title}</p>\n`
+							const title = tokens[index]?.info?.trim().replace(/^danger\s*/, '')
+							return `<div class="callout callout-danger">${title ? `<p class="callout-title">${title}</p>` : ''}\n`
 						},
 					})
 
@@ -251,8 +251,8 @@ export default defineConfig({
 						name: 'details',
 						closeRender: () => '</details>\n',
 						openRender: (tokens, index) => {
-							const title = tokens[index]?.info?.trim().replace(/^details\s*/, '') || 'Details'
-							return `<details class="callout-details"><summary class="callout-title">${title}</summary>\n`
+							const title = tokens[index]?.info?.trim().replace(/^details\s*/, '')
+							return `<details class="callout-details">${title ? `<summary class="callout-title">${title}</summary>` : ''}\n`
 						},
 					}),
 			wrapperClasses: 'contents',

@@ -2,7 +2,9 @@
 title: Introduction
 ---
 
-> [!note] The missing documentation for Svelte and SvelteKit.
+:::info
+The missing documentation for Svelte and SvelteKit.
+:::
 
 This isn’t a replacement for the official docs — it’s what the official docs _don’t_ cover.
 
