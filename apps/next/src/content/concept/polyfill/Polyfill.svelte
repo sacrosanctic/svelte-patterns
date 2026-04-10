@@ -1,7 +1,4 @@
 <script>
-	// https://github.com/js-temporal/temporal-polyfill
-	// https://github.com/fullcalendar/temporal-polyfill
-
 	const loadScript = (url) => {
 		return new Promise((resolve, reject) => {
 			const script = document.createElement('script')
