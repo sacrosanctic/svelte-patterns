@@ -10,6 +10,7 @@ import { enhancedImages } from '@sveltejs/enhanced-img'
 import { sveltekit } from '@sveltejs/kit/vite'
 import tailwindcss from '@tailwindcss/vite'
 import markdownItAnchor from 'markdown-it-anchor'
+import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vite'
 import devtoolsJson from 'vite-plugin-devtools-json'
 import svelteMd from 'vite-plugin-svelte-md'
@@ -311,6 +312,9 @@ export default defineConfig({
 		// debugSvelteMdPlugin(),
 		enhancedImages(),
 		sveltekit(),
+		Icons({
+			compiler: 'svelte',
+		}),
 		devtoolsJson(),
 	],
 })

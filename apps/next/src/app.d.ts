@@ -2,6 +2,8 @@
 // for information about these interfaces
 import type { Sidebar } from '$lib/content'
 
+import 'unplugin-icons/types/svelte'
+
 declare global {
 	namespace App {
 		interface PageData {
