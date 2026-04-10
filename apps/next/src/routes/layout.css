@@ -133,18 +133,9 @@
 		@apply bg-primary/20 text-primary;
 	}
 
-	::-webkit-scrollbar {
-		width: 8px;
-		height: 8px;
-	}
-	::-webkit-scrollbar-track {
-		@apply bg-transparent;
-	}
-	::-webkit-scrollbar-thumb {
-		@apply rounded-full border border-solid border-background bg-muted-foreground/30;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		@apply bg-muted-foreground/50;
+	* {
+		scrollbar-width: auto;
+		scrollbar-color: color-mix(in srgb, var(--muted-fg) 45%, transparent) transparent;
 	}
 
 	button,
