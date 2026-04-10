@@ -5,7 +5,7 @@ import { defineErrors, extractErrorMessage, type InferErrors } from 'wellcrafted
 export type DocEntry = {
 	component: Component
 	frontmatter: Record<string, unknown>
-	section: 'concept' | 'docs'
+	section: 'concept' | 'docs' | 'faq'
 	slug: string
 	title: string
 }
@@ -52,7 +52,7 @@ const titleFromSlug = (slug: string) =>
 
 export const buildDocEntries = (
 	modules: Record<string, RawMd>,
-	section: 'concept' | 'docs',
+	section: 'concept' | 'docs' | 'faq',
 ): DocEntry[] => {
 	const entries: DocEntry[] = []
 
