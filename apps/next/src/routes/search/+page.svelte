@@ -103,7 +103,7 @@
 		{#each query.length >= 2 ? results : items as item (item.slug)}
 			<li>
 				<a
-					href={resolve('/docs/[...slug]', { slug: item.slug })}
+					href={resolve(`/docs/${item.slug}`)}
 					class="block rounded-md px-3 py-2 text-sm text-foreground transition hover:bg-muted-foreground/10"
 				>
 					{item.title}

@@ -15,19 +15,19 @@ export type RawMd = {
 	frontmatter: Record<string, unknown> & { title?: string }
 }
 
-export type SidebarGroup = {
-	section: DocEntry['section']
-	label: string
-	items: DocEntry[]
-}
-
 export type Sidebar = {
 	groups: SidebarGroup[]
 }
 
+export type SidebarGroup = {
+	items: DocEntry[]
+	label: string
+	section: DocEntry['section']
+}
+
 export const sectionLabels: Record<DocEntry['section'], string> = {
-	docs: 'Docs',
 	concept: 'Concepts',
+	docs: 'Docs',
 	faq: 'FAQ',
 }
 

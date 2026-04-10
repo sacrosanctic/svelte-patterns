@@ -1,4 +1,3 @@
-
 import { sectionLabels, type Sidebar } from '$lib/content'
 
 import { listDocs as concept } from './concept/content'
