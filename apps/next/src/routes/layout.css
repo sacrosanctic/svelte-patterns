@@ -113,9 +113,20 @@
 
 	body {
 		@apply min-h-screen bg-background font-sans text-foreground antialiased;
-		transition:
-			background-color 0.3s ease,
-			color 0.3s ease;
+	}
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+		mix-blend-mode: normal;
+	}
+
+	::view-transition-old(root) {
+		z-index: 1;
+	}
+
+	::view-transition-new(root) {
+		z-index: 2;
 	}
 
 	::selection {

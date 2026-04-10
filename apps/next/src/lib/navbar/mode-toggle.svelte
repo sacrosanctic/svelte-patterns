@@ -4,11 +4,36 @@
 	import { mode, toggleMode } from 'mode-watcher'
 
 	const isDark = $derived(mode.current === 'dark')
+
+	const handleToggle = (event: MouseEvent) => {
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+		if (!document.startViewTransition || prefersReducedMotion) {
+			toggleMode()
+			return
+		}
+
+		const x = event.clientX
+		const y = event.clientY
+		const maxRadius = Math.hypot(
+			Math.max(x, window.innerWidth - x),
+			Math.max(y, window.innerHeight - y),
+		)
+
+		const transition = document.startViewTransition(() => toggleMode())
+
+		transition.ready.then(() => {
+			document.documentElement.animate(
+				{ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${maxRadius}px at ${x}px ${y}px)`] },
+				{ duration: 500, easing: 'ease-out', pseudoElement: '::view-transition-new(root)' },
+			)
+		})
+	}
 </script>
 
 <button
 	type="button"
-	onclick={toggleMode}
+	onclick={handleToggle}
 	aria-label="Toggle dark mode"
 	title="Toggle dark mode"
 	class="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
