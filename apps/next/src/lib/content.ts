@@ -14,6 +14,11 @@ export type RawMd = {
 	frontmatter: Record<string, unknown> & { title?: string }
 }
 
+export type SidebarData = {
+	docs: DocEntry[]
+	section: 'concept' | 'docs'
+}
+
 export const AppError = defineErrors({
 	DocMissing: ({ path }: { path: string }) => ({
 		message: 'This doc has not been created yet.',
