@@ -2,10 +2,6 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-html {
-	overflow-y: scroll;
-}
-
 pre.shiki {
 	margin-top: 0;
 }
