@@ -1,7 +1,9 @@
+import { sectionLabels, type Sidebar } from '$lib/content'
+
 import { listDocs } from './content'
 
 export const load = async () => ({
 	sidebar: {
-		docs: listDocs(),
-	},
+		groups: [{ items: listDocs(), label: sectionLabels.docs, section: 'docs' }],
+	} satisfies Sidebar,
 })

@@ -15,8 +15,20 @@ export type RawMd = {
 	frontmatter: Record<string, unknown> & { title?: string }
 }
 
+export type SidebarGroup = {
+	section: DocEntry['section']
+	label: string
+	items: DocEntry[]
+}
+
 export type Sidebar = {
-	docs: DocEntry[]
+	groups: SidebarGroup[]
+}
+
+export const sectionLabels: Record<DocEntry['section'], string> = {
+	docs: 'Docs',
+	concept: 'Concepts',
+	faq: 'FAQ',
 }
 
 export const AppError = defineErrors({

@@ -1,13 +1,16 @@
 <script lang="ts">
+	import type { LayoutProps } from './$types'
+
 	import { afterNavigate } from '$app/navigation'
-	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
+
+	import Sidebar from '$lib/sidebar.svelte'
 
 	import Anchor from './anchor.svelte'
 
 	import { MediaQuery } from 'svelte/reactivity'
 
-	let { children } = $props()
+	let { children }: LayoutProps = $props()
 
 	let sidebar = $state(false)
 	let isDesktop = new MediaQuery('min-width: 768px', false)
@@ -60,31 +63,9 @@
 		aria-label="Documentation"
 		inert={!isDesktop.current && !sidebar}
 	>
-		<ul class="flex flex-col gap-0.5 p-4 md:py-8">
-			{#if page.data.sidebar}
-				{@const { docs } = page.data.sidebar}
-				{#each docs as { section, slug, title } (slug)}
-					<li>
-						<a
-							href={resolve(`/(markdown)/${section}/[...slug]`, { slug: slug })}
-							class={[
-								'block rounded-md px-3 py-2 text-sm transition',
-								`/${section}/${slug}` === page.url.pathname
-									? 'bg-primary/10 font-medium text-primary'
-									: 'text-foreground hover:bg-muted-foreground/10',
-							]}
-							aria-current={`/${section}/${slug}` === page.url.pathname ? 'page' : undefined}
-						>
-							{title}
-						</a>
-					</li>
-				{:else}
-					nothing here
-				{/each}
-			{:else}
-				something has gone wrong
-			{/if}
-		</ul>
+		{#if page.data.sidebar}
+			<Sidebar groups={page.data.sidebar.groups} />
+		{/if}
 	</nav>
 
 	<main class="min-h-0 min-w-0 flex-1 overflow-y-scroll overscroll-y-contain">
