@@ -53,6 +53,3 @@ catalogs:
 onlyBuiltDependencies:
   - esbuild
   - '@tailwindcss/oxide'
-
-patchedDependencies:
-  '@better-fetch/fetch': patches/@better-fetch__fetch.patch
