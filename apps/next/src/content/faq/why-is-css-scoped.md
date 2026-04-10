@@ -7,9 +7,8 @@ tags:
 ## Describe the problem
 
 > CSS encapsulation is a critical feature of single file components in Svelte; it allows you to think only about the styles that live together in a given component. Managing CSS has long been one of the more challenging aspects of building for the web; we have no desire to bring those problems back via official APIs that encourage the de-scoping of CSS. We do not wish to revisit the age of namespaced CSS selectors and required preprocessors.
-> &mdash; <cite>[pngwn][1]</cite>
 
-[1]: https://github.com/sveltejs/rfcs/pull/22#issuecomment-664047806
+&mdash; <cite>[pngwn](https://github.com/sveltejs/rfcs/pull/22#issuecomment-664047806)</cite>
 
 ## Recommended
 
@@ -44,6 +43,8 @@ tags:
 :::
 
 ## How to get around it
+
+You can work around by using the `:global` selector.
 
 ### Single Selector
 
@@ -88,18 +89,6 @@ https://svelte.dev/docs/svelte/global-styles#:global()
 
 https://svelte.dev/docs/svelte/global-styles#:global()
 
-<!-- ### Whole Stylesheet (inline)
-
-```svelte
-<style global>
-	div {
-		color: red;
-	}
-</style>
-```
-
-https://github.com/sveltejs/svelte-preprocess?tab=readme-ov-file#global-style -->
-
 ### Whole Stylesheet (external)
 
 :::code-group
@@ -118,4 +107,14 @@ div {
 
 :::
 
-## Reference
+### Whole Stylesheet (inline)
+
+Whole stylesheet is possible via [`svelte-preprocess`](https://github.com/sveltejs/svelte-preprocess?tab=readme-ov-file#global-style).
+
+```svelte
+<style global>
+	div {
+		color: red;
+	}
+</style>
+```

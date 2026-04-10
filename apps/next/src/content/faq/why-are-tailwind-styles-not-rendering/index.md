@@ -5,8 +5,7 @@ tags: tailwind, css
 
 ## Describe The Problem
 
-Tailwind statically analyses your app for tailwind classes and only looks for complete class names. <a href="https://tailwindcss.com/docs/detecting-classes-in-source-files#dynamic-class-names"><Badge type="tip" text="src" />
-</a>
+Tailwind statically analyses your app for tailwind classes and only looks for complete class names. [src](https://tailwindcss.com/docs/detecting-classes-in-source-files#dynamic-class-names)
 
 So code like this will not work.
 
@@ -25,27 +24,19 @@ So code like this will not work.
 	let toggle = $state(false)
 </script>
 
-<button
-	class={[
-		'rounded-lg px-5 py-2.5 text-white',
-		toggle ? 'bg-blue-500' : 'bg-red-500', // [!code highlight]
-	]}
-	onclick={() => (toggle = !toggle)}
->
+<button class={[toggle ? 'bg-blue-500' : 'bg-red-500']} onclick={() => (toggle = !toggle)}>
 	click me!
 </button>
 ```
 
-<!-- Demo -->
-
 ## Use CSS variable
 
-```svelte {5}
+```svelte
 <script>
 	let value = $state(20)
 </script>
 
-<div style="--opacity:{value}%" class="opacity-[var(--opacity)]">Hi</div>
+<div style="--opacity:{value}%" class="opacity-(--opacity)">Hi</div>
 <input type="range" bind:value />{value}
 
 <style lang="postcss">
@@ -58,5 +49,5 @@ So code like this will not work.
 ## Use Vanilla CSS
 
 :::svelte-repl
-<<< ./A.svelte
+<<< ./App.svelte
 :::

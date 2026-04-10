@@ -8,7 +8,5 @@
 <div style:opacity={percentage}>Hi!!</div>
 <div style:opacity>Hi!!!</div>
 
-<br />
-
 <input type="range" bind:value />
 {value}
