@@ -30,16 +30,16 @@
 
 @layer base {
 	:root {
-		--bg: #faf8f5;
-		--fg: #1c1917;
+		--bg: #f5efe5;
+		--fg: #2a2520;
 
 		--primary: #4f46e5;
 		--primary-hover: #4338ca;
 		--primary-fg: #ffffff;
 
-		--muted: #f0ece7;
-		--muted-fg: #57534e;
-		--border: #e2ddd5;
+		--muted: #ece4d6;
+		--muted-fg: #736860;
+		--border: #ddd4c4;
 		--ring: #4f46e5;
 
 		--radius: 0.5rem;
@@ -67,16 +67,16 @@
 	}
 
 	.dark {
-		--bg: #0a0a0a;
-		--fg: #ededed;
+		--bg: #101828;
+		--fg: #d5dae4;
 
 		--primary: #818cf8;
 		--primary-hover: #a5b4fc;
 		--primary-fg: #ffffff;
 
-		--muted: #171717;
-		--muted-fg: #a3a3a3;
-		--border: #262626;
+		--muted: #151f32;
+		--muted-fg: #7a869c;
+		--border: #1c2b42;
 		--ring: #818cf8;
 
 		/* Callout tokens – dark */
