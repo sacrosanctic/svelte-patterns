@@ -5,6 +5,7 @@ import { defineErrors, extractErrorMessage, type InferErrors } from 'wellcrafted
 export type DocEntry = {
 	component: Component
 	frontmatter: Record<string, unknown>
+	section: 'concept' | 'docs'
 	slug: string
 	title: string
 }
@@ -14,9 +15,8 @@ export type RawMd = {
 	frontmatter: Record<string, unknown> & { title?: string }
 }
 
-export type SidebarData = {
+export type Sidebar = {
 	docs: DocEntry[]
-	section: 'concept' | 'docs'
 }
 
 export const AppError = defineErrors({
@@ -50,7 +50,10 @@ const titleFromSlug = (slug: string) =>
 		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
 		.join(' ')
 
-export const buildDocEntries = (modules: Record<string, RawMd>): DocEntry[] => {
+export const buildDocEntries = (
+	modules: Record<string, RawMd>,
+	section: 'concept' | 'docs',
+): DocEntry[] => {
 	const entries: DocEntry[] = []
 
 	for (const [globPath, md] of Object.entries(modules)) {
@@ -69,6 +72,7 @@ export const buildDocEntries = (modules: Record<string, RawMd>): DocEntry[] => {
 		entries.push({
 			component: md.default,
 			frontmatter: md.frontmatter,
+			section,
 			slug,
 			title,
 		})

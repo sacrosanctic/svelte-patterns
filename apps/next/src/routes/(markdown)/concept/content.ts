@@ -4,7 +4,7 @@ import { Ok, type Result } from 'wellcrafted/result'
 
 const rawModules = import.meta.glob<RawMd>(`/src/content/concept/**/*.md`, { eager: true })
 
-const sortedDocs = buildDocEntries(rawModules)
+const sortedDocs = buildDocEntries(rawModules, 'concept')
 const docsBySlug = new Map<string, DocEntry>(sortedDocs.map((d) => [d.slug, d]))
 
 export const listDocs = (): DocEntry[] => [...sortedDocs]

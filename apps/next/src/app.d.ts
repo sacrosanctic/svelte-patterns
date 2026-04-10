@@ -1,11 +1,11 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
-import type { SidebarData } from '$lib/content'
+import type { Sidebar } from '$lib/content'
 
 declare global {
 	namespace App {
 		interface PageData {
-			sidebar?: SidebarData
+			sidebar?: Sidebar
 		}
 	}
 }

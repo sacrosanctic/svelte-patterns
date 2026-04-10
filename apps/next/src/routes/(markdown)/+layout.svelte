@@ -79,20 +79,20 @@
 	>
 		<ul class="flex flex-col gap-0.5 p-4 md:py-8">
 			{#if page.data.sidebar}
-				{@const { docs, section } = page.data.sidebar}
-				{#each docs as doc (doc.slug)}
+				{@const { docs } = page.data.sidebar}
+				{#each docs as { section, slug, title } (slug)}
 					<li>
 						<a
-							href={resolve(`/(markdown)/${section}/[...slug]`, { slug: doc.slug })}
+							href={resolve(`/(markdown)/${section}/[...slug]`, { slug: slug })}
 							class={[
 								'block rounded-md px-3 py-2 text-sm transition',
-								`/${section}/${doc.slug}` === page.url.pathname
+								`/${section}/${slug}` === page.url.pathname
 									? 'bg-blue-100 text-blue-900 dark:bg-blue-950 dark:text-blue-100'
 									: 'text-stone-800 hover:bg-stone-200/80 dark:text-stone-200 dark:hover:bg-neutral-800',
 							]}
-							aria-current={`/${section}/${doc.slug}` === page.url.pathname ? 'page' : undefined}
+							aria-current={`/${section}/${slug}` === page.url.pathname ? 'page' : undefined}
 						>
-							{doc.title}
+							{title}
 						</a>
 					</li>
 				{:else}
