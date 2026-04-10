@@ -4,15 +4,17 @@
 
 This is a documentation site for Svelte patterns, built with a custom SvelteKit doc engine. The design prioritizes readability, clean typography, and minimal distraction. Markdown content is the core — the UI exists to serve it, not compete with it.
 
-Dark mode is handled via `mode-watcher` (toggles a `.dark` class on `<html>`). All colors adapt through CSS custom properties, so components never need paired `dark:` utilities.
+Dark mode is handled via `mode-watcher` (toggles a `.dark` class on `<html>`). Tailwind's `dark:` variant is configured to use this class via `@custom-variant dark (&:where(.dark, .dark *))` in `layout.css`. All colors adapt through CSS custom properties, so components never need paired `dark:` utilities.
 
 ## Where design lives
 
 | File                                   | Role                                                                                                                                                   |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `src/routes/layout.css`                | **Single source of truth.** `@theme` block, CSS variables (`:root` / `.dark`), global base styles, scrollbar, callout styles, Shiki code block styles. |
-| `src/routes/+layout.svelte`            | Root layout — imports `layout.css`, renders `<ModeWatcher />`.                                                                                         |
-| `src/routes/(markdown)/+layout.svelte` | Docs shell — sidebar, mobile nav, `<article>` with prose classes.                                                                                      |
+| `src/routes/+layout.svelte`            | Root layout — imports `layout.css`, `<ModeWatcher />`, and `<Navbar />` (site chrome).                                                                 |
+| `src/lib/navbar/navbar.svelte`         | Top bar: brand, search trigger, theme toggle, mobile menu for docs.                                                                                    |
+| `src/routes/(markdown)/+layout.svelte` | Docs shell — sidebar (`Sidebar`), mobile overlay, `<article>` with prose classes, `<Anchor />` for heading links.                                      |
+| `src/lib/sidebar.svelte`               | Docs navigation tree from `page.data.sidebar`.                                                                                                         |
 | `src/routes/(markdown)/anchor.svelte`  | Heading anchor links + "Copied!" feedback.                                                                                                             |
 | `src/routes/search/+page.svelte`       | Search page UI (input, results list).                                                                                                                  |
 | `src/routes/+page.svelte`              | Homepage (minimal).                                                                                                                                    |
@@ -26,14 +28,14 @@ All colors are defined as CSS variables in `layout.css` and mapped to Tailwind v
 
 | Token             | Light     | Dark      | Tailwind class                                   | Use for                             |
 | ----------------- | --------- | --------- | ------------------------------------------------ | ----------------------------------- |
-| `--bg`            | `#ffffff` | `#0a0a0a` | `bg-background`                                  | Page background                     |
-| `--fg`            | `#0f1115` | `#ededed` | `text-foreground`                                | Primary text                        |
+| `--bg`            | `#faf8f5` | `#0a0a0a` | `bg-background`                                  | Page background (warm paper)        |
+| `--fg`            | `#1c1917` | `#ededed` | `text-foreground`                                | Primary text                        |
 | `--primary`       | `#4f46e5` | `#818cf8` | `text-primary`, `bg-primary`                     | Links, active states, accents       |
 | `--primary-hover` | `#4338ca` | `#a5b4fc` | `text-primary-hover`, `hover:text-primary-hover` | Hovered links/buttons               |
 | `--primary-fg`    | `#ffffff` | `#ffffff` | `text-primary-foreground`                        | Text on primary-colored backgrounds |
-| `--muted`         | `#f3f4f6` | `#171717` | `bg-muted`                                       | Sidebar, subtle panel backgrounds   |
-| `--muted-fg`      | `#6b7280` | `#a3a3a3` | `text-muted-foreground`                          | Secondary/placeholder text          |
-| `--border`        | `#e5e7eb` | `#262626` | `border-border`                                  | All borders/dividers                |
+| `--muted`         | `#f0ece7` | `#171717` | `bg-muted`                                       | Sidebar, subtle panel backgrounds   |
+| `--muted-fg`      | `#57534e` | `#a3a3a3` | `text-muted-foreground`                          | Secondary/placeholder text          |
+| `--border`        | `#e2ddd5` | `#262626` | `border-border`                                  | All borders/dividers                |
 | `--ring`          | `#4f46e5` | `#818cf8` | `ring-ring`                                      | Focus outlines                      |
 
 ### When to use what
@@ -42,7 +44,7 @@ All colors are defined as CSS variables in `layout.css` and mapped to Tailwind v
 - **`primary`** — links, active nav items, selected tabs, brand accents. Use `primary/10` or `primary/20` for tinted backgrounds (e.g. active sidebar item, selected tab).
 - **`primary-hover`** — hover state for anything using `primary`.
 - **`muted` / `muted-foreground`** — sidebar backgrounds, placeholder text, secondary labels, "no results" messages. Use `muted-foreground/10` or `muted-foreground/20` for subtle hover states on list items.
-- **`border`** — every border and divider. Applied globally via `* { @apply border-border }`.
+- **`border`** — every border and divider. Applied globally via `* { @apply border-border outline-ring/50 }` (border color + default outline color).
 - **`ring`** — focus-visible outlines. Applied globally on `button` and `a`.
 
 ### Callout colors
@@ -53,21 +55,25 @@ Each callout variant (info, tip, warning, danger, details) has three tokens: `--
 
 Markdown content uses `@tailwindcss/typography` prose classes. Do **not** add raw base styles for headings, paragraphs, or lists — they will conflict with prose.
 
-The docs article applies:
+Dark mode prose is handled by `dark:prose-invert`, which works correctly because the `dark:` variant is bound to the `.dark` class (see Background section above).
+
+The docs article applies (see `(markdown)/+layout.svelte`):
 
 ```css
-prose dark:prose-invert
+prose sm:prose-sm md:prose-base lg:prose-lg xl:prose-xl
 prose-a:text-primary prose-a:decoration-primary/30 hover:prose-a:decoration-primary
 prose-inline-code:rounded prose-inline-code:outline prose-inline-code:outline-border
+prose-code:before:content-none prose-code:after:content-none
 prose-pre:border prose-pre:border-border
+dark:prose-invert
 ```
 
 ## Practices
 
-- **No `dark:` utilities in components.** Colors adapt via CSS variables. The only exception is `dark:prose-invert` (required by the typography plugin).
+- **No `dark:` utilities in components.** Colors adapt via CSS variables. The only exception is `dark:prose-invert` (required by the typography plugin for dark mode).
 - **Opacity modifiers over new tokens.** For tinted backgrounds, use `bg-primary/10` rather than defining a new variable.
-- **Global focus ring.** All `<button>` and `<a>` elements get `focus-visible:ring-2 ring-ring ring-offset-2 ring-offset-background` via `layout.css`. Don't re-declare it per component.
-- **Global border color.** `* { border-color: var(--border) }` means you only need `border` (not `border-border`) on elements — the color is inherited.
+- **Global focus ring.** All `<button>` and `<a>` elements get `focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none` via `layout.css`. Don't re-declare it per component.
+- **Global border color.** `* { @apply border-border ... }` sets default border color on all elements; you still use Tailwind `border` utilities where you need a visible border — the color comes from the token.
 - **Smooth theme transitions.** `body` has `transition: background-color 0.3s ease, color 0.3s ease`.
 - **Scrollbar stability.** `html { scrollbar-gutter: stable }` prevents layout shift when content grows.
 - **Selection color.** Text selection uses `bg-primary/20 text-primary`.

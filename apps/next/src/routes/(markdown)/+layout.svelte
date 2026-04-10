@@ -57,11 +57,11 @@
 		<article
 			class={[
 				'mx-auto max-w-prose px-4 py-8 md:px-6 lg:px-8',
-				'dark:prose-invert',
 				'prose sm:prose-sm md:prose-base lg:prose-lg xl:prose-xl',
 				'prose-a:text-primary prose-a:decoration-primary/30 hover:prose-a:decoration-primary',
 				'prose-inline-code:rounded prose-inline-code:outline prose-inline-code:outline-border prose-code:before:content-none prose-code:after:content-none',
 				'prose-pre:border prose-pre:border-border',
+				'dark:prose-invert',
 			]}
 		>
 			{@render children()}

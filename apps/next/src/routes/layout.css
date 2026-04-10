@@ -2,6 +2,8 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
 	--color-background: var(--bg);
 	--color-foreground: var(--fg);
@@ -28,16 +30,16 @@
 
 @layer base {
 	:root {
-		--bg: #ffffff;
-		--fg: #0f1115;
+		--bg: #faf8f5;
+		--fg: #1c1917;
 
 		--primary: #4f46e5;
 		--primary-hover: #4338ca;
 		--primary-fg: #ffffff;
 
-		--muted: #f3f4f6;
-		--muted-fg: #6b7280;
-		--border: #e5e7eb;
+		--muted: #f0ece7;
+		--muted-fg: #57534e;
+		--border: #e2ddd5;
 		--ring: #4f46e5;
 
 		--radius: 0.5rem;
