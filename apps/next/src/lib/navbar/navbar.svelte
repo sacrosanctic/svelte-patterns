@@ -3,6 +3,7 @@
 	import { page } from '$app/state'
 
 	import favicon from '$lib/assets/favicon.svg'
+	import { GITHUB_REPO_URL, SVELTE_DOCS_URL } from '$lib/config/constants'
 	import ModeToggle from '$lib/navbar/mode-toggle.svelte'
 	import { nav } from '$lib/navbar/nav-state.svelte'
 	import SearchTrigger from '$lib/navbar/search-trigger.svelte'
@@ -69,9 +70,9 @@
 		<ModeToggle />
 
 		<a
-			href="https://svelte.dev/docs"
+			href={SVELTE_DOCS_URL}
 			target="_blank"
-			rel="noopener noreferrer"
+			rel="noopener noreferrer external"
 			class="inline-flex size-9 items-center justify-center rounded-md transition hover:bg-muted"
 			aria-label="Svelte documentation (opens in new tab)"
 		>
@@ -79,9 +80,9 @@
 		</a>
 
 		<a
-			href="https://github.com/sacrosanctic/svelte-patterns"
+			href={GITHUB_REPO_URL}
 			target="_blank"
-			rel="noopener noreferrer"
+			rel="noopener noreferrer external"
 			class="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground"
 			aria-label="GitHub repository (opens in new tab)"
 		>
