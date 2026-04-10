@@ -4,6 +4,7 @@
 	import { afterNavigate } from '$app/navigation'
 	import { page } from '$app/state'
 
+	import { nav } from '$lib/navbar/nav-state.svelte'
 	import Sidebar from '$lib/sidebar.svelte'
 
 	import Anchor from './anchor.svelte'
@@ -12,43 +13,23 @@
 
 	let { children }: LayoutProps = $props()
 
-	let sidebar = $state(false)
 	let isDesktop = new MediaQuery('min-width: 768px', false)
 
 	afterNavigate(() => {
-		sidebar = false
+		nav.sidebarOpen = false
 	})
 </script>
 
 <Anchor />
 
-<div class="flex h-dvh min-h-0 w-full flex-col overflow-hidden md:flex-row">
-	<div
-		class="flex shrink-0 items-center justify-between border-b border-border px-4 py-3 md:hidden"
-	>
+<div class="flex h-[calc(100dvh-4rem)] min-h-0 w-full flex-col overflow-hidden md:flex-row">
+	{#if nav.sidebarOpen}
 		<button
 			type="button"
-			class={[
-				'rounded-md border border-border px-3 py-2 text-sm font-medium shadow-sm transition',
-				'bg-background text-foreground hover:bg-muted',
-			]}
-			aria-controls="docs-sidebar-nav"
-			aria-expanded={sidebar}
-			onclick={() => {
-				sidebar = !sidebar
-			}}
-		>
-			Documentation menu
-		</button>
-	</div>
-
-	{#if sidebar}
-		<button
-			type="button"
-			class="fixed inset-0 z-30 bg-black/40 md:hidden"
+			class="fixed inset-x-0 top-16 bottom-0 z-30 bg-black/40 md:hidden"
 			aria-label="Close documentation menu"
 			onclick={() => {
-				sidebar = false
+				nav.sidebarOpen = false
 			}}
 		></button>
 	{/if}
@@ -56,19 +37,23 @@
 	<nav
 		id="docs-sidebar-nav"
 		class={[
-			'fixed inset-y-0 left-0 z-40 min-h-0 w-[min(92vw,24rem)] overflow-y-auto overscroll-y-contain border-r border-border bg-muted transition-transform duration-200 ease-out',
+			'fixed top-16 bottom-0 left-0 z-40 min-h-0 w-[min(92vw,24rem)] overflow-y-auto overscroll-y-contain border-r border-border bg-muted transition-transform duration-200 ease-out',
 			'md:static md:z-auto md:h-full md:w-sm md:max-w-none md:shrink-0 md:translate-x-0 md:transform-none',
-			sidebar ? 'translate-x-0' : '-translate-x-full',
+			nav.sidebarOpen ? 'translate-x-0' : '-translate-x-full',
 		]}
 		aria-label="Documentation"
-		inert={!isDesktop.current && !sidebar}
+		inert={!isDesktop.current && !nav.sidebarOpen}
 	>
 		{#if page.data.sidebar}
 			<Sidebar groups={page.data.sidebar.groups} />
 		{/if}
 	</nav>
 
-	<main class="min-h-0 min-w-0 flex-1 overflow-y-scroll overscroll-y-contain">
+	<main
+		id="main-content"
+		tabindex="-1"
+		class="min-h-0 min-w-0 flex-1 overflow-y-scroll overscroll-y-contain"
+	>
 		<article
 			class={[
 				'mx-auto max-w-prose px-4 py-8 md:px-6 lg:px-8',
