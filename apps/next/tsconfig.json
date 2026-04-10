@@ -15,5 +15,6 @@
 		"noUncheckedSideEffectImports": true,
 		"exactOptionalPropertyTypes": true,
 		"noUncheckedIndexedAccess": true
-	}
+	},
+	"exclude": ["src/routes/test/**/*", "src/content/**/*"]
 }

@@ -7,3 +7,5 @@ bun.lockb
 
 # Miscellaneous
 /static/
+apps/next/src/routes/test/
+apps/next/src/content/
