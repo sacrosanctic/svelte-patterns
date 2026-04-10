@@ -1,5 +1,5 @@
 /* eslint-disable no-fallthrough */
-import { AppError } from '$lib/content'
+import { AppError, buildEditUrl } from '$lib/content'
 
 import { getDoc } from '../content'
 
@@ -31,6 +31,7 @@ export const load = async ({ params }) => {
 	}
 
 	return {
+		editUrl: buildEditUrl(result.data.sourcePath),
 		md: result.data,
 	}
 }

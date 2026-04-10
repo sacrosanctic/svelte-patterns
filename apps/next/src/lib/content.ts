@@ -1,5 +1,7 @@
 import type { Component } from 'svelte'
 
+import { GITHUB_DEFAULT_BRANCH, GITHUB_REPO_URL } from '$lib/config/constants'
+
 import { defineErrors, extractErrorMessage, type InferErrors } from 'wellcrafted/error'
 
 export type DocEntry = {
@@ -7,8 +9,12 @@ export type DocEntry = {
 	frontmatter: Record<string, unknown>
 	section: 'concept' | 'docs' | 'faq'
 	slug: string
+	sourcePath: string
 	title: string
 }
+
+export const buildEditUrl = (repoRelativePath: string) =>
+	`${GITHUB_REPO_URL}/edit/${GITHUB_DEFAULT_BRANCH}/apps/next${repoRelativePath}`
 
 export type RawMd = {
 	default: Component
@@ -86,6 +92,7 @@ export const buildDocEntries = (
 			frontmatter: md.frontmatter,
 			section,
 			slug,
+			sourcePath: globPath,
 			title,
 		})
 	}

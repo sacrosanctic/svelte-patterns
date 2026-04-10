@@ -9,11 +9,14 @@
 
 	import Anchor from './anchor.svelte'
 
+	import IconPencil from '~icons/mdi/pencil-outline'
 	import { MediaQuery } from 'svelte/reactivity'
 
 	let { children }: LayoutProps = $props()
 
 	let isDesktop = new MediaQuery('min-width: 768px', false)
+
+	const editUrl = $derived(page.data.editUrl)
 
 	afterNavigate(() => {
 		nav.sidebarOpen = false
@@ -66,5 +69,20 @@
 		>
 			{@render children()}
 		</article>
+
+		{#if editUrl}
+			<div class="pb-12 pl-12">
+				<hr class="border-border" />
+				<a
+					href={editUrl}
+					target="_blank"
+					rel="noopener noreferrer external"
+					class="mt-6 inline-flex items-center gap-1.5 text-sm text-primary transition hover:text-primary-hover"
+				>
+					<IconPencil class="size-4" aria-hidden="true" />
+					Edit this page on GitHub
+				</a>
+			</div>
+		{/if}
 	</main>
 </div>

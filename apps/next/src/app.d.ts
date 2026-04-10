@@ -7,9 +7,10 @@ import 'unplugin-icons/types/svelte'
 declare global {
 	namespace App {
 		interface PageData {
+			editUrl?: string
 			sidebar?: Sidebar
 		}
 	}
 }
 
-export {}
+export { }
