@@ -21,15 +21,13 @@
 
 <div class="flex h-dvh min-h-0 w-full flex-col overflow-hidden md:flex-row">
 	<div
-		class="flex shrink-0 items-center justify-between border-b border-stone-200 px-4 py-3 md:hidden dark:border-neutral-800"
+		class="flex shrink-0 items-center justify-between border-b border-border px-4 py-3 md:hidden"
 	>
 		<button
 			type="button"
 			class={[
-				'rounded-md border px-3 py-2 text-sm font-medium shadow-sm transition',
-				'border-stone-300 bg-white text-stone-800 hover:bg-stone-50',
-				'dark:border-neutral-600 dark:bg-neutral-900 dark:text-stone-100 dark:hover:bg-neutral-800',
-				'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600',
+				'rounded-md border border-border px-3 py-2 text-sm font-medium shadow-sm transition',
+				'bg-background text-foreground hover:bg-muted',
 			]}
 			aria-controls="docs-sidebar-nav"
 			aria-expanded={sidebar}
@@ -55,7 +53,7 @@
 	<nav
 		id="docs-sidebar-nav"
 		class={[
-			'fixed inset-y-0 left-0 z-40 min-h-0 w-[min(92vw,24rem)] overflow-y-auto overscroll-y-contain border-r border-stone-200 bg-stone-50 transition-transform duration-200 ease-out dark:border-neutral-800 dark:bg-neutral-950',
+			'fixed inset-y-0 left-0 z-40 min-h-0 w-[min(92vw,24rem)] overflow-y-auto overscroll-y-contain border-r border-border bg-muted transition-transform duration-200 ease-out',
 			'md:static md:z-auto md:h-full md:w-sm md:max-w-none md:shrink-0 md:translate-x-0 md:transform-none',
 			sidebar ? 'translate-x-0' : '-translate-x-full',
 		]}
@@ -72,8 +70,8 @@
 							class={[
 								'block rounded-md px-3 py-2 text-sm transition',
 								`/${section}/${slug}` === page.url.pathname
-									? 'bg-blue-100 text-blue-900 dark:bg-blue-950 dark:text-blue-100'
-									: 'text-stone-800 hover:bg-stone-200/80 dark:text-stone-200 dark:hover:bg-neutral-800',
+									? 'bg-primary/10 font-medium text-primary'
+									: 'text-foreground hover:bg-muted-foreground/10',
 							]}
 							aria-current={`/${section}/${slug}` === page.url.pathname ? 'page' : undefined}
 						>
@@ -93,10 +91,11 @@
 		<article
 			class={[
 				'mx-auto max-w-prose px-4 py-8 md:px-6 lg:px-8',
-				'prose-blue dark:prose-invert',
+				'dark:prose-invert',
 				'prose sm:prose-sm md:prose-base lg:prose-lg xl:prose-xl',
-				'prose-inline-code:rounded prose-inline-code:outline prose-inline-code:outline-stone-400 prose-code:before:content-none prose-code:after:content-none',
-				'prose-pre:border dark:prose-pre:border-neutral-700',
+				'prose-a:text-primary prose-a:decoration-primary/30 hover:prose-a:decoration-primary',
+				'prose-inline-code:rounded prose-inline-code:outline prose-inline-code:outline-border prose-code:before:content-none prose-code:after:content-none',
+				'prose-pre:border prose-pre:border-border',
 			]}
 		>
 			{@render children()}

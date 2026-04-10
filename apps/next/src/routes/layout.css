@@ -2,6 +2,146 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+@theme {
+	--color-background: var(--bg);
+	--color-foreground: var(--fg);
+
+	--color-primary: var(--primary);
+	--color-primary-hover: var(--primary-hover);
+	--color-primary-foreground: var(--primary-fg);
+
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-fg);
+
+	--color-border: var(--border);
+	--color-ring: var(--ring);
+
+	--font-sans:
+		'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		'Helvetica Neue', Arial, sans-serif;
+
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+	:root {
+		--bg: #ffffff;
+		--fg: #0f1115;
+
+		--primary: #4f46e5;
+		--primary-hover: #4338ca;
+		--primary-fg: #ffffff;
+
+		--muted: #f3f4f6;
+		--muted-fg: #6b7280;
+		--border: #e5e7eb;
+		--ring: #4f46e5;
+
+		--radius: 0.5rem;
+
+		/* Callout tokens */
+		--callout-info-bg: rgba(59, 130, 246, 0.1);
+		--callout-info-border: #3b82f6;
+		--callout-info-title: #2563eb;
+
+		--callout-tip-bg: rgba(34, 197, 94, 0.1);
+		--callout-tip-border: #22c55e;
+		--callout-tip-title: #16a34a;
+
+		--callout-warning-bg: rgba(234, 179, 8, 0.1);
+		--callout-warning-border: #eab308;
+		--callout-warning-title: #ca8a04;
+
+		--callout-danger-bg: rgba(239, 68, 68, 0.1);
+		--callout-danger-border: #ef4444;
+		--callout-danger-title: #dc2626;
+
+		--callout-details-bg: rgba(107, 114, 128, 0.1);
+		--callout-details-border: #6b7280;
+		--callout-details-title: #4b5563;
+	}
+
+	.dark {
+		--bg: #0a0a0a;
+		--fg: #ededed;
+
+		--primary: #818cf8;
+		--primary-hover: #a5b4fc;
+		--primary-fg: #ffffff;
+
+		--muted: #171717;
+		--muted-fg: #a3a3a3;
+		--border: #262626;
+		--ring: #818cf8;
+
+		/* Callout tokens – dark */
+		--callout-info-bg: rgba(59, 130, 246, 0.15);
+		--callout-info-border: #60a5fa;
+		--callout-info-title: #93bbfd;
+
+		--callout-tip-bg: rgba(34, 197, 94, 0.15);
+		--callout-tip-border: #4ade80;
+		--callout-tip-title: #86efac;
+
+		--callout-warning-bg: rgba(234, 179, 8, 0.15);
+		--callout-warning-border: #facc15;
+		--callout-warning-title: #fde047;
+
+		--callout-danger-bg: rgba(239, 68, 68, 0.15);
+		--callout-danger-border: #f87171;
+		--callout-danger-title: #fca5a5;
+
+		--callout-details-bg: rgba(107, 114, 128, 0.15);
+		--callout-details-border: #9ca3af;
+		--callout-details-title: #d1d5db;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
+	html {
+		scrollbar-gutter: stable;
+	}
+
+	body {
+		@apply min-h-screen bg-background font-sans text-foreground antialiased;
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
+	}
+
+	::selection {
+		@apply bg-primary/20 text-primary;
+	}
+
+	::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+	::-webkit-scrollbar-track {
+		@apply bg-transparent;
+	}
+	::-webkit-scrollbar-thumb {
+		@apply rounded-full border border-solid border-background bg-muted-foreground/30;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		@apply bg-muted-foreground/50;
+	}
+
+	button,
+	a {
+		@apply focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none;
+	}
+}
+
+/* Shiki / code block styles */
+
 pre.shiki {
 	margin-top: 0;
 }
@@ -26,7 +166,7 @@ code .line::before {
 }
 
 pre code {
-	font-size: 14px; /* Example customization */
+	font-size: 14px;
 	line-height: 1.5;
 }
 
@@ -35,6 +175,7 @@ img[src$='.svg'] {
 }
 
 /* Callout / Alert Styles */
+
 .callout {
 	padding: 0.125rem 1rem;
 	margin: 1rem 0;
@@ -54,51 +195,51 @@ img[src$='.svg'] {
 }
 
 .callout-info {
-	background-color: rgba(59, 130, 246, 0.1);
-	border-left-color: #3b82f6;
+	background-color: var(--callout-info-bg);
+	border-left-color: var(--callout-info-border);
 }
 
 .callout-info .callout-title {
-	color: #2563eb;
+	color: var(--callout-info-title);
 }
 
 .callout-tip {
-	background-color: rgba(34, 197, 94, 0.1);
-	border-left-color: #22c55e;
+	background-color: var(--callout-tip-bg);
+	border-left-color: var(--callout-tip-border);
 }
 
 .callout-tip .callout-title {
-	color: #16a34a;
+	color: var(--callout-tip-title);
 }
 
 .callout-warning {
-	background-color: rgba(234, 179, 8, 0.1);
-	border-left-color: #eab308;
+	background-color: var(--callout-warning-bg);
+	border-left-color: var(--callout-warning-border);
 }
 
 .callout-warning .callout-title {
-	color: #ca8a04;
+	color: var(--callout-warning-title);
 }
 
 .callout-danger {
-	background-color: rgba(239, 68, 68, 0.1);
-	border-left-color: #ef4444;
+	background-color: var(--callout-danger-bg);
+	border-left-color: var(--callout-danger-border);
 }
 
 .callout-danger .callout-title {
-	color: #dc2626;
+	color: var(--callout-danger-title);
 }
 
 .callout-details {
-	background-color: rgba(107, 114, 128, 0.1);
-	border-left-color: #6b7280;
+	background-color: var(--callout-details-bg);
+	border-left-color: var(--callout-details-border);
 	border-radius: 0.5rem;
 	padding: 1rem;
 	margin: 1rem 0;
 }
 
 .callout-details .callout-title {
-	color: #4b5563;
+	color: var(--callout-details-title);
 	cursor: pointer;
 }
 
