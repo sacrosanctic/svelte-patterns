@@ -30,7 +30,7 @@
 		{#if hasSidebar}
 			<button
 				type="button"
-				class="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground md:hidden"
+				class="inline-flex size-9 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground md:hidden"
 				aria-label={nav.sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
 				aria-controls="docs-sidebar-nav"
 				aria-expanded={nav.sidebarOpen}
