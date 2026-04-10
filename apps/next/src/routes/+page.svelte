@@ -16,10 +16,22 @@
 </svelte:head>
 
 <div class="flex min-h-[calc(100dvh-4rem)] flex-col">
-	<section class="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center sm:py-28">
-		<h1 class="max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+	<section
+		class="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-6 py-24 text-center sm:py-28"
+	>
+		<div
+			class="pointer-events-none absolute top-1/3 left-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.08] blur-[120px]"
+			style="background: var(--primary)"
+			aria-hidden="true"
+		></div>
+
+		<h1
+			class="relative max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+		>
 			Complementary docs for
-			<span class="text-primary">Svelte & SvelteKit</span>
+			<span class="bg-linear-to-r from-primary to-primary-hover bg-clip-text text-transparent"
+				>Svelte & SvelteKit</span
+			>
 		</h1>
 
 		<p class="mt-12 max-w-2xl text-lg text-balance text-muted-foreground sm:text-xl">

@@ -26,17 +26,17 @@ All colors are defined as CSS variables in `layout.css` and mapped to Tailwind v
 
 ### Core tokens
 
-| Token             | Light     | Dark      | Tailwind class                                   | Use for                                      |
-| ----------------- | --------- | --------- | ------------------------------------------------ | -------------------------------------------- |
-| `--bg`            | `#f5efe5` | `#101828` | `bg-background`                                  | Page background (warm linen / midnight navy) |
-| `--fg`            | `#2a2520` | `#d5dae4` | `text-foreground`                                | Primary text                                 |
-| `--primary`       | `#4f46e5` | `#818cf8` | `text-primary`, `bg-primary`                     | Links, active states, accents                |
-| `--primary-hover` | `#4338ca` | `#a5b4fc` | `text-primary-hover`, `hover:text-primary-hover` | Hovered links/buttons                        |
-| `--primary-fg`    | `#ffffff` | `#ffffff` | `text-primary-foreground`                        | Text on primary-colored backgrounds          |
-| `--muted`         | `#ece4d6` | `#151f32` | `bg-muted`                                       | Sidebar, subtle panel backgrounds            |
-| `--muted-fg`      | `#736860` | `#7a869c` | `text-muted-foreground`                          | Secondary/placeholder text                   |
-| `--border`        | `#ddd4c4` | `#1c2b42` | `border-border`                                  | All borders/dividers                         |
-| `--ring`          | `#4f46e5` | `#818cf8` | `ring-ring`                                      | Focus outlines                               |
+| Token             | Light     | Dark      | Tailwind class                                   | Use for                                        |
+| ----------------- | --------- | --------- | ------------------------------------------------ | ---------------------------------------------- |
+| `--bg`            | `#f5efe5` | `#161413` | `bg-background`                                  | Page background (warm linen / warm near-black) |
+| `--fg`            | `#2a2520` | `#e8e0d8` | `text-foreground`                                | Primary text                                   |
+| `--primary`       | `#d4541e` | `#ef6c43` | `text-primary`, `bg-primary`                     | Links, active states, accents                  |
+| `--primary-hover` | `#b8441a` | `#ff9e7a` | `text-primary-hover`, `hover:text-primary-hover` | Hovered links/buttons                          |
+| `--primary-fg`    | `#ffffff` | `#ffffff` | `text-primary-foreground`                        | Text on primary-colored backgrounds            |
+| `--muted`         | `#ece4d6` | `#1c1917` | `bg-muted`                                       | Sidebar, subtle panel backgrounds              |
+| `--muted-fg`      | `#736860` | `#958880` | `text-muted-foreground`                          | Secondary/placeholder text                     |
+| `--border`        | `#ddd4c4` | `#2a2421` | `border-border`                                  | All borders/dividers                           |
+| `--ring`          | `#d4541e` | `#ef6c43` | `ring-ring`                                      | Focus outlines                                 |
 
 ### When to use what
 

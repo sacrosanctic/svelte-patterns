@@ -33,14 +33,14 @@
 		--bg: #f5efe5;
 		--fg: #2a2520;
 
-		--primary: #4f46e5;
-		--primary-hover: #4338ca;
+		--primary: #d4541e;
+		--primary-hover: #b8441a;
 		--primary-fg: #ffffff;
 
 		--muted: #ece4d6;
 		--muted-fg: #736860;
 		--border: #ddd4c4;
-		--ring: #4f46e5;
+		--ring: #d4541e;
 
 		--radius: 0.5rem;
 
@@ -67,36 +67,36 @@
 	}
 
 	.dark {
-		--bg: #101828;
-		--fg: #d5dae4;
+		--bg: #161413;
+		--fg: #e8e0d8;
 
-		--primary: #818cf8;
-		--primary-hover: #a5b4fc;
+		--primary: #ef6c43;
+		--primary-hover: #ff9e7a;
 		--primary-fg: #ffffff;
 
-		--muted: #151f32;
-		--muted-fg: #7a869c;
-		--border: #1c2b42;
-		--ring: #818cf8;
+		--muted: #1c1917;
+		--muted-fg: #958880;
+		--border: #2a2421;
+		--ring: #ef6c43;
 
 		/* Callout tokens – dark */
-		--callout-info-bg: rgba(59, 130, 246, 0.15);
+		--callout-info-bg: rgba(96, 165, 250, 0.1);
 		--callout-info-border: #60a5fa;
 		--callout-info-title: #93bbfd;
 
-		--callout-tip-bg: rgba(34, 197, 94, 0.15);
+		--callout-tip-bg: rgba(74, 222, 128, 0.1);
 		--callout-tip-border: #4ade80;
 		--callout-tip-title: #86efac;
 
-		--callout-warning-bg: rgba(234, 179, 8, 0.15);
+		--callout-warning-bg: rgba(250, 204, 21, 0.1);
 		--callout-warning-border: #facc15;
 		--callout-warning-title: #fde047;
 
-		--callout-danger-bg: rgba(239, 68, 68, 0.15);
+		--callout-danger-bg: rgba(248, 113, 113, 0.1);
 		--callout-danger-border: #f87171;
 		--callout-danger-title: #fca5a5;
 
-		--callout-details-bg: rgba(107, 114, 128, 0.15);
+		--callout-details-bg: rgba(156, 163, 175, 0.1);
 		--callout-details-border: #9ca3af;
 		--callout-details-title: #d1d5db;
 	}
