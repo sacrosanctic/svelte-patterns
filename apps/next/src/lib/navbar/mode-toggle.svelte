@@ -11,7 +11,7 @@
 	onclick={toggleMode}
 	aria-label="Toggle dark mode"
 	title="Toggle dark mode"
-	class="group relative flex size-10 cursor-pointer items-center justify-center rounded-full bg-muted-foreground/10 text-muted-foreground ring-1 ring-border transition-all hover:bg-muted-foreground/20 hover:text-foreground active:scale-95"
+	class="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-all hover:bg-muted hover:text-foreground active:scale-95"
 >
 	<span class="sr-only">Toggle dark mode</span>
 

@@ -68,8 +68,6 @@
 
 		<ModeToggle />
 
-		<div class="mx-1 h-5 w-px bg-border" role="separator" aria-orientation="vertical"></div>
-
 		<a
 			href="https://svelte.dev/docs"
 			target="_blank"
