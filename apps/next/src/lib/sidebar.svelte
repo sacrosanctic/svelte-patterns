@@ -10,10 +10,6 @@
 
 	let { groups }: Props = $props()
 
-	// TODO: I know, I know, all of this looks messy
-	// and it's dangerous to ship this to main because it'd be ironic lol
-	// but I'll improve it later
-
 	const isActive = (section: string, slug: string) => `/${section}/${slug}` === page.url.pathname
 
 	const groupIsActive = (group: SidebarGroup) =>
