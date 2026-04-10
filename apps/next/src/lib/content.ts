@@ -1,7 +1,6 @@
 import type { Component } from 'svelte'
 
 import { defineErrors, extractErrorMessage, type InferErrors } from 'wellcrafted/error'
-import { Ok, type Result } from 'wellcrafted/result'
 
 export type DocEntry = {
 	component: Component
@@ -10,7 +9,10 @@ export type DocEntry = {
 	title: string
 }
 
-type RawMd = { default: Component; frontmatter: Record<string, unknown> & { title?: string } }
+export type RawMd = {
+	default: Component
+	frontmatter: Record<string, unknown> & { title?: string }
+}
 
 export const AppError = defineErrors({
 	DocMissing: ({ path }: { path: string }) => ({
@@ -26,7 +28,7 @@ export const AppError = defineErrors({
 		message: `oops: ${extractErrorMessage(cause)}`,
 	}),
 })
-type AppError = InferErrors<typeof AppError>
+export type AppError = InferErrors<typeof AppError>
 
 const normalizeSlug = (name: string) =>
 	name
@@ -43,12 +45,10 @@ const titleFromSlug = (slug: string) =>
 		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
 		.join(' ')
 
-const rawModules = import.meta.glob<RawMd>(`/src/content/**/*.md`, { eager: true })
-
-const buildDocEntries = (): DocEntry[] => {
+export const buildDocEntries = (modules: Record<string, RawMd>): DocEntry[] => {
 	const entries: DocEntry[] = []
 
-	for (const [globPath, md] of Object.entries(rawModules)) {
+	for (const [globPath, md] of Object.entries(modules)) {
 		const parts = globPath.split('/')
 		const filename = parts.pop()!.replace('.md', '')
 		const name = filename === 'index' ? parts.pop()! : filename
@@ -74,22 +74,4 @@ const buildDocEntries = (): DocEntry[] => {
 		if (t !== 0) return t
 		return a.slug.localeCompare(b.slug)
 	})
-}
-
-const sortedDocs = buildDocEntries()
-
-const docsBySlug = new Map<string, DocEntry>(sortedDocs.map((d) => [d.slug, d]))
-
-export const listDocs = (): DocEntry[] => [...sortedDocs]
-
-export const getFirstDoc = (): DocEntry | undefined => sortedDocs[0]
-
-export const getDoc = (slug: string): Result<DocEntry, AppError> => {
-	try {
-		const doc = docsBySlug.get(slug)
-		if (!doc) return AppError.DocNotFound({ path: slug })
-		return Ok(doc)
-	} catch (e) {
-		return AppError.Unexpected({ cause: e })
-	}
 }

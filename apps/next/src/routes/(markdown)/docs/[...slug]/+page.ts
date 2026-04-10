@@ -1,5 +1,7 @@
 /* eslint-disable no-fallthrough */
-import { AppError, getDoc, listDocs } from '$lib/content'
+import { AppError } from '$lib/content'
+
+import { getDoc, listDocs } from '../content'
 
 import { error } from '@sveltejs/kit'
 
