@@ -20,7 +20,7 @@
 		class="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-6 py-24 text-center sm:py-28"
 	>
 		<div
-			class="pointer-events-none absolute top-1/3 left-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.08] blur-[120px]"
+			class="pointer-events-none absolute top-1/3 left-1/2 h-125 w-200 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.08] blur-[120px]"
 			style="background: var(--primary)"
 			aria-hidden="true"
 		></div>

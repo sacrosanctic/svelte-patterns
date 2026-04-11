@@ -312,9 +312,7 @@ export default defineConfig({
 		// debugSvelteMdPlugin(),
 		enhancedImages(),
 		sveltekit(),
-		Icons({
-			compiler: 'svelte',
-		}),
+		Icons({ compiler: 'svelte' }),
 		devtoolsJson(),
 	],
 })

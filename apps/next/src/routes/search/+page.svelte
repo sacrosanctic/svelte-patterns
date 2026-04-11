@@ -93,8 +93,7 @@
 			bind:value={query}
 			oninput={handleInput}
 			class={[
-				'w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm',
-				'transition placeholder:text-muted-foreground',
+				'w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm transition placeholder:text-muted-foreground',
 			]}
 		/>
 	</div>
