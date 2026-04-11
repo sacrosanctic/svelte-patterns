@@ -2,7 +2,7 @@
 	import { afterNavigate } from '$app/navigation'
 	import { page } from '$app/state'
 
-	import { nav } from '$lib/navbar/nav-state.svelte'
+	import { sidebar } from '$lib/navbar/nav-state.svelte'
 	import Sidebar from '$lib/sidebar.svelte'
 
 	import Anchor from './anchor.svelte'
@@ -15,20 +15,20 @@
 	let isDesktop = new MediaQuery('min-width: 768px', false)
 
 	afterNavigate(() => {
-		nav.sidebarOpen = false
+		sidebar.current = false
 	})
 </script>
 
 <Anchor />
 
 <div class="flex h-[calc(100dvh-4rem)] min-h-0 w-full flex-col overflow-hidden md:flex-row">
-	{#if nav.sidebarOpen}
+	{#if sidebar.current}
 		<button
 			type="button"
 			class="fixed inset-x-0 top-16 bottom-0 z-30 bg-black/40 md:hidden"
 			aria-label="Close documentation menu"
 			onclick={() => {
-				nav.sidebarOpen = false
+				sidebar.current = false
 			}}
 		></button>
 	{/if}
@@ -38,10 +38,10 @@
 		class={[
 			'fixed top-16 bottom-0 left-0 z-40 min-h-0 w-[min(92vw,24rem)] overflow-y-auto overscroll-y-contain border-r border-border bg-muted transition-transform duration-200 ease-out',
 			'md:static md:z-auto md:h-full md:w-sm md:max-w-none md:shrink-0 md:translate-x-0 md:transform-none',
-			nav.sidebarOpen ? 'translate-x-0' : '-translate-x-full',
+			sidebar.current ? 'translate-x-0' : '-translate-x-full',
 		]}
 		aria-label="Documentation"
-		inert={!isDesktop.current && !nav.sidebarOpen}
+		inert={!isDesktop.current && !sidebar.current}
 	>
 		{#if page.data.sidebar}
 			<Sidebar groups={page.data.sidebar.groups} />

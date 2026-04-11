@@ -5,15 +5,13 @@
 	import favicon from '$lib/assets/favicon.svg'
 	import { GITHUB_REPO_URL, SVELTE_DOCS_URL } from '$lib/config/constants'
 	import ModeToggle from '$lib/navbar/mode-toggle.svelte'
-	import { nav } from '$lib/navbar/nav-state.svelte'
+	import { sidebar } from '$lib/navbar/nav-state.svelte'
 	import SearchTrigger from '$lib/navbar/search-trigger.svelte'
 
 	import IconClose from '~icons/mdi/close'
 	import IconGithub from '~icons/mdi/github'
 	import IconSearch from '~icons/mdi/magnify'
 	import IconMenu from '~icons/mdi/menu'
-
-	const hasSidebar = $derived(!!page.data.sidebar)
 </script>
 
 <a
@@ -26,17 +24,19 @@
 <header
 	class="sticky top-0 z-50 flex h-16 shrink-0 items-center border-b bg-background/80 backdrop-blur-md"
 >
-	<div class={['flex h-full shrink-0 items-center gap-3 pl-6 lg:pl-8', hasSidebar && 'md:w-sm']}>
-		{#if hasSidebar}
+	<div
+		class={['flex h-full shrink-0 items-center gap-3 pl-6 lg:pl-8', page.data.sidebar && 'md:w-sm']}
+	>
+		{#if page.data.sidebar}
 			<button
 				type="button"
 				class="inline-flex size-9 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground md:hidden"
-				aria-label={nav.sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+				aria-label={sidebar.current ? 'Close sidebar' : 'Open sidebar'}
 				aria-controls="docs-sidebar-nav"
-				aria-expanded={nav.sidebarOpen}
-				onclick={nav.toggleSidebar}
+				aria-expanded={sidebar.current}
+				onclick={sidebar.toggle}
 			>
-				{#if nav.sidebarOpen}
+				{#if sidebar.current}
 					<IconClose class="size-5" aria-hidden="true" />
 				{:else}
 					<IconMenu class="size-5" aria-hidden="true" />

@@ -1,13 +1,9 @@
-let sidebarOpen = $state(false)
+class Sidebar {
+	current = $state(false)
 
-export const nav = {
-	get sidebarOpen() {
-		return sidebarOpen
-	},
-	set sidebarOpen(v: boolean) {
-		sidebarOpen = v
-	},
-	toggleSidebar: () => {
-		sidebarOpen = !sidebarOpen
-	},
+	toggle() {
+		this.current = !this.current
+	}
 }
+
+export const sidebar = new Sidebar()
