@@ -1,4 +1,6 @@
-import { sectionLabels, type Sidebar } from '$lib/content'
+import type { Props as Sidebar } from '$lib/sidebar.svelte'
+
+import { sectionLabels } from '$lib/content'
 
 import { listDocs as concept } from './concept/content'
 import { listDocs as docs } from './docs/content'

@@ -5,8 +5,8 @@
 	import favicon from '$lib/assets/favicon.svg'
 	import { GITHUB_REPO_URL, SVELTE_DOCS_URL } from '$lib/config/constants'
 	import ModeToggle from '$lib/navbar/mode-toggle.svelte'
-	import { sidebar } from '$lib/navbar/nav-state.svelte'
 	import SearchTrigger from '$lib/navbar/search-trigger.svelte'
+	import { sidebar } from '$lib/sidebar.svelte'
 
 	import IconClose from '~icons/mdi/close'
 	import IconGithub from '~icons/mdi/github'
@@ -24,9 +24,7 @@
 <header
 	class="sticky top-0 z-50 flex h-16 shrink-0 items-center border-b bg-background/80 backdrop-blur-md"
 >
-	<div
-		class={['flex h-full shrink-0 items-center gap-3 pl-6 lg:pl-8', page.data.sidebar && 'md:w-sm']}
-	>
+	<div class="flex h-full shrink-0 items-center gap-3 pl-6 lg:pl-8">
 		{#if page.data.sidebar}
 			<button
 				type="button"
@@ -34,7 +32,7 @@
 				aria-label={sidebar.current ? 'Close sidebar' : 'Open sidebar'}
 				aria-controls="docs-sidebar-nav"
 				aria-expanded={sidebar.current}
-				onclick={sidebar.toggle}
+				onclick={() => sidebar.toggle()}
 			>
 				{#if sidebar.current}
 					<IconClose class="size-5" aria-hidden="true" />

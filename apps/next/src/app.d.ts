@@ -1,6 +1,6 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
-import type { Sidebar } from '$lib/content'
+import type { Props as Sidebar } from '$lib/sidebar.svelte'
 
 import 'unplugin-icons/types/svelte'
 

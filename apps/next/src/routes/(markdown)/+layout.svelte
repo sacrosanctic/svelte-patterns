@@ -2,8 +2,7 @@
 	import { afterNavigate } from '$app/navigation'
 	import { page } from '$app/state'
 
-	import { sidebar } from '$lib/navbar/nav-state.svelte'
-	import Sidebar from '$lib/sidebar.svelte'
+	import Sidebar, { sidebar } from '$lib/sidebar.svelte'
 
 	import Anchor from './anchor.svelte'
 
@@ -27,9 +26,7 @@
 			type="button"
 			class="fixed inset-x-0 top-16 bottom-0 z-30 bg-black/40 md:hidden"
 			aria-label="Close documentation menu"
-			onclick={() => {
-				sidebar.current = false
-			}}
+			onclick={() => (sidebar.current = false)}
 		></button>
 	{/if}
 
@@ -44,7 +41,7 @@
 		inert={!isDesktop.current && !sidebar.current}
 	>
 		{#if page.data.sidebar}
-			<Sidebar groups={page.data.sidebar.groups} />
+			<Sidebar {...page.data.sidebar} />
 		{/if}
 	</nav>
 

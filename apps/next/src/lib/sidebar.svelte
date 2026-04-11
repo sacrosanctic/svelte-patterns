@@ -1,13 +1,31 @@
+<script lang="ts" module>
+	class SidebarState {
+		current = $state(false)
+
+		toggle() {
+			this.current = !this.current
+		}
+	}
+
+	export const sidebar = new SidebarState()
+</script>
+
 <script lang="ts">
-	import type { SidebarGroup } from '$lib/content'
+	import type { DocEntry } from '$lib/content'
 
 	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
 	import IconChevronRight from '~icons/mdi/chevron-right'
 
-	type Props = {
+	export type Props = {
 		groups: SidebarGroup[]
+	}
+
+	type SidebarGroup = {
+		items: DocEntry[]
+		label: string
+		section: DocEntry['section']
 	}
 
 	let { groups }: Props = $props()
