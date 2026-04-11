@@ -16,5 +16,5 @@
 		"exactOptionalPropertyTypes": true,
 		"noUncheckedIndexedAccess": true
 	},
-	"exclude": ["src/routes/test/**/*", "src/content/**/*"]
+	"exclude": ["src/content/**/*"]
 }
