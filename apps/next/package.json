@@ -15,9 +15,9 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@better-fetch/fetch": "^1.1.21",
 		"@eslint/compat": "catalog:lint",
 		"@eslint/js": "catalog:lint",
+		"@iconify-json/mdi": "^1.2.3",
 		"@mdit/plugin-container": "catalog:md",
 		"@mdit/plugin-snippet": "catalog:md",
 		"@repo/ui": "workspace:*",
@@ -48,6 +48,7 @@
 		"tailwindcss": "catalog:tailwind",
 		"typescript": "catalog:types",
 		"typescript-eslint": "catalog:lint",
+		"unplugin-icons": "^23.0.1",
 		"vite": "catalog:build",
 		"vite-plugin-devtools-json": "catalog:util",
 		"vite-plugin-svelte-md": "catalog:md",

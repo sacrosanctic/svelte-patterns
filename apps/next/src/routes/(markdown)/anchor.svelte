@@ -44,7 +44,7 @@
 			left: 100%;
 			margin-left: 0.5rem;
 			font-size: 0.875rem;
-			color: var(--skThemeColors-green);
+			color: var(--primary);
 			white-space: nowrap;
 			opacity: 0;
 			animation: fade-in-out 1.5s forwards;

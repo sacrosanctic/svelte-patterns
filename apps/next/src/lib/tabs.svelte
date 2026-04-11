@@ -28,7 +28,7 @@
 		<li
 			data-tab={i}
 			data-active={i === active ? '' : undefined}
-			class={['list-none hover:bg-gray-700/50 data-active:bg-blue-900']}
+			class="list-none hover:bg-muted-foreground/20 data-active:bg-primary/20 data-active:text-primary"
 		>
 			<button
 				class="rounded-md px-3 py-1.5 text-sm transition-colors"
