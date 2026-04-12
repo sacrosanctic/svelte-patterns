@@ -1,15 +1,30 @@
-import { AppError, buildDocEntries, type DocEntry, type RawMd } from '$lib/content'
+import { AppError, type Md, type RawMd } from '$lib/content'
 
 import { Ok, type Result } from 'wellcrafted/result'
 
-const rawModules = import.meta.glob<RawMd>(`/src/content/docs/**/*.md`, { eager: true })
+const buildDocEntries = (modules: Record<string, RawMd>): Md[] => {
+	const entries: Md[] = []
 
-const sortedDocs = buildDocEntries(rawModules, 'docs')
-const docsBySlug = new Map<string, DocEntry>(sortedDocs.map((d) => [d.slug, d]))
+	for (const [globPath, md] of Object.entries(modules)) {
+		entries.push({
+			component: md.default,
+			fm: {},
+			slug: globPath.replace('/src/content/svelte.dev/docs/', '').replace(/(\/index)?\.md$/, ''),
+			sourcePath: globPath,
+		})
+	}
 
-export const listDocs = (): DocEntry[] => [...sortedDocs]
+	return entries
+}
 
-export const getDoc = (slug: string): Result<DocEntry, AppError> => {
+const rawModules = import.meta.glob<RawMd>(`/src/content/svelte.dev/**/*.md`, {
+	eager: true,
+})
+
+const sortedDocs = buildDocEntries(rawModules)
+const docsBySlug = new Map<string, Md>(sortedDocs.map((d) => [d.slug, d]))
+
+export const getDoc = (slug: string): Result<Md, AppError> => {
 	try {
 		const doc = docsBySlug.get(slug)
 		if (!doc) return AppError.DocNotFound({ path: slug })

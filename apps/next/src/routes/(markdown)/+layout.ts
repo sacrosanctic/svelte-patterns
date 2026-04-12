@@ -1,19 +1,18 @@
 import type { Props as Sidebar } from '$lib/sidebar.svelte'
 
-import { sectionLabels } from '$lib/content'
+import { categoryLabels, modules } from '$lib/content'
 
-import { listDocs as concept } from './concept/content'
-import { listDocs as docs } from './docs/content'
-import { listDocs as faq } from './faq/content'
+export const load = () => {
+	// todo:refactor
+	const grouped = Object.groupBy(modules, (m) => m.fm.category)
 
-const buildSidebar = (): Sidebar => ({
-	groups: [
-		{ items: docs(), label: sectionLabels.docs, section: 'docs' },
-		{ items: concept(), label: sectionLabels.concept, section: 'concept' },
-		{ items: faq(), label: sectionLabels.faq, section: 'faq' },
-	],
-})
-
-export const load = () => ({
-	sidebar: buildSidebar(),
-})
+	return {
+		sidebar: {
+			groups: [
+				{ category: 'concept', items: grouped.concept ?? [], label: categoryLabels.concept },
+				{ category: 'meta', items: grouped.meta ?? [], label: categoryLabels.meta },
+				{ category: 'faq', items: grouped.faq ?? [], label: categoryLabels.faq },
+			],
+		} satisfies Sidebar,
+	}
+}

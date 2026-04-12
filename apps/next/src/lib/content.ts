@@ -1,30 +1,34 @@
 import type { Component } from 'svelte'
 
-import { GITHUB_DEFAULT_BRANCH, GITHUB_REPO_URL } from '$lib/config/constants'
-
+import * as v from 'valibot'
 import { defineErrors, extractErrorMessage, type InferErrors } from 'wellcrafted/error'
+import { Ok, type Result } from 'wellcrafted/result'
 
-export type DocEntry = {
+export const categories = ['concept', 'faq', 'meta', 'general', 'resource', 'misc'] as const
+
+export const categoryLabels: Record<Md['fm']['category'], string> = {
+	concept: 'Concept',
+	faq: 'FAQ',
+	general: 'General',
+	meta: 'Meta',
+	misc: 'Misc',
+	resource: 'Resource',
+}
+export const FrontmatterSchema = v.object({
+	category: v.picklist(categories),
+	title: v.string('Title is required'),
+})
+
+export type Md = {
 	component: Component
-	frontmatter: Record<string, unknown>
-	section: 'concept' | 'docs' | 'faq'
+	fm: v.InferOutput<typeof FrontmatterSchema>
 	slug: string
 	sourcePath: string
-	title: string
 }
-
-export const buildEditUrl = (repoRelativePath: string) =>
-	`${GITHUB_REPO_URL}/edit/${GITHUB_DEFAULT_BRANCH}/apps/next${repoRelativePath}`
 
 export type RawMd = {
 	default: Component
-	frontmatter: Record<string, unknown> & { title?: string }
-}
-
-export const sectionLabels: Record<DocEntry['section'], string> = {
-	concept: 'Concepts',
-	docs: 'Docs',
-	faq: 'FAQ',
+	frontmatter: Record<string, unknown>
 }
 
 export const AppError = defineErrors({
@@ -51,18 +55,11 @@ const normalizeSlug = (name: string) =>
 		.replace(/-+/g, '-')
 		.replace(/^-|-$/g, '')
 
-const titleFromSlug = (slug: string) =>
-	slug
-		.split('-')
-		.filter(Boolean)
-		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-		.join(' ')
-
 export const buildDocEntries = (
 	modules: Record<string, RawMd>,
-	section: 'concept' | 'docs' | 'faq',
-): DocEntry[] => {
-	const entries: DocEntry[] = []
+	schema = FrontmatterSchema,
+): Md[] => {
+	const entries: Md[] = []
 
 	for (const [globPath, md] of Object.entries(modules)) {
 		const parts = globPath.split('/')
@@ -72,24 +69,41 @@ export const buildDocEntries = (
 
 		if (!slug) continue
 
-		const title =
-			typeof md.frontmatter.title === 'string' && md.frontmatter.title.trim()
-				? md.frontmatter.title.trim()
-				: titleFromSlug(slug)
+		const result = v.safeParse(schema, md.frontmatter)
+
+		if (!result.success) {
+			const issues = result.issues.map((i) => i.message).join(', ')
+			throw Error(`Invalid frontmatter in ${globPath}: ${issues}`)
+		}
 
 		entries.push({
 			component: md.default,
-			frontmatter: md.frontmatter,
-			section,
+			fm: result.output,
 			slug,
 			sourcePath: globPath,
-			title,
 		})
 	}
 
 	return entries.sort((a, b) => {
-		const t = a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
+		const t = a.fm.title.localeCompare(b.fm.title, undefined, { sensitivity: 'base' })
 		if (t !== 0) return t
 		return a.slug.localeCompare(b.slug)
 	})
+}
+
+const rawModules = import.meta.glob<RawMd>(`/src/content/sveltepatterns.dev/**/*.md`, {
+	eager: true,
+})
+
+export const modules = buildDocEntries(rawModules)
+const moduleBySlug = new Map<string, Md>(modules.map((d) => [d.slug, d]))
+
+export const getDoc = (slug: string): Result<Md, AppError> => {
+	try {
+		const doc = moduleBySlug.get(slug)
+		if (!doc) return AppError.DocNotFound({ path: slug })
+		return Ok(doc)
+	} catch (e) {
+		return AppError.Unexpected({ cause: e })
+	}
 }

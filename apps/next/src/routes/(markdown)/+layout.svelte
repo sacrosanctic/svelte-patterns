@@ -2,6 +2,7 @@
 	import { afterNavigate } from '$app/navigation'
 	import { page } from '$app/state'
 
+	import { GITHUB_DEFAULT_BRANCH, GITHUB_REPO_URL } from '$lib/config/constants'
 	import Sidebar, { sidebar } from '$lib/sidebar.svelte'
 
 	import Anchor from './anchor.svelte'
@@ -63,11 +64,11 @@
 			{@render children()}
 		</article>
 
-		{#if page.data.editUrl}
+		{#if page.data?.md?.sourcePath}
 			<div class="pb-12 pl-12">
 				<hr class="border-border" />
 				<a
-					href={page.data.editUrl}
+					href="{GITHUB_REPO_URL}/edit/{GITHUB_DEFAULT_BRANCH}/apps/main{page.data.md.sourcePath}"
 					target="_blank"
 					rel="noopener noreferrer external"
 					class="mt-6 inline-flex items-center gap-1.5 text-sm text-primary transition hover:text-primary-hover"

@@ -1,18 +1,14 @@
 <script lang="ts">
 	import { resolve } from '$app/paths'
 
-	import { GITHUB_REPO_URL } from '$lib/config/constants'
+	import { TAG_LINE } from '$lib/config/constants'
 
 	import IconArrowRight from '~icons/mdi/arrow-right'
-	import IconGithub from '~icons/mdi/github'
 </script>
 
 <svelte:head>
-	<title>Svelte Patterns — Complementary docs for Svelte</title>
-	<meta
-		name="description"
-		content="Common patterns, best practices, and reusable abstractions for Svelte and SvelteKit that the official docs don't cover."
-	/>
+	<title>Svelte Patterns — The missing manual for Svelte.</title>
+	<meta name="description" content={TAG_LINE} />
 </svelte:head>
 
 <div class="flex min-h-[calc(100dvh-4rem)] flex-col">
@@ -28,23 +24,12 @@
 		<h1
 			class="relative max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
 		>
-			Complementary docs for
 			<span class="bg-linear-to-r from-primary to-primary-hover bg-clip-text text-transparent"
-				>Svelte & SvelteKit</span
-			>
+				>Svelte</span
+			> Patterns
 		</h1>
 
-		<p class="mt-12 max-w-2xl text-lg text-balance text-muted-foreground sm:text-xl">
-			Common patterns, best practices, and reusable abstractions that the official docs don't cover.
-			An extension of
-			<a
-				href="https://svelte.dev/docs/"
-				target="_blank"
-				rel="noopener noreferrer external"
-				class="font-medium text-primary underline decoration-primary/30 underline-offset-4 transition hover:text-primary-hover hover:decoration-primary"
-				>svelte.dev</a
-			>.
-		</p>
+		<p class="mt-12 max-w-2xl text-lg text-balance text-muted-foreground sm:text-xl">{TAG_LINE}</p>
 
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-4">
 			<a
@@ -53,16 +38,6 @@
 			>
 				Look inside
 				<IconArrowRight class="size-4" aria-hidden="true" />
-			</a>
-
-			<a
-				href={GITHUB_REPO_URL}
-				target="_blank"
-				rel="noopener noreferrer external"
-				class="inline-flex items-center gap-2 rounded-lg border bg-background px-6 py-3 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted"
-			>
-				<IconGithub class="size-4" aria-hidden="true" />
-				GitHub
 			</a>
 		</div>
 	</section>
@@ -76,14 +51,6 @@
 				rel="noopener noreferrer external"
 				class="font-medium text-primary underline decoration-primary/30 underline-offset-4 transition hover:text-primary-hover hover:decoration-primary"
 				>SvelteKit</a
-			>
-			&middot;
-			<a
-				href={GITHUB_REPO_URL}
-				target="_blank"
-				rel="noopener noreferrer external"
-				class="font-medium text-primary underline decoration-primary/30 underline-offset-4 transition hover:text-primary-hover hover:decoration-primary"
-				>Contribute on GitHub</a
 			>
 		</p>
 	</footer>

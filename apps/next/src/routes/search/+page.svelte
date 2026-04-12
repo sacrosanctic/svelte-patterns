@@ -86,7 +86,9 @@
 
 	<div class="not-prose mb-6">
 		<label class="sr-only" for="doc-search">Search documentation</label>
+		<!-- svelte-ignore a11y_autofocus -->
 		<input
+			autofocus
 			id="doc-search"
 			type="search"
 			placeholder="Search..."

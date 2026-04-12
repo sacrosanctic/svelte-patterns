@@ -11,16 +11,14 @@
 				// part of dynamic code generation and cannot be statically analyzed
 				"src/lib/tabs.svelte",
 			],
+			// part of dynamic code generation and cannot be statically analyzed
+			// and theres no entrypoint so have to be ignored
+			"ignoreDependencies": ["@repo/ui"],
+			"ignore": ["src/content/**"],
+			"paths": { "~icons/*": ["node_modules/unplugin-icons/types/svelte5.d.ts"] },
 		},
 	},
-	// part of dynamic code generation and cannot be statically analyzed
-	// and theres no entrypoint so have to be ignored
-	"ignoreDependencies": ["@repo/ui"],
-	"ignore": ["apps/next/src/content/**"],
 	"svelte": {
 		"entry": ["svelte.config.js", "vite.config.{js,mjs,ts,cjs,mts,cts}"],
-	},
-	"paths": {
-		"~icons/*": ["node_modules/unplugin-icons/types/svelte.d.ts"],
 	},
 }

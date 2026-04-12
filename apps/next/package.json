@@ -49,6 +49,7 @@
 		"typescript": "catalog:types",
 		"typescript-eslint": "catalog:lint",
 		"unplugin-icons": "^23.0.1",
+		"valibot": "catalog:util",
 		"vite": "catalog:build",
 		"vite-plugin-devtools-json": "catalog:util",
 		"vite-plugin-svelte-md": "catalog:md",
