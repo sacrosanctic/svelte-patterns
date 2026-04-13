@@ -1,6 +1,9 @@
 # Style Guide
 
-## /src/content/sveltepatterns.dev
+
+## Novel Content
+
+saved in `/src/content/sveltepatterns.dev/`
 
 must have a these tags
 
@@ -17,14 +20,37 @@ concept revolves around a concept
 what is snippet
 meta are big picture things
 
-### faq
+### Concept
+
+
+### Faq
 
 always start with `# describe the problem`
 
 then `# solution`
 with each solution being a ## HEADER
 
-## /src/content/svelte.dev
+### Meta
+
+### Resource
+
+primary goal is redirecting to another page
+
+### Misc
+
+When nothing else fits, use sparingly
+
+## Shadow Content
+
+saved in `/src/content/svelte.dev`
+
 
 shadows the main site
-must have a title
+md file must have a title
+
+### commmunity resources
+title
+author
+link
+
+the linked resources must be dated (ie created on/updated on)
