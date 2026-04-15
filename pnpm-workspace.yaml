@@ -4,7 +4,7 @@ packages:
 
 catalogs:
   build:
-    vite: ^7.3.1
+    vite: ^8.0.2
   lint:
     '@eslint/compat': ^2.0.2
     '@eslint/js': ^9.39.2
@@ -32,15 +32,15 @@ catalogs:
   svelte:
     '@sveltejs/adapter-vercel': ^6.3.1
     '@sveltejs/kit': ^2.50.2
-    '@sveltejs/vite-plugin-svelte': ^6.2.4
-    svelte: ^5.51.0
+    '@sveltejs/vite-plugin-svelte': ^7.0.0
+    svelte: ^5.55.1
     svelte-check: ^4.4.2
   tailwind:
     '@tailwindcss/forms': ^0.5.11
     '@tailwindcss/typography': ^0.5.19
-    '@tailwindcss/vite': ^4.1.18
+    '@tailwindcss/vite': ^4.2.2
     tailwind-merge: ^3.5.0
-    tailwindcss: ^4.1.18
+    tailwindcss: ^4.2.2
   types:
     '@types/node': ^22
     globals: ^17.3.0
