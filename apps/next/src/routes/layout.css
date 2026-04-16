@@ -64,6 +64,9 @@
 		--callout-details-bg: rgba(107, 114, 128, 0.1);
 		--callout-details-border: #6b7280;
 		--callout-details-title: #4b5563;
+
+		--image-overlay: none;
+		--image-overlay-svg: none;
 	}
 
 	.dark {
@@ -99,6 +102,9 @@
 		--callout-details-bg: rgba(156, 163, 175, 0.1);
 		--callout-details-border: #9ca3af;
 		--callout-details-title: #d1d5db;
+
+		--image-overlay: brightness(40%);
+		--image-overlay-svg: invert(50%);
 	}
 }
 
@@ -174,8 +180,12 @@ pre code {
 	line-height: 1.5;
 }
 
+picture img {
+	filter: var(--image-overlay);
+}
+
 img[src$='.svg'] {
-	filter: invert(50%);
+	filter: var(--image-overlay-svg);
 }
 
 /* Callout / Alert Styles */
