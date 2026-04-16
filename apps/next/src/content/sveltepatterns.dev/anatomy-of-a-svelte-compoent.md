@@ -6,29 +6,42 @@ tags: anatomy of, cheatsheet
 
 This article highlights the different parts of a svelte component. What they're called, and their main purpose.
 
-A svelte component has 5 parts.
+A svelte component has 6 parts.
 
 - component doc
-- script module
+- svelte options elements
+- script module block (aka script module)
 - script block
 - markup
 - style block
 
 ```svelte
+<!-- This is called a `component docs` -->
 <!--
 @component
-  `component doc`
+  Things about the component goes here.
 -->
 
+<!-- This is a svelte options element -->
+<svelte:options option={value} />
+
+<!-- This is called a `script module block` -->
 <script module>
-	// This area is called `script module`
 	// The code here is singleton
+	// Runs twice no matter how many times you use this component, once on the server and once on the client
 </script>
 
-<script>
-	// This area is called `script block`
+<!-- This is called a `script block` -->
 
+<!--
+	`lang="ts"` enables typescript (is this valid syntax?)
+	`generic="T"` A component is a function and can accept TS generics
+ -->
+<script lang="ts" generic="T">
 	import { browser } from '$app/environment'
+
+  // component props (aka component input API)
+	let { a, b, c } = $props()
 
 	// Runs twice, once on the server and once on the client
 	console.log('Hello World')
@@ -56,6 +69,10 @@ A svelte component has 5 parts.
 			// Runes when the component is destroy or states changed
 		}
 	})
+
+  // component exports (aka component output API)
+	function foo() {}
+	export { foo }
 </script>
 
 <!-- This area is called `markup` -->
@@ -73,7 +90,10 @@ A svelte component has 5 parts.
 />
 <obj.component />
 
+<!-- This area is called `style block` -->
 <style>
-	/* This area is called `style block` */
+	.cool-style {
+		// ...
+	}
 </style>
 ```

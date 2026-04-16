@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Svelte Patterns — The missing manual for Svelte.</title>
+	<title>Svelte Patterns — A Svelte Grimoire</title>
 	<meta name="description" content={TAG_LINE} />
 </svelte:head>
 
