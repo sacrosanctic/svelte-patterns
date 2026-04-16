@@ -22,6 +22,7 @@
 		"@mdit/plugin-snippet": "catalog:md",
 		"@repo/ui": "workspace:*",
 		"@shikijs/markdown-exit": "catalog:md",
+		"@sveltejs/adapter-node": "catalog:svelte",
 		"@sveltejs/adapter-vercel": "catalog:svelte",
 		"@sveltejs/enhanced-img": "^0.9.3",
 		"@sveltejs/kit": "catalog:svelte",

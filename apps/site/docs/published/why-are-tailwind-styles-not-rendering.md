@@ -10,8 +10,7 @@ import Asdf from './why-are-tailwind-styles-not-rendering/A.svelte?raw'
 
 ## Describe The Problem
 
-Tailwind statically analyses your app for tailwind classes and only looks for complete class names. <a href="https://tailwindcss.com/docs/detecting-classes-in-source-files#dynamic-class-names"><Badge type="tip" text="src" />
-</a>
+Tailwind statically analyses your app for tailwind classes and only looks for complete class names. src: https://tailwindcss.com/docs/detecting-classes-in-source-files#dynamic-class-names
 
 So code like this will not work.
 
