@@ -9,7 +9,10 @@ const buildDocEntries = (modules: Record<string, RawMd>): Md[] => {
 		entries.push({
 			component: md.default,
 			fm: {},
-			slug: globPath.replace('/src/content/svelte.dev/docs/', '').replace(/(\/index)?\.md$/, ''),
+			slug: globPath
+				.replace('/src/content/svelte.dev/docs/', '')
+				.replace(/(\/index)?\.md$/, '')
+				.replace(/^index$/, ''),
 			sourcePath: globPath,
 		})
 	}
