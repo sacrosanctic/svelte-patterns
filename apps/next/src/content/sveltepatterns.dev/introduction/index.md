@@ -3,20 +3,28 @@ title: Introduction
 category: general
 ---
 
+![](./diataxis-diagram.png)
+src: https://youtu.be/RwBolXX9Pis?t=455
+src: https://diataxis.fr/
+
 :::info
-The Svelte Grimoire
+tutorials - [learn.svelte.dev](https://learn.svelte.dev)
+
+how-tos - [https://sveltepatterns.dev](https://sveltepatterns.dev)
+
+explanations - [https://sveltepatterns.dev](https://sveltepatterns.dev)
+
+reference - [https://svelte.dev](https://svelte.dev)
 :::
 
-Think of this as the missing manual for Svelte and SvelteKit — the stuff that should've shipped with the official docs but didn't.
+The official docs cover tutorials and API references, but they're light on how-tos and explanations. This site fills that gap with:
 
-We've all been there: the official docs give you the building blocks, but they don't show you how the pieces fit together. This site fills that gap with patterns, best practices, and real-world abstractions that the docs don't cover.
-
-- Logical groupings of concepts
-- Expanded examples
-- Showcasing how different APIs interact together
+- Patterns showing how APIs work together
 - Real-world usage patterns
+- Expanded examples
+- Graphics and cheatsheets
 - Gotchas and edge-cases
 
 Some APIs — like `$effect`, `bind:`, and streaming with promises — tend to introduce complexity or unpredictable behaviour. We call out where the complexity lives and when to reach for alternatives.
 
-This is a community project. Found a pattern worth sharing? Contribute and help others build better with Svelte.
+This is a community project. Found a pattern worth sharing? Contribute and help others build better with **Svelte**.
