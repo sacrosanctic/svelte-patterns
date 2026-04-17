@@ -54,4 +54,4 @@ instanced lets you have multiple, though im not sure how applicable that is in a
 ## Reference
 
 - https://svelte.dev/playground/modal - Official Example
-- https://www.captaincodeman.com/dealing-with-dialogs-in-svelte#types-of-modal-dialogs - Captaincodeman's deep dive
+<!-- - https://www.captaincodeman.com/dealing-with-dialogs-in-svelte#types-of-modal-dialogs - Captaincodeman's deep dive -->
