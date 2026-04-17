@@ -1,6 +1,5 @@
 ---
 title: How To Create A Dialog Component
-category: snippet
 ---
 
 ## Single Component

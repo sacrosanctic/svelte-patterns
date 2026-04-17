@@ -1,6 +1,6 @@
 ---
 title: How To Create A Reusable Form
-category: misc
+category: faq
 superceded by: '[Remote Functions](https://svelte.dev/docs/kit/remote-functions)'
 ---
 

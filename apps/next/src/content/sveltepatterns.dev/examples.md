@@ -1,6 +1,6 @@
 ---
 title: Examples
-category: resource
+category: general
 ---
 
 ## Comparative Examples
