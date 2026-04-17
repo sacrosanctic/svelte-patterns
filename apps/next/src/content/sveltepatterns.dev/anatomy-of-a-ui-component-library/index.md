@@ -1,6 +1,6 @@
 ---
 title: Anatomy of a UI Component Library
-category: meta
+category: concept
 tags: anatomy of
 ---
 

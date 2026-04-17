@@ -1,56 +1,56 @@
 # Style Guide
 
+This docsite consists of 2 parts: Standalone content and Shadow content.
 
-## Novel Content
+## Standalone Content
 
-saved in `/src/content/sveltepatterns.dev/`
+Stored in `/src/content/sveltepatterns.dev/`
 
-must have a these tags
+All files must have YAML frontmatter:
 
-- title
-- category
-- minimum version this applies to
-  - svelte: ^5
-  - sveltekit: 34
-    (dont know how this actually looks as a tag yet)
-- optional superceded by url
-
-faq revolves around a question
-concept revolves around a concept
-what is snippet
-meta are big picture things
+```yaml
+---
+title: Example Title
+category: concept | faq | meta
+minimumVersion:
+  svelte: ^5.0.0
+  sveltekit: ^2.0.0
+deprecated:
+  version: ^5.1.0
+  note: Optional explanation
+---
+```
 
 ### Concept
 
+Acts like a glossary, puts a name to a concept, and something linkable in conversation.
 
-### Faq
+### FAQ
 
-always start with `# describe the problem`
+The title is question. And the content aims to answer it.
 
-then `# solution`
-with each solution being a ## HEADER
+Start with `# Describe the problem`, then `# Solution` with each solution being an `##` header.
 
 ### Meta
 
-### Resource
+maybe this shouldnt be a category
 
-primary goal is redirecting to another page
-
-### Misc
-
-When nothing else fits, use sparingly
+---
 
 ## Shadow Content
 
-saved in `/src/content/svelte.dev`
+Stored in `/src/content/svelte.dev`
 
+Shadows URLs from the main site (svelte.dev). Does not duplicate content—just mirrors the URL.
 
-shadows the main site
-md file must have a title
+All md files must have a title in frontmatter:
 
-### commmunity resources
-title
-author
-link
+```yaml
+---
+title: Example Title
+---
+```
 
-the linked resources must be dated (ie created on/updated on)
+### Community Resources
+
+When making an attribution. It should have a link, author name, and the title. Resources without a publish date cannot be referenced.

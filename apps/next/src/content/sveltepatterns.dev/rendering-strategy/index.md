@@ -1,6 +1,6 @@
 ---
 title: Rendering Strategy
-category: meta
+category: concept
 ---
 
 ![alt text](./rendering-strategy.png)
