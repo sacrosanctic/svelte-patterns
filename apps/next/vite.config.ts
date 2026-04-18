@@ -1,5 +1,6 @@
 import { join, resolve } from 'node:path'
 
+import { debugSvelteMdPlugin } from './plugins/vite/debug-svelte-md'
 import { markdownImgToEnhancedPlugin } from './plugins/vite/markdown-img-to-enhanced'
 import { svelteMdA11YIgnorePlugin } from './plugins/vite/svelte-md-a11y-ignore'
 
@@ -262,54 +263,38 @@ export default defineConfig({
 
 		{
 			name: 'repl-script-injector',
-			transform(code, id) {
-				if (id.includes('node_modules')) return
-				if (!id.endsWith('.md')) return
 
-				const mdPath = id
+			transform: {
+				filter: { id: { exclude: /node_modules/, include: /\.md$/ } },
 
-				const entry = replData.get(mdPath)
-				if (!entry) return
+				handler(code, id) {
+					const entry = replData.get(id)
+					if (!entry?.SvelteRepl && !entry?.SveltelabRepl && !entry?.codeGroup) return
 
-				const svelteReplImports = entry.SvelteRepl ?? []
-				const sveltelabReplImports = entry.SveltelabRepl ?? []
-				const hasCodeGroup = entry.codeGroup ?? false
+					const imports = ["import Tabs from '$lib/tabs.svelte'"]
+					if (entry.SvelteRepl)
+						imports.push("import { SvelteRepl } from '@repo/ui'", ...entry.SvelteRepl)
+					if (entry.SveltelabRepl)
+						imports.push("import { SveltelabRepl } from '@repo/ui'", ...entry.SveltelabRepl)
 
-				if (!svelteReplImports.length && !sveltelabReplImports.length && !hasCodeGroup) return
+					const script = `<script lang="ts">\n${imports.join('\n\t')}\n</script>`
 
-				const baseImports: string[] = ["import Tabs from '$lib/tabs.svelte'"]
+					// Insert after first </script> tag (after <script context="module">)
+					const firstScriptEnd = code.indexOf('</script>')
 
-				if (svelteReplImports.length > 0) {
-					baseImports.push("import { SvelteRepl } from '@repo/ui'")
-				}
-				if (sveltelabReplImports.length > 0) {
-					baseImports.push("import { SveltelabRepl } from '@repo/ui'")
-				}
+					if (firstScriptEnd === -1) {
+						// Fallback: use placeholder replacement
+						return code.replace('<!-- REPL_SCRIPT_PLACEHOLDER -->', script)
+					}
 
-				const allImports = [...baseImports, ...svelteReplImports, ...sveltelabReplImports]
-
-				const script = `<script lang="ts">\n${allImports.join('\n\t')}\n</script>`
-
-				// Insert after first </script> tag (after <script context="module">)
-				const firstScriptEnd = code.indexOf('</script>')
-				let newCode: string
-
-				if (firstScriptEnd !== -1) {
 					const insertPos = firstScriptEnd + '</script>'.length
-					newCode = code.slice(0, insertPos) + '\n' + script + code.slice(insertPos)
-				} else {
-					// Fallback: use placeholder replacement
-					newCode = code.replace('<!-- REPL_SCRIPT_PLACEHOLDER -->', script)
-				}
-
-				replData.delete(mdPath)
-
-				return newCode
+					return code.slice(0, insertPos) + '\n' + script + code.slice(insertPos)
+				},
 			},
 		},
 
 		markdownImgToEnhancedPlugin(),
-		// debugSvelteMdPlugin(),
+		debugSvelteMdPlugin(),
 		enhancedImages(),
 		sveltekit(),
 		Icons({ compiler: 'svelte' }),

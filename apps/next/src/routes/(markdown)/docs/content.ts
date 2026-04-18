@@ -27,11 +27,18 @@ const rawModules = import.meta.glob<RawMd>(`/src/content/svelte.dev/**/*.md`, {
 const sortedDocs = buildDocEntries(rawModules)
 const docsBySlug = new Map<string, Md>(sortedDocs.map((d) => [d.slug, d]))
 
+// Define your prefix redirects in a clean mapping
+const PREFIX_REDIRECTS: Record<string, string> = {
+	'ai/': 'ai',
+}
+
 export const getDoc = (slug: string): Result<Md, AppError> => {
 	try {
-		const doc = docsBySlug.get(slug)
-		if (!doc) return AppError.DocNotFound({ path: slug })
-		return Ok(doc)
+		const match = Object.entries(PREFIX_REDIRECTS).find(([prefix]) => slug.startsWith(prefix))
+		const searchKey = match ? match[1] : slug
+		const doc = docsBySlug.get(searchKey)
+
+		return doc ? Ok(doc) : AppError.DocNotFound({ path: slug })
 	} catch (e) {
 		return AppError.Unexpected({ cause: e })
 	}
