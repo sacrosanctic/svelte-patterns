@@ -43,6 +43,7 @@
 		"prettier": "catalog:lint",
 		"prettier-plugin-svelte": "catalog:lint",
 		"prettier-plugin-tailwindcss": "catalog:lint",
+		"sv-agentation": "^0.2.6",
 		"svelte": "catalog:svelte",
 		"svelte-check": "catalog:svelte",
 		"tailwind-merge": "catalog:tailwind",

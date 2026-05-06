@@ -2,8 +2,9 @@
 	import favicon from '$lib/assets/favicon.svg'
 	import Navbar from '$lib/navbar/navbar.svelte'
 
-	import { ModeWatcher } from 'mode-watcher'
+	import Agentation from './agentation.svelte'
 
+	import { ModeWatcher } from 'mode-watcher'
 	import './layout.css'
 
 	let { children } = $props()
@@ -11,6 +12,7 @@
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
+<Agentation />
 <ModeWatcher />
 <Navbar />
 
