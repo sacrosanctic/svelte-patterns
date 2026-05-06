@@ -5,11 +5,12 @@ category: general
 
 # Complete new to webdev
 
-Learn the three fundemental building blocks: HTML, CSS, and JS. Below are some tutorials to dip your toes into.
+Learn the three fundemental building blocks: HTML, CSS, and JS.
 
-https://www.learn-html.org
-https://www.w3schools.com/css/
+https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax
+https://www.theodinproject.com/lessons/foundations-intro-to-css
 https://javascript.info
+https://svelte.dev/docs/kit/web-standards
 
 # From React
 
