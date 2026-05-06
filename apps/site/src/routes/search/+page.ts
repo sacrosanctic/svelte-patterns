@@ -1,3 +1,5 @@
+export const prerender = true
+
 type SearchItem = { content: string; slug: string; title: string }
 
 const stripMarkdown = (content: string) => {

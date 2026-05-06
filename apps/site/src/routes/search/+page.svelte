@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { browser } from '$app/environment'
 	import { resolve } from '$app/paths'
+	import { page } from '$app/state'
 
 	import FlexSearch from 'flexsearch'
 	import { SvelteSet } from 'svelte/reactivity'
@@ -25,7 +27,7 @@
 		}
 	})
 
-	let query = $state('')
+	let query = $state((browser && page.url.searchParams.get('q')) || '')
 	let debounceTimer: null | ReturnType<typeof setTimeout> = null
 	let results = $state<Item[]>([])
 
