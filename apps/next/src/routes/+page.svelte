@@ -33,10 +33,16 @@
 
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-4">
 			<a
-				href={resolve('/introduction')}
+				href={resolve('/(markdown)/[...slug]', { slug: 'motivation' })}
+				class="inline-flex items-center gap-2 rounded-lg bg-muted px-6 py-3 text-sm font-semibold text-muted-foreground shadow-sm transition hover:bg-primary-hover hover:text-primary-foreground"
+			>
+				Motivation
+			</a>
+			<a
+				href={resolve('/(markdown)/[...slug]', { slug: 'getting-started' })}
 				class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary-hover"
 			>
-				Look inside
+				Getting Started
 				<IconArrowRight class="size-4" aria-hidden="true" />
 			</a>
 		</div>
