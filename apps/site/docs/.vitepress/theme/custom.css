@@ -1,3 +1,0 @@
-img[src$='.svg'] {
-	filter: invert(50%);
-}
