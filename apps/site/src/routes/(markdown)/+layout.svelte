@@ -34,8 +34,8 @@
 	<nav
 		id="docs-sidebar-nav"
 		class={[
-			'fixed top-16 bottom-0 left-0 z-40 min-h-0 w-[min(92vw,24rem)] overflow-y-auto overscroll-y-contain border-r border-border bg-muted transition-transform duration-200 ease-out',
-			'md:static md:z-auto md:h-full md:w-sm md:max-w-none md:shrink-0 md:translate-x-0 md:transform-none',
+			'fixed top-16 bottom-0 left-0 z-40 min-h-0 w-[min(92vw,22rem)] overflow-y-auto overscroll-y-contain border-r border-border bg-muted transition-transform duration-200 ease-out',
+			'md:static md:z-auto md:h-full md:w-56 md:max-w-none md:shrink-0 md:translate-x-0 md:transform-none',
 			sidebar.current ? 'translate-x-0' : '-translate-x-full',
 		]}
 		aria-label="Documentation"
