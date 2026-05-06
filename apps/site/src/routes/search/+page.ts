@@ -1,23 +1,5 @@
 type SearchItem = { content: string; slug: string; title: string }
 
-const slugFromPath = (path: string) => {
-	const name = path
-		.replace(/^\/src\/content\//, '')
-		.replace(/\.md$/, '')
-		.replace(/\/index$/, '')
-	return name
-		.toLowerCase()
-		.replace(/\s+/g, '-')
-		.replace(/[^a-z0-9-]/g, '')
-		.replace(/-+/g, '-')
-		.replace(/^-|-$/g, '')
-}
-
-const extractTitle = (content: string, fallback: string) => {
-	const match = content.match(/^#\s+(.+)$/m)
-	return match?.[1] ?? fallback
-}
-
 const stripMarkdown = (content: string) => {
 	return content
 		.replace(/^#+\s+.+$/gm, '')
@@ -31,30 +13,79 @@ const stripMarkdown = (content: string) => {
 		.trim()
 }
 
-export const load = async () => {
-	const modules = import.meta.glob<string>(`/src/content/**/*.md`, {
+const normalizeSlug = (name: string) =>
+	name
+		.toLowerCase()
+		.replace(/\s+/g, '-')
+		.replace(/[^a-z0-9-]/g, '')
+		.replace(/-+/g, '-')
+		.replace(/^-|-$/g, '')
+
+const getSvelteDevSlug = (globPath: string) =>
+	globPath
+		.replace('/src/content/svelte.dev/', '')
+		.replace(/(\/index)?\.md$/, '')
+		.replace(/^index$/, '')
+
+const getSveltePatternsDevSlug = (globPath: string) => {
+	const parts = globPath.split('/')
+	const filename = parts.pop()!.replace('.md', '')
+	const name = filename === 'index' ? parts.pop()! : filename
+	return normalizeSlug(name)
+}
+
+type RawMd = { default: unknown; frontmatter: Record<string, unknown> }
+
+const buildSearchIndex = (
+	rawModules: Record<string, string>,
+	modules: Record<string, RawMd>,
+	getSlug: (path: string) => string,
+): SearchItem[] => {
+	const items: SearchItem[] = []
+
+	for (const [globPath, raw] of Object.entries(rawModules)) {
+		const slug = getSlug(globPath)
+
+		if (!slug) continue
+
+		const md = modules[globPath]
+		const title = (md?.frontmatter?.title as string) ?? slug
+		const content = stripMarkdown(raw)
+
+		items.push({ content, slug, title })
+	}
+
+	return items
+}
+
+const svelteRawModules = import.meta.glob<string>('/src/content/svelte.dev/**/*.md', {
+	eager: true,
+	import: 'default',
+	query: '?raw',
+})
+
+const svelteModules = import.meta.glob<RawMd>('/src/content/svelte.dev/**/*.md', {
+	eager: true,
+})
+
+const sveltePatternsRawModules = import.meta.glob<string>(
+	'/src/content/sveltepatterns.dev/**/*.md',
+	{
 		eager: true,
 		import: 'default',
 		query: '?raw',
-	})
+	},
+)
 
-	const items: SearchItem[] = []
+const sveltePatternsModules = import.meta.glob<RawMd>('/src/content/sveltepatterns.dev/**/*.md', {
+	eager: true,
+})
 
-	for (const [path, content] of Object.entries(modules)) {
-		try {
-			const slug = slugFromPath(path)
-			const fallback = slug
-				.split('-')
-				.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-				.join(' ')
-			const title = extractTitle(content, fallback)
-			const stripped = stripMarkdown(content)
+const searchIndex = [
+	...buildSearchIndex(svelteRawModules, svelteModules, getSvelteDevSlug),
+	...buildSearchIndex(sveltePatternsRawModules, sveltePatternsModules, getSveltePatternsDevSlug),
+]
 
-			items.push({ content: stripped, slug, title })
-		} catch (e) {
-			console.error(`Error processing ${path}:`, e)
-		}
-	}
-
-	return { items }
+export const load = async () => {
+	return { items: searchIndex }
 }

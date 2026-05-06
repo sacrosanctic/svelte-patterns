@@ -8,8 +8,6 @@
 
 	type Item = { content: string; slug: string; title: string }
 
-	const items = $derived(data.items)
-
 	const index = new FlexSearch.Document({
 		cache: true,
 		context: true,
@@ -22,7 +20,7 @@
 	})
 
 	$effect(() => {
-		for (const item of items) {
+		for (const item of data.items) {
 			index.add(item)
 		}
 	})
@@ -52,7 +50,7 @@
 					const { id } = result as { id: string }
 					if (!seen.has(id)) {
 						seen.add(id)
-						const item = items.find((i: Item) => i.slug === id)
+						const item = data.items.find((i: Item) => i.slug === id)
 						if (item) found.push(item)
 					}
 				}
@@ -101,10 +99,10 @@
 	</div>
 
 	<ul class="not-prose flex flex-col gap-0.5 rounded-lg border border-border p-1">
-		{#each query.length >= 2 ? results : items as item (item.slug)}
+		{#each query.length >= 2 ? results : data.items as item (item.slug)}
 			<li>
 				<a
-					href={resolve(`/docs/${item.slug}`)}
+					href={resolve('/(markdown)/[...slug]', item)}
 					class="block rounded-md px-3 py-2 text-sm text-foreground transition hover:bg-muted-foreground/10"
 				>
 					{item.title}
