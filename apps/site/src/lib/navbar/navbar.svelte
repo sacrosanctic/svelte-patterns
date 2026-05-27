@@ -4,8 +4,9 @@
 
 	import favicon from '$lib/assets/favicon.svg'
 	import { GITHUB_REPO_URL, SVELTE_DOCS_URL } from '$lib/config/constants'
+	import DesktopSearchTrigger from '$lib/navbar/desktop-search-trigger.svelte'
 	import ModeToggle from '$lib/navbar/mode-toggle.svelte'
-	import SearchTrigger from '$lib/navbar/search-trigger.svelte'
+	import { searchDialog } from '$lib/search/search-state.svelte'
 	import { sidebar } from '$lib/sidebar.svelte'
 
 	import IconClose from '~icons/mdi/close'
@@ -52,18 +53,20 @@
 
 	<div class="flex flex-1 items-center gap-4 pr-8 pl-5 lg:pr-12">
 		<div class="hidden sm:block">
-			<SearchTrigger />
+			<DesktopSearchTrigger />
 		</div>
 
 		<div class="flex-1"></div>
 
-		<a
-			href={resolve('/search')}
-			class="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground sm:hidden"
+		<!-- Mobile search trigger -->
+		<button
+			type="button"
+			class="inline-flex size-9 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground sm:hidden"
 			aria-label="Search"
+			onclick={() => searchDialog.open()}
 		>
 			<IconSearch class="size-5" aria-hidden="true" />
-		</a>
+		</button>
 
 		<ModeToggle />
 
