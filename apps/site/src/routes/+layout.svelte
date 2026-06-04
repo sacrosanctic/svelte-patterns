@@ -1,6 +1,7 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg'
 	import Navbar from '$lib/navbar/navbar.svelte'
+	import SearchDialog from '$lib/search/search-dialog.svelte'
 
 	import Agentation from './agentation.svelte'
 
@@ -15,5 +16,6 @@
 <Agentation />
 <ModeWatcher />
 <Navbar />
+<SearchDialog />
 
 {@render children()}

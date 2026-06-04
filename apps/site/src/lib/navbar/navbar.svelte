@@ -5,12 +5,13 @@
 	import favicon from '$lib/assets/favicon.svg'
 	import { GITHUB_REPO_URL, SVELTE_DOCS_URL } from '$lib/config/constants'
 	import ModeToggle from '$lib/navbar/mode-toggle.svelte'
-	import SearchTrigger from '$lib/navbar/search-trigger.svelte'
 	import { sidebar } from '$lib/sidebar.svelte'
+
+	import DesktopSearchTrigger from './desktop-search-trigger.svelte'
+	import MobileSearchTrigger from './mobile-search-trigger.svelte'
 
 	import IconClose from '~icons/mdi/close'
 	import IconGithub from '~icons/mdi/github'
-	import IconSearch from '~icons/mdi/magnify'
 	import IconMenu from '~icons/mdi/menu'
 </script>
 
@@ -52,19 +53,12 @@
 
 	<div class="flex flex-1 items-center gap-4 pr-8 pl-5 lg:pr-12">
 		<div class="hidden sm:block">
-			<SearchTrigger />
+			<DesktopSearchTrigger />
 		</div>
 
 		<div class="flex-1"></div>
 
-		<a
-			href={resolve('/search')}
-			class="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground sm:hidden"
-			aria-label="Search"
-		>
-			<IconSearch class="size-5" aria-hidden="true" />
-		</a>
-
+		<MobileSearchTrigger />
 		<ModeToggle />
 
 		<a
