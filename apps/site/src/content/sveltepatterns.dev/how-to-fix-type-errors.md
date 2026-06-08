@@ -4,6 +4,8 @@ category: faq
 tags: types,debug
 ---
 
+# How To Fix Type Errors
+
 ## Debugging Checklist for Type Issues
 
 Running into mysterious red squiggles? Here's a quick checklist to help resolve common type-related issues in SvelteKit.

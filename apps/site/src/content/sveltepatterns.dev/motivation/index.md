@@ -3,6 +3,8 @@ title: Introduction
 category: general
 ---
 
+# Introduction
+
 ![](./diataxis-diagram.png)
 src: https://youtu.be/RwBolXX9Pis?t=455
 src: https://diataxis.fr/

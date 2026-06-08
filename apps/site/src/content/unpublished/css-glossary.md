@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+# Css Glossary
+
 ## UI Component Library
 
 UI is redundant as SFC in svelte is only for UI. Library is a collection of 1 or more components that you mean install or copy the source from. There are 3 types of "UI Components" libraries will often include: styled, unstyled, recipe (shadcn).

@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+# Can I Use Effect
+
 ## Describe the problem
 
 It is primarily an escape hatch.

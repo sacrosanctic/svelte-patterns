@@ -3,6 +3,8 @@ title: Conditional Streaming
 category: concept
 ---
 
+# Conditional Streaming
+
 ## For SSR
 
 This returns either `data` for SSR or a promise of `data` for CSR.

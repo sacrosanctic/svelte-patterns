@@ -3,6 +3,8 @@ title: How To Reset The Root Layout
 category: faq
 ---
 
+# How To Reset The Root Layout
+
 ## Describe the problem
 
 The root layout is applied globally to all pages, meaning every route inherits from it by default. This can be problematic when you want certain pages to have a completely different layout. [Resetting](https://svelte.dev/docs/kit/advanced-routing#Advanced-layouts-Breaking-out-of-layouts) is not an option since there isn't any level above the root layout to break out to.

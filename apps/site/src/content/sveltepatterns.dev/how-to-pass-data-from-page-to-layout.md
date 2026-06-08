@@ -3,6 +3,8 @@ title: How To Pass Data From Page to Layout
 category: faq
 ---
 
+# How To Pass Data From Page to Layout
+
 ::: info Written for
 Svelte `5.17.3`
 

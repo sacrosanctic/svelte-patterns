@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+# How To Make Infinite Scroll
+
 ## Disclaimer
 
 Infinite scroll is historically really hard to make work. It is recommended to use pagination instead. With that said, if you're still interested, push on ahead.

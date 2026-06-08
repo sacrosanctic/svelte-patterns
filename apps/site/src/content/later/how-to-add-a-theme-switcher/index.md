@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+# How To Add A Theme Switcher
+
 ## 3 state switch
 
 ### Standalone Component
