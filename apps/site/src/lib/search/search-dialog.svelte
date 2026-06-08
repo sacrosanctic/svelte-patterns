@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { SearchItem } from '$lib/search/search-index'
+	import type { Document as FlexSearchDocument } from 'flexsearch'
 
 	import { afterNavigate, goto } from '$app/navigation'
 	import { resolve } from '$app/paths'
@@ -11,20 +12,9 @@
 	import IconFileDocumentOutline from '~icons/mdi/file-document-outline'
 	import IconLoading from '~icons/mdi/loading'
 	import IconMagnify from '~icons/mdi/magnify'
-	import FlexSearch from 'flexsearch'
 	import { SvelteSet } from 'svelte/reactivity'
 
-	type SearchDocument = {
-		add: (item: SearchItem) => void
-		search: (
-			query: string,
-			options: { enrich: true; limit: number },
-		) => Promise<SearchFieldResult[]> | SearchFieldResult[]
-	}
-
-	type SearchFieldResult = {
-		result: Array<{ id: number | string }>
-	}
+	type SearchDocument = FlexSearchDocument<SearchItem>
 
 	type SearchPayload = {
 		items: SearchItem[]
@@ -54,8 +44,10 @@
 	const getItemRoute = (item: SearchItem) =>
 		item.kind === 'docs' ? '/(markdown)/docs/[...slug]' : '/(markdown)/[...slug]'
 
-	const buildClientIndex = (searchItems: SearchItem[]) => {
-		const nextIndex = new FlexSearch.Document({
+	const buildClientIndex = async (searchItems: SearchItem[]) => {
+		const { Document } = await import('flexsearch')
+
+		const nextIndex = new Document<SearchItem>({
 			cache: true,
 			context: true,
 			document: {
@@ -70,7 +62,7 @@
 			nextIndex.add(item)
 		}
 
-		index = nextIndex
+		index = nextIndex as SearchDocument
 	}
 
 	const runSearch = async () => {
@@ -132,7 +124,7 @@
 			const payload = (await response.json()) as SearchPayload
 
 			items = payload.items
-			buildClientIndex(payload.items)
+			await buildClientIndex(payload.items)
 			status = 'ready'
 			await runSearch()
 		} catch {
