@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { SearchItem } from '$lib/search/search-index'
 
-	import { afterNavigate } from '$app/navigation'
+	import { afterNavigate, goto } from '$app/navigation'
 	import { resolve } from '$app/paths'
 	import { onMount, tick } from 'svelte'
 
@@ -33,6 +33,7 @@
 	let dialogElement: HTMLDialogElement
 	let inputElement: HTMLInputElement
 	let index: null | SearchDocument = null
+	let activeIndex = $state(-1)
 	let items = $state<SearchItem[]>([])
 	let query = $state('')
 	let results = $state<SearchItem[]>([])
@@ -41,10 +42,17 @@
 
 	const hasQuery = $derived(query.trim().length >= 2)
 	const shownItems = $derived(hasQuery ? results : items)
+	const activeItem = $derived(activeIndex >= 0 ? shownItems[activeIndex] : undefined)
+	const activeResultId = $derived(
+		activeItem ? `site-search-result-${encodeURIComponent(activeItem.id)}` : undefined,
+	)
 
 	const isEditableTarget = (target: EventTarget | null) =>
 		target instanceof HTMLElement &&
 		(target.isContentEditable || ['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName))
+
+	const getItemRoute = (item: SearchItem) =>
+		item.kind === 'docs' ? '/(markdown)/docs/[...slug]' : '/(markdown)/[...slug]'
 
 	const buildClientIndex = (searchItems: SearchItem[]) => {
 		const nextIndex = new FlexSearch.Document({
@@ -70,10 +78,13 @@
 
 		if (normalizedQuery.length < 2 || !index) {
 			results = []
+			activeIndex = items.length > 0 ? 0 : -1
 			return
 		}
 
 		const searchResults = await index.search(normalizedQuery, { enrich: true, limit: 12 })
+		if (query.trim() !== normalizedQuery) return
+
 		const found: SearchItem[] = []
 		const seen = new SvelteSet<string>()
 
@@ -91,6 +102,7 @@
 		}
 
 		results = found
+		activeIndex = found.length > 0 ? 0 : -1
 	}
 
 	const queueSearch = () => {
@@ -98,6 +110,7 @@
 
 		if (query.trim().length < 2) {
 			results = []
+			activeIndex = items.length > 0 ? 0 : -1
 			return
 		}
 
@@ -136,10 +149,24 @@
 		searchDialog.close()
 	}
 
+	const openActiveItem = () => {
+		if (!activeItem) return
+
+		void goto(resolve(getItemRoute(activeItem), activeItem))
+		closeSearch()
+	}
+
+	const moveActiveItem = (direction: -1 | 1) => {
+		if (shownItems.length === 0) return
+
+		activeIndex = (activeIndex + direction + shownItems.length) % shownItems.length
+	}
+
 	const handleDialogClose = () => {
 		searchDialog.close()
 		query = ''
 		results = []
+		activeIndex = -1
 	}
 
 	const handleDialogClick = (event: MouseEvent) => {
@@ -163,6 +190,27 @@
 		searchDialog.open()
 	}
 
+	const handleSearchKeydown = (event: KeyboardEvent) => {
+		if (shownItems.length === 0) return
+
+		if (event.key === 'ArrowDown') {
+			event.preventDefault()
+			moveActiveItem(1)
+			return
+		}
+
+		if (event.key === 'ArrowUp') {
+			event.preventDefault()
+			moveActiveItem(-1)
+			return
+		}
+
+		if (event.key === 'Enter') {
+			event.preventDefault()
+			openActiveItem()
+		}
+	}
+
 	$effect(() => {
 		if (searchDialog.isOpen) {
 			if (!dialogElement.open) dialogElement.showModal()
@@ -173,6 +221,24 @@
 		}
 
 		if (dialogElement.open) dialogElement.close()
+	})
+
+	$effect(() => {
+		if (shownItems.length === 0) {
+			activeIndex = -1
+			return
+		}
+
+		if (activeIndex < 0) activeIndex = 0
+		if (activeIndex >= shownItems.length) activeIndex = shownItems.length - 1
+	})
+
+	$effect(() => {
+		if (!activeResultId) return
+
+		void tick().then(() => {
+			document.getElementById(activeResultId)?.scrollIntoView({ block: 'nearest' })
+		})
 	})
 
 	afterNavigate(() => {
@@ -238,11 +304,17 @@
 					bind:this={inputElement}
 					bind:value={query}
 					id="site-search"
+					aria-activedescendant={activeResultId}
+					aria-autocomplete="list"
+					aria-controls="site-search-results"
+					aria-expanded={shownItems.length > 0}
 					type="search"
 					autocomplete="off"
 					placeholder="Search components, routing, runes..."
 					class="min-h-11 flex-1 border-0 bg-transparent p-0 text-base text-foreground shadow-none outline-none placeholder:text-muted-foreground focus:ring-0 sm:text-sm"
+					role="combobox"
 					oninput={queueSearch}
+					onkeydown={handleSearchKeydown}
 				/>
 			</div>
 		</div>
@@ -268,16 +340,26 @@
 					</p>
 				</div>
 			{:else}
-				<ul class="grid gap-1" aria-label={hasQuery ? 'Search results' : 'All searchable pages'}>
-					{#each shownItems as item (item.id)}
-						<li>
+				<ul
+					id="site-search-results"
+					class="grid gap-1"
+					aria-label={hasQuery ? 'Search results' : 'All searchable pages'}
+					role="listbox"
+				>
+					{#each shownItems as item, index (item.id)}
+						{@const isActive = index === activeIndex}
+						{@const route = getItemRoute(item)}
+						<li role="presentation">
 							<a
-								href={resolve(
-									item.kind === 'docs' ? '/(markdown)/docs/[...slug]' : '/(markdown)/[...slug]',
-									item,
-								)}
-								class="group flex min-h-14 items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition hover:bg-muted focus-visible:bg-muted"
+								id={`site-search-result-${encodeURIComponent(item.id)}`}
+								href={resolve(route, item)}
+								aria-selected={isActive}
+								class={[
+									'group flex min-h-14 items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition hover:bg-muted focus-visible:bg-muted',
+									isActive && 'bg-muted',
+								]}
 								onclick={closeSearch}
+								role="option"
 							>
 								<span
 									class="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground transition group-hover:border-primary/30 group-hover:text-primary"
@@ -301,9 +383,11 @@
 			class="hidden border-t border-border bg-muted/30 px-4 py-2.5 text-xs text-muted-foreground sm:flex sm:items-center sm:justify-between"
 		>
 			<span>{hasQuery ? `${results.length} matches` : `${items.length} pages indexed`}</span>
-			<span
-				>Press <kbd class="rounded border border-border bg-background px-1.5 py-0.5">Esc</kbd> to close</span
-			>
+			<span>
+				Use <kbd class="rounded border border-border bg-background px-1.5 py-0.5">Up</kbd> or
+				<kbd class="rounded border border-border bg-background px-1.5 py-0.5">Down</kbd>, then
+				<kbd class="rounded border border-border bg-background px-1.5 py-0.5">Enter</kbd>
+			</span>
 		</div>
 	</div>
 </dialog>
