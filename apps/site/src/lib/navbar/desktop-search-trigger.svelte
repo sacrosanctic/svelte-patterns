@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { searchDialog } from '$lib/search/search-state.svelte'
+	import { searchDialog } from '$lib/search/Dialog.svelte'
 
 	import { formatForDisplay } from '@tanstack/svelte-hotkeys'
 	import IconSearch from '~icons/mdi/magnify'

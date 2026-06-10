@@ -172,6 +172,9 @@ importers:
 
   apps/site:
     devDependencies:
+      '@better-fetch/fetch':
+        specifier: ^1.2.2
+        version: 1.2.2
       '@eslint/compat':
         specifier: catalog:lint
         version: 2.0.3(eslint@10.2.0(jiti@2.6.1))
@@ -424,6 +427,9 @@ packages:
   '@babel/types@7.28.4':
     resolution: {integrity: sha512-bkFqkLhh3pMBUQQkpVgWDWq/lqzc2678eUyDlTBhRqhCHFguYYGM0Efga7tYk4TogG/3x0EEl66/OQ+WGbWB/Q==}
     engines: {node: '>=6.9.0'}
+
+  '@better-fetch/fetch@1.2.2':
+    resolution: {integrity: sha512-xlgQcYROGFgKg5FY7ZLppFmG7rR5Hkmz7tgDuQeR79i5KhKRjr2QC9xsBG2qEGPJJjf9bxzg/NMW2hEUWs5OnA==}
 
   '@blazediff/core@1.9.1':
     resolution: {integrity: sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==}
@@ -3649,6 +3655,8 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
     optional: true
+
+  '@better-fetch/fetch@1.2.2': {}
 
   '@blazediff/core@1.9.1': {}
 

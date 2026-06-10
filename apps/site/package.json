@@ -15,6 +15,7 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
+		"@better-fetch/fetch": "^1.2.2",
 		"@eslint/compat": "catalog:lint",
 		"@eslint/js": "catalog:lint",
 		"@iconify-json/mdi": "^1.2.3",
