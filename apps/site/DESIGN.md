@@ -61,7 +61,7 @@ The docs article applies (see `(markdown)/+layout.svelte`):
 
 ```css
 prose sm:prose-sm md:prose-base lg:prose-lg xl:prose-xl
-prose-a:text-primary prose-a:decoration-primary/30 hover:prose-a:decoration-primary
+prose-a:text-primary prose-a:decoration-primary/30 prose-a:hover:decoration-primary
 prose-inline-code:rounded prose-inline-code:outline prose-inline-code:outline-border
 prose-code:before:content-none prose-code:after:content-none
 prose-pre:border prose-pre:border-border
