@@ -21,7 +21,6 @@
 	}
 
 	let dialogElement: HTMLDialogElement
-	let inputElement: HTMLInputElement
 	let index: null | SearchDocument = null
 	let activeIndex = $state(-1)
 	let items = $state<SearchItem[]>([])
@@ -132,11 +131,6 @@
 		}
 	}
 
-	const focusInput = async () => {
-		await tick()
-		inputElement?.focus({ preventScroll: true })
-	}
-
 	const closeSearch = () => {
 		searchDialog.close()
 	}
@@ -209,7 +203,6 @@
 			if (!dialogElement.open) dialogElement.showModal()
 
 			loadSearchIndex()
-			focusInput()
 			return
 		}
 
@@ -300,8 +293,9 @@
 				class="flex min-h-12 items-center gap-3 rounded-xl border border-border bg-muted/45 px-3 shadow-sm focus-within:ring-2 focus-within:ring-ring/60"
 			>
 				<IconMagnify class="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+				<!-- svelte-ignore a11y_autofocus -->
 				<input
-					bind:this={inputElement}
+					autofocus
 					bind:value={query}
 					id="site-search"
 					aria-activedescendant={activeResultId}
