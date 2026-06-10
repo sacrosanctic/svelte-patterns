@@ -15,6 +15,7 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
+		"@better-fetch/fetch": "^1.2.2",
 		"@eslint/compat": "catalog:lint",
 		"@eslint/js": "catalog:lint",
 		"@iconify-json/mdi": "^1.2.3",
@@ -30,6 +31,7 @@
 		"@tailwindcss/forms": "catalog:tailwind",
 		"@tailwindcss/typography": "catalog:tailwind",
 		"@tailwindcss/vite": "catalog:tailwind",
+		"@tanstack/svelte-hotkeys": "^0.10.0",
 		"@types/node": "catalog:types",
 		"eslint": "catalog:lint",
 		"eslint-config-prettier": "catalog:lint",

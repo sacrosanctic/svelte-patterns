@@ -1,145 +1,56 @@
 <script lang="ts">
-	import type { SearchItem } from '$lib/search/search-index'
-
-	import { afterNavigate } from '$app/navigation'
+	import { afterNavigate, goto } from '$app/navigation'
 	import { resolve } from '$app/paths'
-	import { onMount, tick } from 'svelte'
+	import { tick } from 'svelte'
 
-	import { searchDialog } from '$lib/search/search-state.svelte'
+	import { searchDialog } from './Dialog.svelte'
+	import { type SearchItem } from './search-index'
+	import { SearchClient } from './SearchClient.svelte'
 
+	import { createHotkey, createHotkeyAttachment, formatForDisplay } from '@tanstack/svelte-hotkeys'
 	import IconClose from '~icons/mdi/close'
 	import IconFileDocumentOutline from '~icons/mdi/file-document-outline'
 	import IconLoading from '~icons/mdi/loading'
 	import IconMagnify from '~icons/mdi/magnify'
-	import FlexSearch from 'flexsearch'
-	import { SvelteSet } from 'svelte/reactivity'
 
-	type SearchDocument = {
-		add: (item: SearchItem) => void
-		search: (
-			query: string,
-			options: { enrich: true; limit: number },
-		) => Promise<SearchFieldResult[]> | SearchFieldResult[]
-	}
-
-	type SearchFieldResult = {
-		result: Array<{ id: number | string }>
-	}
-
-	type SearchPayload = {
-		items: SearchItem[]
-	}
+	const searchClient = new SearchClient(resolve('/search-index.json'))
 
 	let dialogElement: HTMLDialogElement
-	let inputElement: HTMLInputElement
-	let index: null | SearchDocument = null
-	let items = $state<SearchItem[]>([])
+	let activeIndex = $state(-1)
 	let query = $state('')
-	let results = $state<SearchItem[]>([])
-	let searchTimer: null | ReturnType<typeof setTimeout> = null
-	let status = $state<'error' | 'idle' | 'loading' | 'ready'>('idle')
 
-	const hasQuery = $derived(query.trim().length >= 2)
-	const shownItems = $derived(hasQuery ? results : items)
+	const activeItem = $derived(activeIndex > -1 ? searchClient.current[activeIndex] : undefined)
+	const activeResultId = $derived(
+		activeItem ? `site-search-result-${encodeURIComponent(activeItem.id)}` : undefined,
+	)
 
-	const isEditableTarget = (target: EventTarget | null) =>
-		target instanceof HTMLElement &&
-		(target.isContentEditable || ['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName))
+	const getItemRoute = (item: SearchItem) =>
+		item.kind === 'docs' ? '/(markdown)/docs/[...slug]' : '/(markdown)/[...slug]'
 
-	const buildClientIndex = (searchItems: SearchItem[]) => {
-		const nextIndex = new FlexSearch.Document({
-			cache: true,
-			context: true,
-			document: {
-				id: 'id',
-				field: ['title', 'content'],
-				store: ['kind', 'slug', 'title'],
-			},
-			tokenize: 'forward',
-		}) as SearchDocument
+	createHotkey('Mod+K', () => searchDialog.open())
+	const closeHotkey = createHotkeyAttachment('Escape', () => handleDialogClose())
+	const arrowDownHotkey = createHotkeyAttachment('ArrowDown', () => moveActiveItem(1))
+	const arrowUpHotkey = createHotkeyAttachment('ArrowUp', () => moveActiveItem(-1))
+	const enterHotkey = createHotkeyAttachment('Enter', () => openActiveItem())
 
-		for (const item of searchItems) {
-			nextIndex.add(item)
-		}
+	const openActiveItem = () => {
+		if (!activeItem) return
 
-		index = nextIndex
-	}
-
-	const runSearch = async () => {
-		const normalizedQuery = query.trim()
-
-		if (normalizedQuery.length < 2 || !index) {
-			results = []
-			return
-		}
-
-		const searchResults = await index.search(normalizedQuery, { enrich: true, limit: 12 })
-		const found: SearchItem[] = []
-		const seen = new SvelteSet<string>()
-
-		for (const field of searchResults) {
-			for (const result of field.result) {
-				const id = String(result.id)
-
-				if (seen.has(id)) continue
-
-				seen.add(id)
-
-				const item = items.find((currentItem) => currentItem.id === id)
-				if (item) found.push(item)
-			}
-		}
-
-		results = found
-	}
-
-	const queueSearch = () => {
-		if (searchTimer) clearTimeout(searchTimer)
-
-		if (query.trim().length < 2) {
-			results = []
-			return
-		}
-
-		searchTimer = setTimeout(() => {
-			void runSearch()
-		}, 140)
-	}
-
-	const loadSearchIndex = async () => {
-		if (status === 'loading' || status === 'ready') return
-
-		status = 'loading'
-
-		try {
-			const response = await fetch(resolve('/search-index.json'))
-
-			if (!response.ok) throw new Error('Failed to load search index')
-
-			const payload = (await response.json()) as SearchPayload
-
-			items = payload.items
-			buildClientIndex(payload.items)
-			status = 'ready'
-			await runSearch()
-		} catch {
-			status = 'error'
-		}
-	}
-
-	const focusInput = async () => {
-		await tick()
-		inputElement?.focus({ preventScroll: true })
-	}
-
-	const closeSearch = () => {
+		goto(resolve(getItemRoute(activeItem), activeItem))
 		searchDialog.close()
+	}
+
+	const moveActiveItem = (direction: -1 | 1) => {
+		if (searchClient.current.length === 0) return
+
+		activeIndex =
+			(activeIndex + direction + searchClient.current.length) % searchClient.current.length
 	}
 
 	const handleDialogClose = () => {
 		searchDialog.close()
 		query = ''
-		results = []
+		activeIndex = -1
 	}
 
 	const handleDialogClick = (event: MouseEvent) => {
@@ -152,39 +63,49 @@
 			event.clientY < rect.top ||
 			event.clientY > rect.bottom
 
-		if (clickedOutside) closeSearch()
-	}
-
-	const handleGlobalKeydown = (event: KeyboardEvent) => {
-		if (!(event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey))) return
-		if (isEditableTarget(event.target)) return
-
-		event.preventDefault()
-		searchDialog.open()
+		if (clickedOutside) searchDialog.close()
 	}
 
 	$effect(() => {
 		if (searchDialog.isOpen) {
 			if (!dialogElement.open) dialogElement.showModal()
 
-			void loadSearchIndex()
-			void focusInput()
+			searchClient.load()
 			return
 		}
 
 		if (dialogElement.open) dialogElement.close()
 	})
 
+	$effect(() => {
+		if (searchClient.current.length === 0) {
+			activeIndex = -1
+			return
+		}
+
+		if (activeIndex < 0) {
+			activeIndex = 0
+			return
+		}
+
+		if (activeIndex >= searchClient.current.length) {
+			activeIndex = searchClient.current.length - 1
+			return
+		}
+	})
+
+	$effect(() => {
+		if (!activeResultId) return
+
+		tick().then(() => {
+			document.getElementById(activeResultId)?.scrollIntoView({ block: 'nearest' })
+		})
+	})
+
 	afterNavigate(() => {
 		searchDialog.close()
 	})
-
-	onMount(() => () => {
-		if (searchTimer) clearTimeout(searchTimer)
-	})
 </script>
-
-<svelte:window onkeydown={handleGlobalKeydown} />
 
 <dialog
 	bind:this={dialogElement}
@@ -193,12 +114,12 @@
 		'fixed inset-x-2 top-auto bottom-2 m-0 h-[min(44rem,calc(100dvh-1rem))] max-h-[calc(100dvh-1rem)] w-auto max-w-none overflow-hidden rounded-xl border border-border bg-background p-0 text-foreground shadow-2xl outline-none backdrop:bg-black/45 backdrop:backdrop-blur-sm',
 		'sm:inset-x-auto sm:top-[10dvh] sm:bottom-auto sm:left-1/2 sm:h-auto sm:max-h-[min(42rem,80dvh)] sm:w-[min(42rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:rounded-2xl',
 	]}
-	oncancel={(event) => {
-		event.preventDefault()
-		closeSearch()
-	}}
 	onclick={handleDialogClick}
 	onclose={handleDialogClose}
+	{@attach closeHotkey}
+	{@attach arrowDownHotkey}
+	{@attach arrowUpHotkey}
+	{@attach enterHotkey}
 >
 	<div class="flex h-full min-h-0 flex-col bg-background sm:h-[min(42rem,80dvh)]">
 		<div class="border-b border-border bg-background/95 p-3 backdrop-blur sm:p-4">
@@ -216,13 +137,13 @@
 					<kbd
 						class="hidden rounded-md border border-border bg-muted px-2 py-1 text-[11px] font-medium text-muted-foreground sm:inline-flex"
 					>
-						Esc
+						{formatForDisplay('Escape')}
 					</kbd>
 					<button
 						type="button"
 						class="inline-flex size-9 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground"
 						aria-label="Close search"
-						onclick={closeSearch}
+						onclick={() => searchDialog.close()}
 					>
 						<IconClose class="size-5" aria-hidden="true" />
 					</button>
@@ -234,33 +155,39 @@
 				class="flex min-h-12 items-center gap-3 rounded-xl border border-border bg-muted/45 px-3 shadow-sm focus-within:ring-2 focus-within:ring-ring/60"
 			>
 				<IconMagnify class="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+				<!-- svelte-ignore a11y_autofocus -->
 				<input
-					bind:this={inputElement}
+					autofocus
 					bind:value={query}
 					id="site-search"
+					aria-activedescendant={activeResultId}
+					aria-autocomplete="list"
+					aria-controls="site-search-results"
+					aria-expanded={searchClient.current.length > 0}
 					type="search"
 					autocomplete="off"
 					placeholder="Search components, routing, runes..."
 					class="min-h-11 flex-1 border-0 bg-transparent p-0 text-base text-foreground shadow-none outline-none placeholder:text-muted-foreground focus:ring-0 sm:text-sm"
-					oninput={queueSearch}
+					role="combobox"
+					oninput={() => searchClient.search(query)}
 				/>
 			</div>
 		</div>
 
 		<div class="min-h-0 flex-1 overflow-y-auto overscroll-contain p-2 sm:p-3">
-			{#if status === 'loading'}
+			{#if searchClient.status === 'loading'}
 				<div
 					class="flex min-h-48 flex-col items-center justify-center gap-3 text-sm text-muted-foreground"
 				>
 					<IconLoading class="size-6 animate-spin" aria-hidden="true" />
 					<p>Loading search index...</p>
 				</div>
-			{:else if status === 'error'}
+			{:else if searchClient.status === 'error'}
 				<div class="rounded-xl border border-border bg-muted/35 p-4 text-sm">
 					<p class="font-medium text-foreground">Search is unavailable right now.</p>
 					<p class="mt-1 text-muted-foreground">Please try again after refreshing the page.</p>
 				</div>
-			{:else if hasQuery && results.length === 0}
+			{:else if searchClient.stats.matches === 0}
 				<div class="rounded-xl border border-dashed border-border bg-muted/25 p-6 text-center">
 					<p class="text-sm font-medium text-foreground">No results for "{query.trim()}"</p>
 					<p class="mt-1 text-sm text-muted-foreground">
@@ -268,16 +195,21 @@
 					</p>
 				</div>
 			{:else}
-				<ul class="grid gap-1" aria-label={hasQuery ? 'Search results' : 'All searchable pages'}>
-					{#each shownItems as item (item.id)}
-						<li>
+				<ul id="site-search-results" class="grid gap-1" aria-label="Search results" role="listbox">
+					{#each searchClient.current as item, index (item.id)}
+						{@const isActive = index === activeIndex}
+						{@const route = getItemRoute(item)}
+						<li role="presentation">
 							<a
-								href={resolve(
-									item.kind === 'docs' ? '/(markdown)/docs/[...slug]' : '/(markdown)/[...slug]',
-									item,
-								)}
-								class="group flex min-h-14 items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition hover:bg-muted focus-visible:bg-muted"
-								onclick={closeSearch}
+								id={`site-search-result-${encodeURIComponent(item.id)}`}
+								href={resolve(route, item)}
+								aria-selected={isActive}
+								class={[
+									'group flex min-h-14 items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition hover:bg-muted focus-visible:bg-muted',
+									isActive && 'bg-muted',
+								]}
+								onclick={() => searchDialog.close()}
+								role="option"
 							>
 								<span
 									class="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground transition group-hover:border-primary/30 group-hover:text-primary"
@@ -300,10 +232,17 @@
 		<div
 			class="hidden border-t border-border bg-muted/30 px-4 py-2.5 text-xs text-muted-foreground sm:flex sm:items-center sm:justify-between"
 		>
-			<span>{hasQuery ? `${results.length} matches` : `${items.length} pages indexed`}</span>
-			<span
-				>Press <kbd class="rounded border border-border bg-background px-1.5 py-0.5">Esc</kbd> to close</span
-			>
+			<span>{searchClient.stats.matches} of {searchClient.stats.total} results</span>
+			<span>
+				<kbd class="rounded border border-border bg-background px-1.5 py-0.5"
+					>{formatForDisplay('ArrowUp')}{formatForDisplay('ArrowDown')}</kbd
+				>
+				to navigate |
+				<kbd class="rounded border border-border bg-background px-1.5 py-0.5"
+					>{formatForDisplay('Enter')}</kbd
+				>
+				to open
+			</span>
 		</div>
 	</div>
 </dialog>
