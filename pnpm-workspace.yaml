@@ -1,3 +1,19 @@
+engineStrict: true
+dedupePeers: true
+
+minimumReleaseAge: 4320
+blockExoticSubdeps: true
+strictDepBuilds: true
+
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - 'undici-types@6.21.0' # @types/node@22.19.20
+  - 'chokidar@4.0.3' # svelte-check@4.6.0
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+
 packages:
   - apps/*
   - packages/*
@@ -16,12 +32,13 @@ catalogs:
     knip: ^6.3.0
     prettier: ^3.8.1
     prettier-plugin-svelte: ^3.4.1
-    prettier-plugin-tailwindcss: ^0.7.2
+    prettier-plugin-tailwindcss: ^0.8.0
     typescript-eslint: ^8.54.0
   md:
     '@mdit/plugin-container': ^0.23.1
     '@mdit/plugin-snippet': ^0.23.1
     '@shikijs/markdown-exit': ^4.0.2
+    '@sveltejs/enhanced-img': ^0.10.4
     markdown-it-anchor: ^9.2.0
     vite-plugin-svelte-md: ^0.6.0
   other:
@@ -47,11 +64,15 @@ catalogs:
     globals: ^17.3.0
     typescript: ^6.0.2
   util:
+    '@better-fetch/fetch': ^1.0.0
     mode-watcher: ^1.1.0
     valibot: ^1.3.1
     vite-plugin-devtools-json: ^1.0.0
-    wellcrafted: 0.34.1
-
-onlyBuiltDependencies:
-  - esbuild
-  - '@tailwindcss/oxide'
+    wellcrafted: 0.42.0
+  ui:
+    '@tanstack/svelte-hotkeys': ^0.10.0
+  dev:
+    sv-agentation: ^0.4.0
+  icons:
+    '@iconify-json/mdi': ^1.2.3
+    unplugin-icons: ^23.0.1
