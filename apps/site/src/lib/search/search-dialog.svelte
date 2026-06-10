@@ -32,7 +32,7 @@
 
 	const hasQuery = $derived(query.trim().length >= 2)
 	const shownItems = $derived(hasQuery ? results : items)
-	const activeItem = $derived(activeIndex >= 0 ? shownItems[activeIndex] : undefined)
+	const activeItem = $derived(activeIndex > -1 ? shownItems[activeIndex] : undefined)
 	const activeResultId = $derived(
 		activeItem ? `site-search-result-${encodeURIComponent(activeItem.id)}` : undefined,
 	)
@@ -62,7 +62,7 @@
 			nextIndex.add(item)
 		}
 
-		index = nextIndex as SearchDocument
+		index = nextIndex
 	}
 
 	const runSearch = async () => {
@@ -107,7 +107,7 @@
 		}
 
 		searchTimer = setTimeout(() => {
-			void runSearch()
+			runSearch()
 		}, 140)
 	}
 
@@ -144,7 +144,7 @@
 	const openActiveItem = () => {
 		if (!activeItem) return
 
-		void goto(resolve(getItemRoute(activeItem), activeItem))
+		goto(resolve(getItemRoute(activeItem), activeItem))
 		closeSearch()
 	}
 
@@ -200,6 +200,7 @@
 		if (event.key === 'Enter') {
 			event.preventDefault()
 			openActiveItem()
+			return
 		}
 	}
 
@@ -207,8 +208,8 @@
 		if (searchDialog.isOpen) {
 			if (!dialogElement.open) dialogElement.showModal()
 
-			void loadSearchIndex()
-			void focusInput()
+			loadSearchIndex()
+			focusInput()
 			return
 		}
 
@@ -221,14 +222,21 @@
 			return
 		}
 
-		if (activeIndex < 0) activeIndex = 0
-		if (activeIndex >= shownItems.length) activeIndex = shownItems.length - 1
+		if (activeIndex < 0) {
+			activeIndex = 0
+			return
+		}
+
+		if (activeIndex >= shownItems.length) {
+			activeIndex = shownItems.length - 1
+			return
+		}
 	})
 
 	$effect(() => {
 		if (!activeResultId) return
 
-		void tick().then(() => {
+		tick().then(() => {
 			document.getElementById(activeResultId)?.scrollIntoView({ block: 'nearest' })
 		})
 	})
