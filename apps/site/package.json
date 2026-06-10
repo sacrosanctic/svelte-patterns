@@ -30,6 +30,7 @@
 		"@tailwindcss/forms": "catalog:tailwind",
 		"@tailwindcss/typography": "catalog:tailwind",
 		"@tailwindcss/vite": "catalog:tailwind",
+		"@tanstack/svelte-hotkeys": "^0.10.0",
 		"@types/node": "catalog:types",
 		"eslint": "catalog:lint",
 		"eslint-config-prettier": "catalog:lint",

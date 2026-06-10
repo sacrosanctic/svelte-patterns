@@ -8,6 +8,7 @@
 
 	import { searchDialog } from '$lib/search/search-state.svelte'
 
+	import { createHotkey, createHotkeyAttachment, formatForDisplay } from '@tanstack/svelte-hotkeys'
 	import IconClose from '~icons/mdi/close'
 	import IconFileDocumentOutline from '~icons/mdi/file-document-outline'
 	import IconLoading from '~icons/mdi/loading'
@@ -36,12 +37,18 @@
 		activeItem ? `site-search-result-${encodeURIComponent(activeItem.id)}` : undefined,
 	)
 
-	const isEditableTarget = (target: EventTarget | null) =>
-		target instanceof HTMLElement &&
-		(target.isContentEditable || ['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName))
-
 	const getItemRoute = (item: SearchItem) =>
 		item.kind === 'docs' ? '/(markdown)/docs/[...slug]' : '/(markdown)/[...slug]'
+
+	createHotkey('Mod+K', () => {
+		searchDialog.open()
+	})
+
+	const closeHotkey = createHotkeyAttachment('Escape', () => closeSearch())
+
+	const arrowDownHotkey = createHotkeyAttachment('ArrowDown', () => moveActiveItem(1))
+	const arrowUpHotkey = createHotkeyAttachment('ArrowUp', () => moveActiveItem(-1))
+	const enterHotkey = createHotkeyAttachment('Enter', () => openActiveItem())
 
 	const buildClientIndex = async (searchItems: SearchItem[]) => {
 		const { Document } = await import('flexsearch')
@@ -168,36 +175,6 @@
 		if (clickedOutside) closeSearch()
 	}
 
-	const handleGlobalKeydown = (event: KeyboardEvent) => {
-		if (!(event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey))) return
-		if (isEditableTarget(event.target)) return
-
-		event.preventDefault()
-		searchDialog.open()
-	}
-
-	const handleSearchKeydown = (event: KeyboardEvent) => {
-		if (shownItems.length === 0) return
-
-		if (event.key === 'ArrowDown') {
-			event.preventDefault()
-			moveActiveItem(1)
-			return
-		}
-
-		if (event.key === 'ArrowUp') {
-			event.preventDefault()
-			moveActiveItem(-1)
-			return
-		}
-
-		if (event.key === 'Enter') {
-			event.preventDefault()
-			openActiveItem()
-			return
-		}
-	}
-
 	$effect(() => {
 		if (searchDialog.isOpen) {
 			if (!dialogElement.open) dialogElement.showModal()
@@ -243,8 +220,6 @@
 	})
 </script>
 
-<svelte:window onkeydown={handleGlobalKeydown} />
-
 <dialog
 	bind:this={dialogElement}
 	aria-labelledby="search-dialog-title"
@@ -252,12 +227,12 @@
 		'fixed inset-x-2 top-auto bottom-2 m-0 h-[min(44rem,calc(100dvh-1rem))] max-h-[calc(100dvh-1rem)] w-auto max-w-none overflow-hidden rounded-xl border border-border bg-background p-0 text-foreground shadow-2xl outline-none backdrop:bg-black/45 backdrop:backdrop-blur-sm',
 		'sm:inset-x-auto sm:top-[10dvh] sm:bottom-auto sm:left-1/2 sm:h-auto sm:max-h-[min(42rem,80dvh)] sm:w-[min(42rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:rounded-2xl',
 	]}
-	oncancel={(event) => {
-		event.preventDefault()
-		closeSearch()
-	}}
 	onclick={handleDialogClick}
 	onclose={handleDialogClose}
+	{@attach closeHotkey}
+	{@attach arrowDownHotkey}
+	{@attach arrowUpHotkey}
+	{@attach enterHotkey}
 >
 	<div class="flex h-full min-h-0 flex-col bg-background sm:h-[min(42rem,80dvh)]">
 		<div class="border-b border-border bg-background/95 p-3 backdrop-blur sm:p-4">
@@ -275,7 +250,7 @@
 					<kbd
 						class="hidden rounded-md border border-border bg-muted px-2 py-1 text-[11px] font-medium text-muted-foreground sm:inline-flex"
 					>
-						Esc
+						{formatForDisplay('Escape')}
 					</kbd>
 					<button
 						type="button"
@@ -308,7 +283,6 @@
 					class="min-h-11 flex-1 border-0 bg-transparent p-0 text-base text-foreground shadow-none outline-none placeholder:text-muted-foreground focus:ring-0 sm:text-sm"
 					role="combobox"
 					oninput={queueSearch}
-					onkeydown={handleSearchKeydown}
 				/>
 			</div>
 		</div>
@@ -378,9 +352,14 @@
 		>
 			<span>{hasQuery ? `${results.length} matches` : `${items.length} pages indexed`}</span>
 			<span>
-				Use <kbd class="rounded border border-border bg-background px-1.5 py-0.5">Up</kbd> or
-				<kbd class="rounded border border-border bg-background px-1.5 py-0.5">Down</kbd>, then
-				<kbd class="rounded border border-border bg-background px-1.5 py-0.5">Enter</kbd>
+				<kbd class="rounded border border-border bg-background px-1.5 py-0.5"
+					>{formatForDisplay('ArrowUp')}{formatForDisplay('ArrowDown')}</kbd
+				>
+				to navigate |
+				<kbd class="rounded border border-border bg-background px-1.5 py-0.5"
+					>{formatForDisplay('Enter')}</kbd
+				>
+				to open
 			</span>
 		</div>
 	</div>

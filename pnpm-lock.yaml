@@ -217,6 +217,9 @@ importers:
       '@tailwindcss/vite':
         specifier: catalog:tailwind
         version: 4.2.2(vite@8.0.8(@types/node@22.10.5)(esbuild@0.27.4)(jiti@2.6.1)(yaml@2.8.2))
+      '@tanstack/svelte-hotkeys':
+        specifier: ^0.10.0
+        version: 0.10.0(svelte@5.55.4(@typescript-eslint/types@8.57.1))
       '@types/node':
         specifier: catalog:types
         version: 22.10.5
@@ -1792,6 +1795,18 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
+  '@tanstack/hotkeys@0.8.0':
+    resolution: {integrity: sha512-vqH7X9nb0MTJ/O08++dB5bP9jgj4+BIPOUu/U+6myG86lDsirZSVSobpq5UQpE7nBuk62i8eIYeOhd+OMl/UrA==}
+    engines: {node: '>=18'}
+
+  '@tanstack/store@0.11.0':
+    resolution: {integrity: sha512-WlzzCt3xi0G6pCAJu1U+2jiECwabETDpQDi3hfkFZvJii9AuZqEKbOiVarX1/bWhTNjU486yQtJCCasi/0q+Cw==}
+
+  '@tanstack/svelte-hotkeys@0.10.0':
+    resolution: {integrity: sha512-B7H+l4J++dHqeOStVqkHLFA/Fn+Y1qOdUZ5sStoLmYH1yZssXRdoeqRPmYluLKcD0W6KuE0D5LCRtvoD1wFnsA==}
+    peerDependencies:
+      svelte: ^5.25.0
+
   '@testing-library/svelte-core@1.0.0':
     resolution: {integrity: sha512-VkUePoLV6oOYwSUvX6ShA8KLnJqZiYMIbP2JW2t0GLWLkJxKGvuH5qrrZBV/X7cXFnLGuFQEC7RheYiZOW68KQ==}
     engines: {node: '>=16'}
@@ -1953,6 +1968,7 @@ packages:
 
   '@ungap/structured-clone@1.2.1':
     resolution: {integrity: sha512-fEzPV3hSkSMltkw152tJKNARhOupqbH96MZWyRjNaYZOMIzbrTeQDG+MTc6Mr2pgzFQzFxAfmhGDNP5QK++2ZA==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@vercel/nft@1.3.2':
     resolution: {integrity: sha512-HC8venRc4Ya7vNeBsJneKHHMDDWpQie7VaKhAIOst3MKO+DES+Y/SbzSp8mFkD7OzwAE2HhHkeSuSmwS20mz3A==}
@@ -4689,6 +4705,17 @@ snapshots:
       '@tailwindcss/oxide': 4.2.2
       tailwindcss: 4.2.2
       vite: 8.0.8(@types/node@22.10.5)(esbuild@0.27.4)(jiti@2.6.1)(yaml@2.8.2)
+
+  '@tanstack/hotkeys@0.8.0':
+    dependencies:
+      '@tanstack/store': 0.11.0
+
+  '@tanstack/store@0.11.0': {}
+
+  '@tanstack/svelte-hotkeys@0.10.0(svelte@5.55.4(@typescript-eslint/types@8.57.1))':
+    dependencies:
+      '@tanstack/hotkeys': 0.8.0
+      svelte: 5.55.4(@typescript-eslint/types@8.57.1)
 
   '@testing-library/svelte-core@1.0.0(svelte@5.53.11)':
     dependencies:
