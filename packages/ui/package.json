@@ -39,8 +39,7 @@
 		"lz-string": "^1.5.0"
 	},
 	"devDependencies": {
-		"@eslint/compat": "^2.0.2",
-		"@eslint/js": "^9.39.2",
+		"@eslint/js": "catalog:lint",
 		"@sveltejs/adapter-node": "^5.5.4",
 		"@sveltejs/kit": "^2.50.2",
 		"@sveltejs/package": "^2.5.7",

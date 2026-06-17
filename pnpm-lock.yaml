@@ -22,9 +22,6 @@ catalogs:
       specifier: ^23.0.1
       version: 23.0.1
   lint:
-    '@eslint/compat':
-      specifier: ^2.0.2
-      version: 2.1.0
     '@eslint/js':
       specifier: ^10.0.1
       version: 10.0.1
@@ -158,9 +155,6 @@ importers:
 
   .:
     devDependencies:
-      '@eslint/compat':
-        specifier: catalog:lint
-        version: 2.1.0(eslint@10.4.1)
       '@eslint/js':
         specifier: catalog:lint
         version: 10.0.1(eslint@10.4.1)
@@ -197,9 +191,6 @@ importers:
       '@better-fetch/fetch':
         specifier: catalog:util
         version: 1.1.21
-      '@eslint/compat':
-        specifier: catalog:lint
-        version: 2.1.0(eslint@10.4.1)
       '@eslint/js':
         specifier: catalog:lint
         version: 10.0.1(eslint@10.4.1)
@@ -358,12 +349,9 @@ importers:
         specifier: ^3.5.0
         version: 3.6.0
     devDependencies:
-      '@eslint/compat':
-        specifier: ^2.0.2
-        version: 2.1.0(eslint@9.39.4)
       '@eslint/js':
-        specifier: ^9.39.2
-        version: 9.39.4
+        specifier: catalog:lint
+        version: 10.0.1(eslint@9.39.4)
       '@sveltejs/adapter-node':
         specifier: ^5.5.4
         version: 5.5.4(@sveltejs/kit@2.63.0)
@@ -772,15 +760,6 @@ packages:
   '@eslint-community/regexpp@4.12.2':
     resolution: {integrity: sha512-EriSTlt5OC9/7SXkRSCAhfSxxoSUgBm33OH+IkwbdpgoqsSsUg7y3uh+IICI/Qg4BBWr3U2i39RpmycbxMq4ew==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
-
-  '@eslint/compat@2.1.0':
-    resolution: {integrity: sha512-LgaSCymEpw7tF53xvDw9SNsraPb1IBHxpdABIOM0hW8UAlP8znrjYtuxfR58FSJ3L9BhwD+FaPRFQpZq84Nh6g==}
-    engines: {node: ^20.19.0 || ^22.13.0 || >=24}
-    peerDependencies:
-      eslint: ^8.40 || 9 || 10
-    peerDependenciesMeta:
-      eslint:
-        optional: true
 
   '@eslint/config-array@0.21.2':
     resolution: {integrity: sha512-nJl2KGTlrf9GjLimgIru+V/mzgSK0ABCDQRvxw5BjURL7WfH5uoWmizbH7QB6MmnMBd8cIC9uceWnezL1VZWWw==}
@@ -3734,18 +3713,6 @@ snapshots:
 
   '@eslint-community/regexpp@4.12.2': {}
 
-  '@eslint/compat@2.1.0(eslint@10.4.1)':
-    dependencies:
-      '@eslint/core': 1.2.1
-    optionalDependencies:
-      eslint: 10.4.1(jiti@2.7.0)
-
-  '@eslint/compat@2.1.0(eslint@9.39.4)':
-    dependencies:
-      '@eslint/core': 1.2.1
-    optionalDependencies:
-      eslint: 9.39.4(jiti@2.7.0)
-
   '@eslint/config-array@0.21.2':
     dependencies:
       '@eslint/object-schema': 2.1.7
@@ -3795,6 +3762,10 @@ snapshots:
   '@eslint/js@10.0.1(eslint@10.4.1)':
     optionalDependencies:
       eslint: 10.4.1(jiti@2.7.0)
+
+  '@eslint/js@10.0.1(eslint@9.39.4)':
+    optionalDependencies:
+      eslint: 9.39.4(jiti@2.7.0)
 
   '@eslint/js@9.39.4': {}
 

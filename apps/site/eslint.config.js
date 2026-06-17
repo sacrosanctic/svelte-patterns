@@ -2,13 +2,12 @@ import path from 'node:path'
 
 import svelteConfig from './svelte.config.js'
 
-import { includeIgnoreFile } from '@eslint/compat'
 import js from '@eslint/js'
 import prettier from 'eslint-config-prettier'
 import json from 'eslint-plugin-jsonc'
 import perfectionist from 'eslint-plugin-perfectionist'
 import svelte from 'eslint-plugin-svelte'
-import { defineConfig } from 'eslint/config'
+import { defineConfig, includeIgnoreFile } from 'eslint/config'
 import globals from 'globals'
 import ts from 'typescript-eslint'
 
@@ -32,10 +31,7 @@ export default defineConfig(
 	{
 		languageOptions: {
 			globals: { ...globals.browser, ...globals.node },
-			parserOptions: {
-				projectService: { allowDefaultProject: ['eslint.config.js', 'svelte.config.js'] },
-				tsconfigRootDir: import.meta.dirname,
-			},
+			parserOptions: { tsconfigRootDir: import.meta.dirname },
 		},
 		rules: {
 			// typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.

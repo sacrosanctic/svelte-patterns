@@ -9,7 +9,6 @@
 		"knip-fix": "knip --fix"
 	},
 	"devDependencies": {
-		"@eslint/compat": "catalog:lint",
 		"@eslint/js": "catalog:lint",
 		"@types/node": "catalog:types",
 		"ansis": "catalog:script",
