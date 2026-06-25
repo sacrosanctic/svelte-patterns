@@ -1,8 +1,7 @@
 import adapternode from '@sveltejs/adapter-node'
 import adapterVercel from '@sveltejs/adapter-vercel'
 
-const isDev = process.env.VERCEL_ENV !== 'preview' || process.env.VERCEL_ENV !== 'production'
-const adapter = isDev ? adapternode : adapterVercel
+const adapter = process.env.VERCEL_ENV ? adapterVercel : adapternode
 
 const workspacePreprocessor = {
 	markup: ({ content }) => {
