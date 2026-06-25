@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+# Javascript Concepts You Should Know
+
 Svelte 5's reactivity heavily reactives on JS fundementals, here are some to get familiar with.
 
 ## Reassignment vs Mutation

@@ -3,6 +3,8 @@ title: Why Is Css Scoped
 category: faq
 ---
 
+# Why Is Css Scoped
+
 ## Describe the problem
 
 > CSS encapsulation is a critical feature of single file components in Svelte; it allows you to think only about the styles that live together in a given component. Managing CSS has long been one of the more challenging aspects of building for the web; we have no desire to bring those problems back via official APIs that encourage the de-scoping of CSS. We do not wish to revisit the age of namespaced CSS selectors and required preprocessors.

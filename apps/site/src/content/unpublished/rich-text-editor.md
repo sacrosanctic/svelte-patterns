@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+# Rich Text Editor
+
 - quilljs.com
 - tiptap
   - https://github.com/Tsuzat/Edra (wrapper)

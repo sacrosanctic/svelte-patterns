@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+# Swiper Component
+
 ## Describe the problem
 
 :::code-group

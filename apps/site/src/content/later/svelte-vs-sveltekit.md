@@ -4,6 +4,8 @@ publish: false
 tags: meta
 ---
 
+# Svelte vs. SvelteKit
+
 ## Svelte is a Compiled Language
 
 A common point of confusion is "Svelte vs. SvelteKit." This question, however, presents a false dichotomy.

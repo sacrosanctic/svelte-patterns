@@ -4,6 +4,8 @@ category: concept
 tags: anatomy of, cheatsheet
 ---
 
+# Anatomy of a Svelte Component
+
 This article highlights the different parts of a svelte component. What they're called, and their main purpose.
 
 A svelte component has 6 parts.

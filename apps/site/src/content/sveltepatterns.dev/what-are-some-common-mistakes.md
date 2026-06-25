@@ -3,6 +3,8 @@ title: What Are Some Common Gotchas
 category: faq
 ---
 
+# What Are Some Common Gotchas
+
 We outline some common gotchas or un-intuitative bahaviour in svelte
 
 In svelte 4, you had to do this.

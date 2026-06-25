@@ -3,6 +3,8 @@ title: How to create a minimum reproducible example (MRE)
 author: HenryKrinkle
 ---
 
+# How to create a minimum reproducible example (MRE)
+
 > a.k.a. how to get faster help
 
 Often I see people asking questions in the [Svelte Discord](https://discord.com/channels/457912077277855764/1023340103071965194) posting their code in various ways that make debugging challenging. Ranking from worst to best:

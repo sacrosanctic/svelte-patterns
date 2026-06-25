@@ -4,6 +4,8 @@ publish: false
 tags:
 ---
 
+# Cropper Component
+
 This demo showcases an image cropping feature with the following aspects:
 
 - **Frontend**:

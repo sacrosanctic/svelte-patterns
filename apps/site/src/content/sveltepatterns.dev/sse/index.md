@@ -3,6 +3,8 @@ title: Server-Sent Events (SSE)
 category: concept
 ---
 
+# Server-Sent Events (SSE)
+
 ## Describe the Problem
 
 If you need **real-time updates** — like live notifications, feed updates, or progress events — but don't want the complexity of WebSockets or the overhead of polling, **SSE** offers a simpler, browser-native solution over standard HTTP connections.

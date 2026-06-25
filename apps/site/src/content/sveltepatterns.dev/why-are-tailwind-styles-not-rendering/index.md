@@ -4,6 +4,8 @@ category: faq
 tags: tailwind, css
 ---
 
+# Why Are Tailwind Styles Not Rendering
+
 ## Describe The Problem
 
 Tailwind statically analyses your app for tailwind classes and only looks for complete class names. [src](https://tailwindcss.com/docs/detecting-classes-in-source-files#dynamic-class-names)

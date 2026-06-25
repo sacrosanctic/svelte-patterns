@@ -3,6 +3,8 @@ title: There Is More Than One Svelte
 category: meta
 ---
 
+# There Is More Than One Svelte
+
 ## What does “Svelte” mean?
 
 Svelte isn’t just one thing — it’s many, depending on how you use it and where you look:

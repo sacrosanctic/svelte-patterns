@@ -2,6 +2,8 @@
 title: Have You Tried Turning It Off And On Again
 ---
 
+# Have You Tried Turning It Off And On Again
+
 Sometimes, the error is nonsensical.
 
 Sometimes, the Javascript ecoystem is flaky.

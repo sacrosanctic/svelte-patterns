@@ -4,6 +4,8 @@ category: concept
 tags: under the hood
 ---
 
+# Reactivity System
+
 The reactivty system is built on signals as a network of nodes and edges.
 
 # Resources
