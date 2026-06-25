@@ -7,6 +7,8 @@ import { svelteMdA11YIgnorePlugin } from './plugins/vite/svelte-md-a11y-ignore'
 import { container, type MarkdownItContainerOptions } from '@mdit/plugin-container'
 import { snippet } from '@mdit/plugin-snippet'
 import Shiki from '@shikijs/markdown-exit'
+import adapterNode from '@sveltejs/adapter-node'
+import adapterVercel from '@sveltejs/adapter-vercel'
 import { enhancedImages } from '@sveltejs/enhanced-img'
 import { sveltekit } from '@sveltejs/kit/vite'
 import tailwindcss from '@tailwindcss/vite'
@@ -183,7 +185,10 @@ export default defineConfig({
 							return newPath
 						},
 					})
+
 					.use(
+						// @ts-expect-error https://github.com/serkodev/markdown-exit/issues/30
+						// type incompatibility with markdown-it and markdown-exit
 						Shiki({
 							defaultColor: 'light-dark()',
 							themes: {
@@ -296,7 +301,29 @@ export default defineConfig({
 		markdownImgToEnhancedPlugin(),
 		debugSvelteMdPlugin(),
 		enhancedImages(),
-		sveltekit(),
+		sveltekit({
+			adapter: process.env.VERCEL_ENV ? adapterVercel() : adapterNode(),
+			compilerOptions: {
+				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.
+				runes: ({ filename }) =>
+					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
+			},
+			extensions: ['.svelte', '.md'],
+			preprocess: [
+				{
+					markup: ({ content }) => {
+						const root = process.cwd()
+						const result = content.replace('__WORKSPACE_ROOT__', root)
+						return { code: result }
+					},
+				},
+			],
+			prerender: {
+				handleMissingId: (details) => {
+					if (details.id === 'main-content') return
+				},
+			},
+		}),
 		Icons({ compiler: 'svelte' }),
 		devtoolsJson(),
 	],
