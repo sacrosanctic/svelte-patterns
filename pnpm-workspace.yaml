@@ -20,17 +20,18 @@ packages:
 
 catalogs:
   build:
+    publint: ^0.3.21
     vite: ^8.0.2
   lint:
     '@eslint/js': ^10.0.1
     eslint: ^10.2.0
     eslint-config-prettier: ^10.1.8
-    eslint-plugin-jsonc: 3.1.2
+    eslint-plugin-jsonc: ^3.2.0
     eslint-plugin-perfectionist: ^5.7.0
     eslint-plugin-svelte: ^3.14.0
     knip: ^6.3.0
     prettier: ^3.8.1
-    prettier-plugin-svelte: ^3.4.1
+    prettier-plugin-svelte: ^4.1.1
     prettier-plugin-tailwindcss: ^0.8.0
     typescript-eslint: ^8.54.0
   md:
@@ -48,9 +49,10 @@ catalogs:
   svelte:
     '@sveltejs/adapter-node': ^5.5.4
     '@sveltejs/adapter-vercel': ^6.3.1
-    '@sveltejs/kit': ^2.50.2
+    '@sveltejs/kit': ^2.66.0
+    '@sveltejs/package': ^2.5.8
     '@sveltejs/vite-plugin-svelte': ^7.0.0
-    svelte: ^5.55.1
+    svelte: ^5.56.0
     svelte-check: ^4.4.2
   tailwind:
     '@tailwindcss/forms': ^0.5.11
@@ -75,3 +77,10 @@ catalogs:
   icons:
     '@iconify-json/mdi': ^1.2.3
     unplugin-icons: ^23.0.1
+  test:
+    '@vitest/browser-playwright': ^4.1.9
+    playwright: ^1.60.0
+    vitest: ^4.1.9
+    vitest-browser-svelte: ^2.1.1
+  misc:
+    lz-string: ^1.5.0
