@@ -12,7 +12,7 @@
 		"@eslint/js": "catalog:lint",
 		"@types/node": "catalog:types",
 		"ansis": "catalog:script",
-		"commander": "catalog:script",
+		"cleye": "catalog:script",
 		"eslint": "catalog:lint",
 		"eslint-config-prettier": "catalog:lint",
 		"globals": "catalog:types",

@@ -1,11 +1,10 @@
-import { Command } from 'commander'
+import { cli } from 'cleye'
 import * as readline from 'readline'
 import * as fs from 'fs'
 import * as path from 'path'
 import ansis from 'ansis'
 
 const savePath = 'docs/unpublished'
-const program = new Command()
 
 /**
  * Converts a string to kebab-case.
@@ -51,10 +50,14 @@ const prompt = (question: string): Promise<string> => {
 	})
 }
 
-program
-	.name('create-md')
-	.description('CLI to create a markdown file in the /docs directory')
-	.action(async () => {
+cli(
+	{
+		name: 'create-md',
+		help: {
+			description: 'CLI to create a markdown file in the /docs directory',
+		},
+	},
+	async () => {
 		const fileName = await prompt('Enter the name of the markdown file: ')
 		if (!fileName) {
 			console.error(ansis.red('File name cannot be empty.'))
@@ -90,6 +93,5 @@ program
 		} catch (err) {
 			console.error(ansis.red(`Error creating markdown file: ${err}`))
 		}
-	})
-
-program.parse(process.argv)
+	},
+)
