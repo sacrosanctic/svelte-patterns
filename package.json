@@ -11,8 +11,8 @@
 	"devDependencies": {
 		"@eslint/js": "catalog:lint",
 		"@types/node": "catalog:types",
-		"ansis": "catalog:script",
-		"cleye": "catalog:script",
+		"ansis": "catalog:cli",
+		"cleye": "catalog:cli",
 		"eslint": "catalog:lint",
 		"eslint-config-prettier": "catalog:lint",
 		"globals": "catalog:types",

@@ -15,7 +15,6 @@ import tailwindcss from '@tailwindcss/vite'
 import markdownItAnchor from 'markdown-it-anchor'
 import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vite'
-import devtoolsJson from 'vite-plugin-devtools-json'
 import svelteMd from 'vite-plugin-svelte-md'
 
 const rootPath = resolve(__dirname)
@@ -325,6 +324,5 @@ export default defineConfig({
 			},
 		}),
 		Icons({ compiler: 'svelte' }),
-		devtoolsJson(),
 	],
 })

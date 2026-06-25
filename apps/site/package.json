@@ -15,7 +15,7 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@better-fetch/fetch": "catalog:util",
+		"@better-fetch/fetch": "catalog:misc",
 		"@eslint/js": "catalog:lint",
 		"@iconify-json/mdi": "catalog:icons",
 		"@mdit/plugin-container": "catalog:md",
@@ -30,21 +30,21 @@
 		"@tailwindcss/forms": "catalog:tailwind",
 		"@tailwindcss/typography": "catalog:tailwind",
 		"@tailwindcss/vite": "catalog:tailwind",
-		"@tanstack/svelte-hotkeys": "catalog:ui",
+		"@tanstack/svelte-hotkeys": "catalog:svelte",
 		"@types/node": "catalog:types",
 		"eslint": "catalog:lint",
 		"eslint-config-prettier": "catalog:lint",
 		"eslint-plugin-jsonc": "catalog:lint",
 		"eslint-plugin-perfectionist": "catalog:lint",
 		"eslint-plugin-svelte": "catalog:lint",
-		"flexsearch": "catalog:other",
+		"flexsearch": "catalog:misc",
 		"globals": "catalog:types",
 		"markdown-it-anchor": "catalog:md",
-		"mode-watcher": "catalog:util",
+		"mode-watcher": "catalog:svelte",
 		"prettier": "catalog:lint",
 		"prettier-plugin-svelte": "catalog:lint",
 		"prettier-plugin-tailwindcss": "catalog:lint",
-		"sv-agentation": "catalog:dev",
+		"sv-agentation": "catalog:devtool",
 		"svelte": "catalog:svelte",
 		"svelte-check": "catalog:svelte",
 		"tailwind-merge": "catalog:tailwind",
@@ -52,10 +52,9 @@
 		"typescript": "catalog:types",
 		"typescript-eslint": "catalog:lint",
 		"unplugin-icons": "catalog:icons",
-		"valibot": "catalog:util",
-		"vite": "catalog:build",
-		"vite-plugin-devtools-json": "catalog:util",
+		"valibot": "catalog:lint",
+		"vite": "catalog:ci",
 		"vite-plugin-svelte-md": "catalog:md",
-		"wellcrafted": "catalog:util"
+		"wellcrafted": "catalog:lint"
 	}
 }
