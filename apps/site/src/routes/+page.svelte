@@ -4,11 +4,16 @@
 	import { TAG_LINE } from '$lib/config/constants'
 
 	import IconArrowRight from '~icons/mdi/arrow-right'
+
+	let { data } = $props()
 </script>
 
 <svelte:head>
 	<title>Svelte Patterns — A Svelte Grimoire</title>
 	<meta name="description" content={TAG_LINE} />
+	<meta property="og:image" content={data.ogUrl} />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content={data.ogUrl} />
 </svelte:head>
 
 <div class="flex min-h-[calc(100dvh-4rem)] flex-col">

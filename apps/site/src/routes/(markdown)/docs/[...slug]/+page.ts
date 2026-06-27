@@ -5,7 +5,7 @@ import { getDoc } from '../content'
 
 import { error } from '@sveltejs/kit'
 
-export const load = async ({ params }) => {
+export const load = async ({ params, url }) => {
 	const result = getDoc(params.slug)
 
 	if (result.error?.name === 'DocNotFound') {
@@ -30,8 +30,14 @@ export const load = async ({ params }) => {
 		}
 	}
 
+	const ogUrl = new URL('og.png', url.origin)
+	ogUrl.searchParams.set('t', 'a')
+	ogUrl.searchParams.set('title', result.data.fm.title)
+	ogUrl.searchParams.set('category', result.data.fm.category)
+
 	return {
 		md: result.data,
+		ogUrl: ogUrl.href,
 	}
 }
 
