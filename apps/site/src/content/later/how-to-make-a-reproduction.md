@@ -2,6 +2,8 @@
 title: How To Make A Reproduction
 ---
 
+# How To Make A Reproduction
+
 ## Via svelte.dev/playground
 
 :::info

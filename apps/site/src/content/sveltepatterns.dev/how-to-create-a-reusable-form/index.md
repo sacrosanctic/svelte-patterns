@@ -4,6 +4,8 @@ category: faq
 superceded by: '[Remote Functions](https://svelte.dev/docs/kit/remote-functions)'
 ---
 
+# How To Create A Reusable Form
+
 The reusable components.
 :::sveltelab-repl
 <<< ./$lib-contact_form-Component.svelte [$lib/contact_form/Component.svelte]

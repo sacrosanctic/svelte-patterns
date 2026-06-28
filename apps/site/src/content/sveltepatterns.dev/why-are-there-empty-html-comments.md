@@ -3,6 +3,8 @@ title: Why Are There Empty Html Comments
 category: faq
 ---
 
+# Why Are There Empty Html Comments
+
 ## They are hydration markers
 
 :::info Written for

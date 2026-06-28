@@ -4,6 +4,8 @@ category: faq
 tags: svelte, vite, hmr, development
 ---
 
+# How to Clean Up During HMR
+
 ## Describe the problem
 
 During development, resources that don't have a built-in cleanup mechanism can persist during Hot Module Replacement (HMR). This can lead to resource leaks or unexpected behavior as new instances are created while old ones are not destroyed.

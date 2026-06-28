@@ -3,6 +3,8 @@ title: How To Add A Loader
 category: faq
 ---
 
+# How To Add A Loader
+
 There are different patterns depending on the situation. This gives the developer fine-tune control over when and where a loader is render while adhering to web standands and best practices.
 
 :::

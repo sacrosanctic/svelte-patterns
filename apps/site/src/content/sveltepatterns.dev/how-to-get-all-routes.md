@@ -3,6 +3,8 @@ title: How To Get All Routes
 category: faq
 ---
 
+# How To Get All Routes
+
 ## Describe the problem
 
 You're looking to create a sitemap or a navigation menu and want an array of all the routes. SvelteKit provides a [`Pathname` type](https://svelte.dev/docs/kit/app-types#Pathname) that represents all possible routes, but it doesn't provide a way to get a list of all routes at runtime.

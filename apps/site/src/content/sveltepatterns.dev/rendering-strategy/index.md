@@ -3,6 +3,8 @@ title: Rendering Strategy
 category: concept
 ---
 
+# Rendering Strategy
+
 ![alt text](./rendering-strategy.png)
 
 ## Reference

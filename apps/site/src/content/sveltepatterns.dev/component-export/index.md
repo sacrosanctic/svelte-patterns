@@ -3,6 +3,8 @@ title: Component Export
 category: concept
 ---
 
+# Component Export
+
 ```svelte
 <script>
 	export { foo }

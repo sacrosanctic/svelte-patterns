@@ -3,6 +3,8 @@ title: Reactivity
 category: concept
 ---
 
+# Reactivity
+
 We're going to demonstrate reactivity by implementing a tri-state checkbox. In your mental model, think about `UI` and `logic` as the 2 core pieces we're workthing with.
 
 # vanilla javascript
