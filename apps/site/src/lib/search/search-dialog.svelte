@@ -116,10 +116,6 @@
 	]}
 	onclick={handleDialogClick}
 	onclose={handleDialogClose}
-	{@attach closeHotkey}
-	{@attach arrowDownHotkey}
-	{@attach arrowUpHotkey}
-	{@attach enterHotkey}
 >
 	<div class="flex h-full min-h-0 flex-col bg-background sm:h-[min(42rem,80dvh)]">
 		<div class="border-b border-border bg-background/95 p-3 backdrop-blur sm:p-4">
@@ -170,6 +166,10 @@
 					class="min-h-11 flex-1 border-0 bg-transparent p-0 text-base text-foreground shadow-none outline-none placeholder:text-muted-foreground focus:ring-0 sm:text-sm"
 					role="combobox"
 					oninput={() => searchClient.search(query)}
+					{@attach closeHotkey}
+					{@attach arrowDownHotkey}
+					{@attach arrowUpHotkey}
+					{@attach enterHotkey}
 				/>
 			</div>
 		</div>
