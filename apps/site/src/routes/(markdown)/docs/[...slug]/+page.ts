@@ -1,6 +1,8 @@
 /* eslint-disable no-fallthrough */
+import { SITE_NAME } from '$lib/config/constants'
 import { AppError } from '$lib/content'
 import { OgImage } from '$lib/server/og-image/index'
+import { definePageMetaTags } from 'svelte-meta-tags'
 
 import { getDoc } from '../content'
 
@@ -37,9 +39,27 @@ export const load = async ({ params }) => {
 		category: result.data.fm.category,
 	})
 
+	const title =
+		params.slug
+			.split('/')
+			.at(-1)
+			?.replace(/-/g, ' ')
+			.replace(/\b\w/g, (c) => c.toUpperCase()) ?? ''
+
 	return {
 		md: result.data,
 		ogUrl: og.toUrl(),
+		...definePageMetaTags({
+			title: `${title} | ${SITE_NAME}`,
+			openGraph: {
+				title,
+				images: [{ url: og.toUrl() }],
+			},
+			twitter: {
+				cardType: 'summary_large_image',
+				image: og.toUrl(),
+			},
+		}),
 	}
 }
 

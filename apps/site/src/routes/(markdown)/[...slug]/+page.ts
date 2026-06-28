@@ -1,7 +1,9 @@
+import { SITE_NAME } from '$lib/config/constants'
 import { getDoc } from '$lib/content'
 import { OgImage } from '$lib/server/og-image/index'
 
 import { error } from '@sveltejs/kit'
+import { definePageMetaTags } from 'svelte-meta-tags'
 
 export const load = async ({ params }) => {
 	const result = getDoc(params.slug)
@@ -29,5 +31,16 @@ export const load = async ({ params }) => {
 	return {
 		md: result.data,
 		ogUrl: og.toUrl(),
+		...definePageMetaTags({
+			title: `${result.data.fm.title} | ${SITE_NAME}`,
+			openGraph: {
+				title: result.data.fm.title,
+				images: [{ url: og.toUrl() }],
+			},
+			twitter: {
+				cardType: 'summary_large_image',
+				image: og.toUrl(),
+			},
+		}),
 	}
 }

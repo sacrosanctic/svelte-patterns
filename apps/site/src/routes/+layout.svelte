@@ -7,12 +7,14 @@
 
 	import { ModeWatcher } from 'mode-watcher'
 	import './layout.css'
+	import Metatags from './Metatags.svelte'
 
 	let { children } = $props()
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
+<Metatags />
 <Agentation />
 <ModeWatcher />
 <Navbar />
