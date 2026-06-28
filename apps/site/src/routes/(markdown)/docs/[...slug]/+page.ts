@@ -1,11 +1,12 @@
 /* eslint-disable no-fallthrough */
 import { AppError } from '$lib/content'
+import { OgImage } from '$lib/server/og-image/index'
 
 import { getDoc } from '../content'
 
 import { error } from '@sveltejs/kit'
 
-export const load = async ({ params, url }) => {
+export const load = async ({ params }) => {
 	const result = getDoc(params.slug)
 
 	if (result.error?.name === 'DocNotFound') {
@@ -30,14 +31,15 @@ export const load = async ({ params, url }) => {
 		}
 	}
 
-	const ogUrl = new URL('og.png', url.origin)
-	ogUrl.searchParams.set('t', 'a')
-	ogUrl.searchParams.set('title', result.data.fm.title)
-	ogUrl.searchParams.set('category', result.data.fm.category)
+	const og = new OgImage({
+		type: 'a',
+		title: result.data.fm.title,
+		category: result.data.fm.category,
+	})
 
 	return {
 		md: result.data,
-		ogUrl: ogUrl.href,
+		ogUrl: og.toUrl(),
 	}
 }
 

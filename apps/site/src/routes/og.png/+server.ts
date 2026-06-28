@@ -29,7 +29,7 @@ const fonts: Font[] = [
 export const GET = async ({ url }) => {
 	const png = await OgImage.fromUrl(url).toPng(fonts)
 
-	return new Response(new Uint8Array(png), {
+	return new Response(png, {
 		headers: {
 			'Content-Type': 'image/png',
 			...(dev ? {} : { 'Cache-Control': 'public, max-age=600' }),

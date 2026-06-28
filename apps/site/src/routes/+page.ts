@@ -1,10 +1,10 @@
 import { SITE_NAME } from '$lib/config/constants'
+import { OgImage } from '$lib/server/og-image/index'
 
-export const load = async ({ url }) => {
-	const ogUrl = new URL('og.png', url.origin)
-	ogUrl.searchParams.set('title', SITE_NAME)
+export const load = async () => {
+	const og = new OgImage({ type: 'h', title: SITE_NAME })
 
 	return {
-		ogUrl: ogUrl.href,
+		ogUrl: og.toUrl(),
 	}
 }

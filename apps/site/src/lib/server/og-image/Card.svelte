@@ -1,3 +1,5 @@
+<svelte:options css="injected" />
+
 <script lang="ts">
 	let { dark = false }: { dark: boolean | null } = $props()
 

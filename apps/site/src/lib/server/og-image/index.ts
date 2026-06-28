@@ -13,70 +13,88 @@ export type Font = {
 	style: 'normal'
 }
 
-export type OgImageOptions = {
-	title?: string
-	description?: string | null
+type Home = {
+	type: 'h'
+	title: string
 	dark?: boolean
-	type?: 'h' | 'a'
+}
+
+type Article = {
+	type: 'a'
+	title: string
+	description?: string | null
 	category?: string | null
+	dark?: boolean
 }
 
 export class OgImage {
-	readonly title: string
-	readonly description: string | null
+	readonly subject: Home | Article
 	readonly dark: boolean
-	readonly type: 'h' | 'a'
-	readonly category: string | null
 
-	constructor(options: OgImageOptions = {}) {
-		this.title = options.title ?? 'Svelte Patterns'
-		this.description = options.description ?? null
+	constructor(options: Article | Home) {
+		if (options.type === 'a') {
+			this.subject = {
+				type: 'a',
+				title: options.title,
+				description: options.description ?? null,
+				category: options.category ?? null,
+			}
+		} else {
+			this.subject = {
+				type: options.type ?? 'h',
+				title: options.title ?? 'Svelte Patterns',
+			}
+		}
 		this.dark = options.dark ?? false
-		this.type = options.type ?? 'h'
-		this.category = options.category ?? null
 	}
 
 	static fromUrl(url: URL): OgImage {
-		const title = url.searchParams.get('title')
+		const title = url.searchParams.get('title') as string
 		const description = url.searchParams.get('description')
 		const dark = url.searchParams.get('dark') === 'true'
 		const type = url.searchParams.get('t') as 'h' | 'a' | null
 		const category = url.searchParams.get('category')
 
-		return new OgImage({
-			...(title !== null && { title }),
-			...(description !== null && { description }),
-			...(dark && { dark }),
-			...(type !== null && { type }),
-			...(category !== null && { category }),
-		})
+		if (type === 'a') {
+			return new OgImage({
+				type: 'a',
+				title: title ?? 'Svelte Patterns',
+				description,
+				category,
+				dark,
+			})
+		}
+
+		return new OgImage({ type: 'h', title, dark })
 	}
 
 	toUrl(): string {
-		const params = new URLSearchParams()
-		if (this.title !== 'Svelte Patterns') params.set('title', this.title)
-		if (this.description !== null) params.set('description', this.description)
-		if (this.dark) params.set('dark', 'true')
-		if (this.type !== 'h') params.set('t', this.type)
-		if (this.category !== null) params.set('category', this.category)
-		return `${env.origin}/og.png?${params}`
+		const url = new URL('/og.png', env.origin)
+		url.searchParams.set('title', this.subject.title)
+
+		if ('description' in this.subject && this.subject.description) {
+			url.searchParams.set('description', this.subject.description)
+		}
+		if (this.dark) url.searchParams.set('dark', 'true')
+		if (this.subject.type === 'a') url.searchParams.set('t', 'a')
+		if ('category' in this.subject && this.subject.category) {
+			url.searchParams.set('category', this.subject.category)
+		}
+
+		return url.toString()
 	}
 
-	async toPng(fonts: Font[]): Promise<Uint8Array> {
-		const renderedOutput =
-			this.type === 'a'
-				? render(ArticleCard, {
-						props: {
-							title: this.title,
-							description: this.description,
-							dark: this.dark,
-							category: this.category,
-						},
-					})
-				: render(Card, { props: { dark: this.dark } })
+	async toPng(fonts: Font[]): Promise<Uint8Array<ArrayBuffer>> {
+		const cardMap = {
+			a: [ArticleCard, { ...this.subject, dark: this.dark }],
+			h: [Card, { ...this.subject, dark: this.dark }],
+		} as const
 
-		const element = toReactNode(`<style>${renderedOutput.head}</style>${renderedOutput.body}`)
-		const svg = await satori(element, { width: 1_200, height: 630, fonts })
+		const [component, props] = cardMap[this.subject.type]
+		const svelte = render(component, { props })
+		const html = `<style>${svelte.head}</style>${svelte.body}`
+		const jsx = toReactNode(html)
+		const svg = await satori(jsx, { width: 1_200, height: 630, fonts })
 		const png = new Resvg(svg, { fitTo: { mode: 'original' } }).render().asPng()
 		return new Uint8Array(png)
 	}

@@ -1,3 +1,5 @@
+<svelte:options css="injected" />
+
 <script lang="ts">
 	import { categoryLabels } from '$lib/content'
 
