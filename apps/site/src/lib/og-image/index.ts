@@ -1,10 +1,9 @@
 import { render } from 'svelte/server'
-import { Resvg } from '@resvg/resvg-js'
 import satori from 'satori'
 import { html as toReactNode } from 'satori-html'
 import Card from './Card.svelte'
 import ArticleCard from './ArticleCard.svelte'
-import { env } from '$env/dynamic/private'
+import { dev } from '$app/environment'
 
 export type Font = {
 	name: string
@@ -69,7 +68,8 @@ export class OgImage {
 	}
 
 	toUrl(): string {
-		const url = new URL('/og.png', env.origin)
+		// const url = new URL('/og.png', env.origin)
+		const url = new URL('/og.png', dev ? 'http://localhost:5173' : 'https://sveltepatterns.dev')
 		url.searchParams.set('title', this.subject.title)
 
 		if ('description' in this.subject && this.subject.description) {
@@ -85,6 +85,7 @@ export class OgImage {
 	}
 
 	async toPng(fonts: Font[]): Promise<Uint8Array<ArrayBuffer>> {
+		const { Resvg } = await import('@resvg/resvg-js')
 		const cardMap = {
 			a: [ArticleCard, { ...this.subject, dark: this.dark }],
 			h: [Card, { ...this.subject, dark: this.dark }],
