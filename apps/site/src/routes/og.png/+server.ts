@@ -3,7 +3,7 @@ import DMSerifDisplay from '@fontsource/dm-serif-display/files/dm-serif-display-
 import Pretendard from '@fontsource/pretendard/files/pretendard-latin-400-normal.woff'
 import PretendardSemibold from '@fontsource/pretendard/files/pretendard-latin-600-normal.woff'
 import { dev } from '$app/env'
-import { OgImage, type Font } from '$lib/server/og-image/index'
+import { OgImage, type Font } from '$lib/og-image/index'
 
 const fonts: Font[] = [
 	{

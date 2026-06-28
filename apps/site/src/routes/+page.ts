@@ -1,5 +1,5 @@
 import { SITE_NAME, TAG_LINE } from '$lib/config/constants'
-import { OgImage } from '$lib/server/og-image/index'
+import { OgImage } from '$lib/og-image/index'
 import { definePageMetaTags } from 'svelte-meta-tags'
 
 export const load = async () => {

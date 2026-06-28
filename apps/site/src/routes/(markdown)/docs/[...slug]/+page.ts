@@ -1,7 +1,7 @@
 /* eslint-disable no-fallthrough */
 import { SITE_NAME } from '$lib/config/constants'
 import { AppError } from '$lib/content'
-import { OgImage } from '$lib/server/og-image/index'
+import { OgImage } from '$lib/og-image/index'
 import { definePageMetaTags } from 'svelte-meta-tags'
 
 import { getDoc } from '../content'

@@ -1,6 +1,6 @@
 import { SITE_NAME } from '$lib/config/constants'
 import { getDoc } from '$lib/content'
-import { OgImage } from '$lib/server/og-image/index'
+import { OgImage } from '$lib/og-image/index'
 
 import { error } from '@sveltejs/kit'
 import { definePageMetaTags } from 'svelte-meta-tags'
