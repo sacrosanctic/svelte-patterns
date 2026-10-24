@@ -20,6 +20,9 @@ Running into mysterious red squiggles? Here's a quick checklist to help resolve 
 
 - **Check your `tsconfig.json`**  
   Is it different from what SvelteKit generates with `npx sv create`?
+  - In Kit 3, if you explicitly define `compilerOptions.types`, you also need to explicitly include `$app/types`
+  - In Kit 3, if you explicitly define `include`, you also need to explicitly include `src`
+  - Do not add `node_modules` to `exclude`
 
 - **Check `src/app.d.ts`**  
   This is where you define things like `Locals`, `PageData`, and `Platform`.
